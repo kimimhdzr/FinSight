@@ -1,5 +1,10 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the footer stays at the bottom */
+}
+.main-content {
+  flex: 1; /* This will take all the available space */
 }
 
 .App-logo {

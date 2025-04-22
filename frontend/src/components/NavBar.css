@@ -1,0 +1,90 @@
+nav {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 3px;
+  background-color: transparent; /* Optional: add background if needed */
+  top: 0;
+  position: fixed; /* Sticks to the top */
+  width: 90%;
+  z-index: 1000; /* Make sure it's above other content */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+nav.transparent {
+  background-color: transparent;
+}
+
+nav.scrolled {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center; /*vertically center*/
+  justify-content: start; /*vertically center*/
+}
+.navbar-center {
+  display: flex;
+  align-items: center; /*vertically center*/
+  justify-content: center; /*vertically center*/
+}
+.navbar-right {
+  display: flex;
+  align-items: center; /*vertically center*/
+  justify-content: end; /*vertically center*/
+}
+
+.navbar-left h3 {
+  margin-right: 40px;
+  color: #0c75d6;
+}
+
+.navbar-center a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.navbar-right button {
+  margin-left: 10px;
+}
+
+/* You already have these styles — keep them as is: */
+
+.btnLogin,
+.btnRegister {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnLogin {
+  background-color: #fec265;
+  color: white;
+}
+
+.btnRegister {
+  background-color: transparent;
+  color: #fec265;
+  border: 1px solid #fec265;
+}
+
+.btnLogin:hover {
+  background-color: #f0a639;
+}
+
+nav.scrolled .btnRegister {
+  background-color: transparent;
+}
+
+nav.scrolled a {
+  color: #000000;
+}
