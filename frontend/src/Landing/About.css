@@ -1,0 +1,99 @@
+/* General Container */
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: #f9fafb;
+    min-height: 100vh;
+  }
+  
+  .about-content {
+    max-width: 1200px;
+    margin-top: 30px;
+    text-align: center;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title */
+  .about-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #0c75d6;
+    margin-bottom: 20px;
+  }
+  
+  /* Description */
+  .about-description {
+    font-size: 1.2rem;
+    color: #6c757d;
+    margin-bottom: 40px;
+    line-height: 1.8;
+  }
+  
+  /* Card Sections */
+  .about-sections {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  
+  @media (min-width: 768px) {
+    .about-sections {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .about-section-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .about-section-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .about-section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #0c75d6;
+    margin-bottom: 15px;
+  }
+  
+  .about-section-description {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  /* List */
+  .about-list {
+    list-style: disc;
+    margin-left: 40px;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  /* Image */
+  .about-image-container {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .about-image {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  

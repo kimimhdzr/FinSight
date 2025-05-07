@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import About from "./Landing/About";
+import Connect from "./Landing/Connect";
+import Features from "./Landing/Features";
+import Home from "./Landing/Home";
+import SignIn from "./Auth/SignIn";
+import SignUp from "./Auth/SignUp";
+import NavBar from "./components/NavBar"; // Navbar component for navigation
+import Footer from "./components/Footer";
 
-function App() {
+const AppWrapper = () => {
+  const location = useLocation();
+  const hideNavbarRoutes = ["/login", "/register"]; // Add '/register' if you make one
+
+  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!shouldHideNavbar && <NavBar />}
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/connect" element={<Connect />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/register" element={<SignUp />} />
+        </Routes>
+      </div>
+      <Footer /> {/* Footer added here */}
     </div>
   );
-}
+};
+
+const App = () => {
+  return (
+    <Router>
+      <AppWrapper />
+    </Router>
+  );
+};
 
 export default App;

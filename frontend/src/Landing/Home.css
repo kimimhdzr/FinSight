@@ -1,0 +1,219 @@
+h2 {
+  margin-top: 50px;
+}
+
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr; /* Default single column for small screens */
+  gap: 120px; /* Space between sections */
+  margin-bottom: 120px;
+}
+
+.banner {
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* ensures center of image is shown */
+}
+
+/* Gradient to darken bottom of the image */
+.image-gradient-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 30%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  z-index: 1;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 50%;
+  margin-left: 5%;
+  transform: translateY(-50%);
+  text-align: left;
+  color: white;
+  z-index: 2;
+}
+
+.image-overlay h1 {
+  margin-bottom: 0px;
+  font-size: 4rem;
+}
+
+.image-overlay p {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  max-width: 400px;
+}
+
+.features-overlay button,
+.image-overlay button {
+  border: none;
+  padding: 10px 24px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-1 {
+  background-color: #0c75d6;
+  color: white;
+}
+
+.button-2 {
+  background-color: white;
+  color: #0c75d6;
+  margin-left: 20px;
+}
+
+.button-1:hover {
+  background-color: #003566;
+}
+
+.button-2:hover {
+  background-color: #5f95af;
+  color: white;
+}
+
+.about-us-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 5%;
+  gap: 40px;
+}
+
+.about-us-block {
+  flex: 1;
+  padding-right: 100px;
+}
+
+.about-us-block h2 {
+  margin-top: 20px;
+}
+
+.about-us-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin-left: 30px;
+}
+
+.about-us-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-block button {
+  background-color: #0c75d6;
+  color: white;
+  font-size: 16px;
+  border: none;
+  padding: 15px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.about-us-block button:hover {
+  background-color: #003566;
+}
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.features-container {
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+  position: relative;
+}
+
+.features-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(12, 117, 214, 1) 54%,
+    rgba(10, 49, 89, 1) 100%
+  );
+  z-index: 1;
+}
+
+.features-overlay {
+  position: absolute;
+  margin-left: 5%;
+  text-align: left;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Left side 1/3, Right side 2/3 */
+  gap: 20px; /* Add some gap between the left and right sides */
+}
+
+.features-overlay .button-2 {
+  border: 1px solid #0c75d6;
+  padding-inline: 6px;
+}
+
+.left-side {
+  display: grid;
+  grid-template-rows: 1fr 1fr; /* Divide left side into 2 rows (top and bottom) */
+  gap: 20px; /* Add some space between the top and bottom left sections */
+}
+
+.top-left {
+  background-color: white; /* Example background color */
+  padding: 20px;
+  border-radius: 10px;
+}
+.top-left h1 {
+  font-size: 3rem;
+  margin-bottom: 100px;
+  line-height: 80%;
+}
+
+.bottom-left {
+  background-color: #f0f0f0; /* Example background color */
+  padding: 20px;
+}
+
+.right-side {
+  background-color: #c0c0c0; /* Example background color */
+  padding: 20px;
+}
+
+.right-content {
+  background-color: #ffffff; /* Example background color */
+  padding: 20px;
+}
