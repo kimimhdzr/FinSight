@@ -1,0 +1,96 @@
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 70px auto 40px auto;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Shared style */
+.button {
+    display: flex;
+    flex-direction: row;
+    width: 195px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #0C75D6;
+    background: #FFF;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.button.left {
+    border-radius: 6px 0 0 6px;
+}
+
+.button.middle {
+    border-radius: 0;
+}
+
+.button.right {
+    border-radius: 0 6px 6px 0;
+}
+
+.button:hover,
+.button.selected {
+    background-color: #0C75D6;
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: #095aa3;
+    transform: scale(0.98);
+}
+
+.button-text {
+    color: #0C75D6;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.4px;
+}
+
+.button:hover .button-text,
+.button.selected .button-text {
+    color: #FFF;
+}
+
+.tool-wrapper {
+    max-width: 1091px;
+    margin: 0 auto 70px auto;
+    border-radius: 6px;
+    padding: 50px;
+    background: #F9FAFC;
+}
+
+/* For mobile compatibility */
+@media (max-width: 768px) {
+    .button-container {
+        display: flex;
+        flex-direction: row;
+        max-width: 100%;
+        flex-wrap: wrap; /* allows wrapping if needed */
+        margin: 70px 20px 20px 20px; /* fixed: removed commas */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .button {
+        flex: 1;
+        max-width: 100px; /* or use 30%, 33%, etc. depending on layout */
+        height:40px;
+    }
+
+    .button-text {
+        font-size: 15px;
+    }
+
+    .tool-wrapper {
+        max-width: 100%;
+        padding: 30px 20px;
+        margin: 0 16px 40px 16px;
+    }
+}
+

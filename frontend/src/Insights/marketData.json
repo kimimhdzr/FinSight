@@ -1,0 +1,223 @@
+[
+    {
+      "category": "general",
+      "datetime": 1746277260,
+      "headline": "Stocks rally as investors await earnings",
+      "id": 1,
+      "image": "https://example.com/image1.jpg",
+      "related": "AAPL,TSLA",
+      "source": "Bloomberg",
+      "summary": "Stocks rose amid earnings optimism...",
+      "url": "https://www.bloomberg.com/news/articles/1"
+    },
+    {
+      "category": "general",
+      "datetime": 1714528800,
+      "headline": "Federal Reserve signals possible rate pause",
+      "id": 2,
+      "image": "https://example.com/image2.jpg",
+      "related": "FED",
+      "source": "CNBC",
+      "summary": "The Fed hinted it may pause rate hikes in upcoming meetings...",
+      "url": "https://www.cnbc.com/news/articles/2"
+    },
+    {
+      "category": "general",
+      "datetime": 1714532400,
+      "headline": "Tech stocks climb as Nasdaq gains 2%",
+      "id": 3,
+      "image": "https://example.com/image3.jpg",
+      "related": "GOOGL,MSFT",
+      "source": "Reuters",
+      "summary": "Major tech firms lead the market with strong gains...",
+      "url": "https://www.reuters.com/news/articles/3"
+    },
+    {
+      "category": "general",
+      "datetime": 1714536000,
+      "headline": "Oil prices surge amid supply concerns",
+      "id": 4,
+      "image": "https://example.com/image4.jpg",
+      "related": "XOM,CVX",
+      "source": "MarketWatch",
+      "summary": "Crude oil prices jumped following new geopolitical tensions...",
+      "url": "https://www.marketwatch.com/news/articles/4"
+    },
+    {
+      "category": "general",
+      "datetime": 1714539600,
+      "headline": "Bitcoin tops $65,000 in major rally",
+      "id": 5,
+      "image": "https://example.com/image5.jpg",
+      "related": "BTC-USD",
+      "source": "CoinDesk",
+      "summary": "Bitcoin reached a new 2025 high amid investor confidence...",
+      "url": "https://www.coindesk.com/news/articles/5"
+    },
+    {
+      "category": "general",
+      "datetime": 1714543200,
+      "headline": "Gold prices hit record highs",
+      "id": 6,
+      "image": "https://example.com/image6.jpg",
+      "related": "GLD",
+      "source": "Bloomberg",
+      "summary": "Gold prices climbed due to inflation and safe haven demand...",
+      "url": "https://www.bloomberg.com/news/articles/6"
+    },
+    {
+      "category": "general",
+      "datetime": 1714546800,
+      "headline": "Apple unveils new AI-powered features",
+      "id": 7,
+      "image": "https://example.com/image7.jpg",
+      "related": "AAPL",
+      "source": "TechCrunch",
+      "summary": "Apple's developer event showcased several AI tools...",
+      "url": "https://www.techcrunch.com/news/articles/7"
+    },
+    {
+      "category": "general",
+      "datetime": 1714550400,
+      "headline": "IMF raises global economic outlook",
+      "id": 8,
+      "image": "https://example.com/image8.jpg",
+      "related": "IMF",
+      "source": "CNN",
+      "summary": "The IMF projected stronger global growth in 2025...",
+      "url": "https://www.cnn.com/news/articles/8"
+    },
+    {
+      "category": "general",
+      "datetime": 1714554000,
+      "headline": "Amazon reports record Q1 profits",
+      "id": 9,
+      "image": "https://example.com/image9.jpg",
+      "related": "AMZN",
+      "source": "Reuters",
+      "summary": "Amazon's quarterly profits exceeded Wall Street expectations...",
+      "url": "https://www.reuters.com/news/articles/9"
+    },
+    {
+      "category": "general",
+      "datetime": 1714557600,
+      "headline": "China's GDP grows 6% in Q1",
+      "id": 10,
+      "image": "https://example.com/image10.jpg",
+      "related": "CHN",
+      "source": "BBC",
+      "summary": "China's economic growth surprised analysts in the first quarter...",
+      "url": "https://www.bbc.com/news/articles/10"
+    },
+    {
+      "category": "general",
+      "datetime": 1714561200,
+      "headline": "Tesla delivers 400K vehicles in Q1",
+      "id": 11,
+      "image": "https://example.com/image11.jpg",
+      "related": "TSLA",
+      "source": "Electrek",
+      "summary": "Tesla's production and delivery beat expectations...",
+      "url": "https://www.electrek.co/news/articles/11"
+    },
+    {
+      "category": "general",
+      "datetime": 1714564800,
+      "headline": "JP Morgan warns of credit tightening",
+      "id": 12,
+      "image": "https://example.com/image12.jpg",
+      "related": "JPM",
+      "source": "Yahoo Finance",
+      "summary": "Lending standards could become tighter amid macro uncertainty...",
+      "url": "https://www.finance.yahoo.com/news/articles/12"
+    },
+    {
+      "category": "general",
+      "datetime": 1714568400,
+      "headline": "Microsoft invests $10B in AI startups",
+      "id": 13,
+      "image": "https://example.com/image13.jpg",
+      "related": "MSFT",
+      "source": "Bloomberg",
+      "summary": "The tech giant is expanding its AI footprint aggressively...",
+      "url": "https://www.bloomberg.com/news/articles/13"
+    },
+    {
+      "category": "general",
+      "datetime": 1714572000,
+      "headline": "U.S. job market remains resilient",
+      "id": 14,
+      "image": "https://example.com/image14.jpg",
+      "related": "USD",
+      "source": "CNBC",
+      "summary": "Employment numbers continue to show strength in major sectors...",
+      "url": "https://www.cnbc.com/news/articles/14"
+    },
+    {
+      "category": "general",
+      "datetime": 1714575600,
+      "headline": "Meta introduces new VR headset",
+      "id": 15,
+      "image": "https://example.com/image15.jpg",
+      "related": "META",
+      "source": "The Verge",
+      "summary": "Meta’s latest device promises an immersive work experience...",
+      "url": "https://www.theverge.com/news/articles/15"
+    },
+    {
+      "category": "general",
+      "datetime": 1714579200,
+      "headline": "Intel launches next-gen chips",
+      "id": 16,
+      "image": "https://example.com/image16.jpg",
+      "related": "INTC",
+      "source": "Engadget",
+      "summary": "Intel's new chips target high-performance computing markets...",
+      "url": "https://www.engadget.com/news/articles/16"
+    },
+    {
+      "category": "general",
+      "datetime": 1714582800,
+      "headline": "Saudi Arabia to increase oil output",
+      "id": 17,
+      "image": "https://example.com/image17.jpg",
+      "related": "OIL",
+      "source": "Al Jazeera",
+      "summary": "The kingdom will boost production amid rising demand...",
+      "url": "https://www.aljazeera.com/news/articles/17"
+    },
+    {
+      "category": "general",
+      "datetime": 1714586400,
+      "headline": "Netflix subscribers reach 300 million",
+      "id": 18,
+      "image": "https://example.com/image18.jpg",
+      "related": "NFLX",
+      "source": "Variety",
+      "summary": "Netflix celebrates another milestone in global streaming...",
+      "url": "https://www.variety.com/news/articles/18"
+    },
+    {
+      "category": "general",
+      "datetime": 1714590000,
+      "headline": "Europe inflation eases to 3%",
+      "id": 19,
+      "image": "https://example.com/image19.jpg",
+      "related": "EUR",
+      "source": "Financial Times",
+      "summary": "Eurozone inflation falls below expectations...",
+      "url": "https://www.ft.com/news/articles/19"
+    },
+    {
+      "category": "general",
+      "datetime": 1714593600,
+      "headline": "NVIDIA expands AI training capabilities",
+      "id": 20,
+      "image": "https://example.com/image20.jpg",
+      "related": "NVDA",
+      "source": "TechRadar",
+      "summary": "New GPUs promise faster AI model training...",
+      "url": "https://www.techradar.com/news/articles/20"
+    }
+  ]
+  
