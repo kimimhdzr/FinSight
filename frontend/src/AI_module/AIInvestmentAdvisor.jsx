@@ -4,7 +4,7 @@ import './AIInvestmentAdvisor.css';
 const AIInvestmentAdvisor = () => {
   const [showSavedStrategies, setShowSavedStrategies] = useState(false);
   const [selectedRiskTolerance, setSelectedRiskTolerance] = useState('moderate');
-  const [selectedGrowth, setSelectedGrowth] = useState('low-mid-income');
+  const [selectedGrowth, setSelectedGrowth] = useState(['low-mid-income']);
   const [chatInput, setChatInput] = useState('');
   const [minInvestment, setMinInvestment] = useState(2772);
   const [maxInvestment, setMaxInvestment] = useState(8018);
@@ -14,7 +14,13 @@ const AIInvestmentAdvisor = () => {
   };
 
   const handleGrowthChange = (value) => {
-    setSelectedGrowth(value);
+    if (selectedGrowth.includes(value)) {
+      // Remove the value if already selected
+      setSelectedGrowth(selectedGrowth.filter(item => item !== value));
+    } else {
+      // Add the value if not selected
+      setSelectedGrowth([...selectedGrowth, value]);
+    }
   };
 
   const handleMinChange = (value) => {
@@ -130,50 +136,50 @@ const AIInvestmentAdvisor = () => {
               <div className="growth-options">
                 <div className="growth-option">
                   <input 
-                    type="radio" 
+                    type="checkbox"
                     id="low-mid-income" 
                     name="growth" 
-                    checked={selectedGrowth === 'low-mid-income'} 
+                    checked={selectedGrowth.includes('low-mid-income')} 
                     onChange={() => handleGrowthChange('low-mid-income')}
                   />
                   <label htmlFor="low-mid-income">Low-Mid-Income</label>
                 </div>
                 <div className="growth-option">
                   <input 
-                    type="radio" 
+                    type="checkbox"
                     id="capital-preservation" 
                     name="growth" 
-                    checked={selectedGrowth === 'capital-preservation'} 
+                    checked={selectedGrowth.includes('capital-preservation')} 
                     onChange={() => handleGrowthChange('capital-preservation')}
                   />
                   <label htmlFor="capital-preservation">Capital Preservation</label>
                 </div>
                 <div className="growth-option">
                   <input 
-                    type="radio" 
+                    type="checkbox"
                     id="retirement-planning" 
                     name="growth" 
-                    checked={selectedGrowth === 'retirement-planning'} 
+                    checked={selectedGrowth.includes('retirement-planning')} 
                     onChange={() => handleGrowthChange('retirement-planning')}
                   />
                   <label htmlFor="retirement-planning">Retirement Planning</label>
                 </div>
                 <div className="growth-option">
                   <input 
-                    type="radio" 
+                    type="checkbox"
                     id="short-term-savings" 
                     name="growth" 
-                    checked={selectedGrowth === 'short-term-savings'} 
+                    checked={selectedGrowth.includes('short-term-savings')} 
                     onChange={() => handleGrowthChange('short-term-savings')}
                   />
                   <label htmlFor="short-term-savings">Short Term Savings</label>
                 </div>
                 <div className="growth-option">
                   <input 
-                    type="radio" 
+                    type="checkbox"
                     id="specific-purchase" 
                     name="growth" 
-                    checked={selectedGrowth === 'specific-purchase'} 
+                    checked={selectedGrowth.includes('specific-purchase')} 
                     onChange={() => handleGrowthChange('specific-purchase')}
                   />
                   <label htmlFor="specific-purchase">Specific Purchase</label>
