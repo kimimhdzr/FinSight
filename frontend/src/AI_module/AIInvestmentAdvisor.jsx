@@ -5,8 +5,9 @@ const AIInvestmentAdvisor = () => {
   const [showSavedStrategies, setShowSavedStrategies] = useState(false);
   const [selectedRiskTolerance, setSelectedRiskTolerance] = useState('moderate');
   const [selectedGrowth, setSelectedGrowth] = useState('low-mid-income');
-  const [investmentRange, setInvestmentRange] = useState(50);
   const [chatInput, setChatInput] = useState('');
+  const [minInvestment, setMinInvestment] = useState(2772);
+  const [maxInvestment, setMaxInvestment] = useState(8018);
 
   const handleRiskToleranceChange = (value) => {
     setSelectedRiskTolerance(value);
@@ -16,8 +17,25 @@ const AIInvestmentAdvisor = () => {
     setSelectedGrowth(value);
   };
 
-  const handleRangeChange = (e) => {
-    setInvestmentRange(e.target.value);
+  const handleMinChange = (value) => {
+    const newMin = parseInt(value) || 0;
+    setMinInvestment(newMin);
+    
+    // Ensure max is always greater than or equal to min
+    if (newMin > maxInvestment) {
+      setMaxInvestment(newMin);
+    }
+  };
+
+  const handleMaxChange = (value) => {
+    const newMax = parseInt(value) || 0;
+    
+    // Ensure max is always greater than or equal to min
+    if (newMax < minInvestment) {
+      setMaxInvestment(minInvestment);
+    } else {
+      setMaxInvestment(newMax);
+    }
   };
 
   const handleChatInputChange = (e) => {
@@ -165,15 +183,30 @@ const AIInvestmentAdvisor = () => {
             
             <div className="investment-range-section">
               <h3>Investment Range</h3>
-              <div className="range-slider-container">
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="100" 
-                  value={investmentRange} 
-                  onChange={handleRangeChange} 
-                  className="range-slider"
-                />
+              <div className="min-max-input-container">
+                <div className="input-group">
+                  <label htmlFor="min-input">Min</label>
+                  <input
+                    id="min-input"
+                    type="number"
+                    className="range-input"
+                    value={minInvestment}
+                    onChange={(e) => handleMinChange(e.target.value)}
+                    min="0"
+                  />
+                </div>
+                <div className="range-separator">-</div>
+                <div className="input-group">
+                  <label htmlFor="max-input">Max</label>
+                  <input
+                    id="max-input"
+                    type="number"
+                    className="range-input"
+                    value={maxInvestment}
+                    onChange={(e) => handleMaxChange(e.target.value)}
+                    min={minInvestment}
+                  />
+                </div>
               </div>
             </div>
           </div>
