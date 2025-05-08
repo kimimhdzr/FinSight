@@ -202,11 +202,15 @@ input[type="range"].tool-slider:active::-webkit-slider-runnable-track {
     margin: 0;
 }
 
+.tool-recharts {
+    padding-bottom: 30px;
+}  
+
 .tool-display-text {
     color: #000;
     font-size: 20px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 450;
     line-height: 24px; /* 100% */
     letter-spacing: -0.48px;
     margin: 0;
