@@ -14,6 +14,7 @@ import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import NavBar from "./components/NavBar"; // Navbar component for navigation
 import Footer from "./components/Footer";
+import AIInvestmentAdvisor from "./AI_module/AIInvestmentAdvisor";
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const AppWrapper = () => {
           <Route path="/features" element={<Features />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/insights/ai-investment-advisor" element={<AIInvestmentAdvisor />} />
         </Routes>
       </div>
       <Footer /> {/* Footer added here */}
