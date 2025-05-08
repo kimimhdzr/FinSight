@@ -1,0 +1,282 @@
+.financial-tracker {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.page-header {
+ 
+  margin-bottom: 30px;
+  position: relative;
+  top: 20px; /* Adjust this value to move it down */
+}
+
+.page-header h1 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 24px;
+}
+
+.welcome-message {
+  color: #7f8c8d;
+  font-size: 16px;
+  position: relative;
+  top: -1px; /* Fine-tune vertical alignment */
+}
+
+.header-content {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 15px;
+  background: white;
+  padding: 10px 25px;
+  border-radius: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.tracking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 20px; 
+  position: relative;
+}
+
+.tracker-header {
+  margin-bottom: 20px;
+}
+
+.tracker-header h1 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 24px;
+}
+
+.welcome-message {
+  color: #7f8c8d;
+  margin: 5px 0 0;
+  font-size: 16px;
+}
+
+.tracker-tabs {
+  display: flex;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+/* Tab Button Styles */
+.planner-button,
+.expenses-button,
+.analysis-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.active-tab {
+  background-color: #3498db;
+  color: white;
+  font-weight: 600;
+}
+
+.inactive-tab {
+  background-color: white;
+  color: #7f8c8d;
+  border: 1px solid #ecf0f1;
+}
+
+.inactive-tab:hover {
+  background-color: #f8f9fa;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ecf0f1;
+  margin: 10px 0;
+}
+
+.financial-planner-section {
+  margin-top: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 20px;
+}
+
+.export-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.export-button:hover {
+  background-color: #2980b9;
+}
+
+.tab-content {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  min-height: 300px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.export-modal {
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  width: 350px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.export-modal h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.modal-options {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.export-option {
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.export-option:hover {
+  background-color: #e9ecef;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button {
+  padding: 8px 16px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.download-button {
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #e9ecef;
+}
+
+.download-button:hover {
+  background-color: #2980b9;
+}
+
+.format-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.format-option, .time-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.format-option:hover, .time-option:hover {
+  background-color: #f5f5f5;
+}
+
+.format-option.selected, .time-option.selected {
+  background-color: #e6f2ff;
+  font-weight: 500;
+}
+
+.format-option input[type="radio"], 
+.time-option input[type="radio"] {
+  accent-color: #3498db;
+  width: 16px;
+  height: 16px;
+}
+
+.date-range {
+  display: flex;
+  gap: 20px;
+  margin: 15px 0;
+}
+
+.date-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.date-input label {
+  font-size: 14px;
+  color: #555;
+}
+
+.date-input input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 120px;
+}
+
+.download-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

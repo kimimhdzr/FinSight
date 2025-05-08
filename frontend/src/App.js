@@ -14,6 +14,11 @@ import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import NavBar from "./components/NavBar"; // Navbar component for navigation
 import Footer from "./components/Footer";
+import Dashboard from "./Dashboard/Dashboard";
+import AIInvestmentAdvisor from "./AI_module/AIInvestmentAdvisor";
+import Budgeting from "./Budgeting_module/Tracking_tools"; 
+
+
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -33,6 +38,10 @@ const AppWrapper = () => {
           <Route path="/features" element={<Features />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/insights/ai-investment-advisor" element={<AIInvestmentAdvisor />} />
+          <Route path="/budgeting_tools" element={<Budgeting />} />
+         
         </Routes>
       </div>
       <Footer /> {/* Footer added here */}
