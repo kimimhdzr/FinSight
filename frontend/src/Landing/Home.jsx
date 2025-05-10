@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useScrollFade from "../Customs/useScrollFade"; // your custom hook
 import "./Home.css";
 
-const Home = () => {
+const Home = ({ setScrollToSection }) => {
   // About Us Section
   const [aboutRef, aboutVisible] = useScrollFade();
   // Features Section
   const [featuresRef, completedVisible] = useScrollFade();
   // Features Section
   const [subscriptionRef, subscriptionVisible] = useScrollFade();
+
 
   return (
     <div className="home-container">
