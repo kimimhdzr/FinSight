@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 
+
 import PublicRoutes from "./Routes/PublicRoutes";
 import PrivateRoutes from "./Routes/PrivateRoutes";
 import RequireAuth from "./Routes/RequireAuth";
@@ -15,6 +16,7 @@ import RequireAuth from "./Routes/RequireAuth";
 const AppWrapper = () => {
   return (
     <div className="App">
+
         <Router>
           <Routes>
             {/* Public routes */}
@@ -30,6 +32,7 @@ const AppWrapper = () => {
             />
           </Routes>
         </Router>
+
     </div>
   );
 };
