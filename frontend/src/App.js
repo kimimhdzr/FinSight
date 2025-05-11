@@ -16,10 +16,6 @@ import NavBar from "./components/NavBar"; // Navbar component for navigation
 import Footer from "./components/Footer";
 import Market from "./Insights/Market";
 import Tool from "./Tool/Home";
-import Tax from "./Tool/Tax"
-import Investment from "./Tool/Investment";
-import Loan from "./Tool/Loan"
-import NetWorth from "./Tool/NetWorth"
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -41,10 +37,6 @@ const AppWrapper = () => {
           <Route path="/register" element={<SignUp />} />
           <Route path="/market" element={<Market />} />
           <Route path="/tool" element={<Tool />} />
-          <Route path="/investment" element={<Investment />} />
-          <Route path="/loan" element={<Loan />} />
-          <Route path="/tax" element={<Tax />} />
-          <Route path="/networth" element={<NetWorth />} />
         </Routes>
       </div>
       <Footer /> {/* Footer added here */}

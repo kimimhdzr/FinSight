@@ -1,45 +1,57 @@
-import { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import "./Tools.css";
 
-const NetWorth = () => {    
-    const[totalAssests, setTotalAssets] = useState();
-    const[totalLiabilities, setTotalLiabilities] = useState();
+import { Tooltip as TooltipPopUp } from "./Tooltip";
 
-    // const calculateNetWorth = () => {
-
-    // };
+const NetWorth = () => {
+    const [totalAssets, setTotalAssets] = useState();
+    const [totalLiabilities, setTotalLiabilities] = useState();
 
     const chartData = [
-        { name: "Total Assets", value: totalAssests || 0 },
+        { name: "Total Assets", value: totalAssets || 0 },
         { name: "Total Liabilities", value: totalLiabilities || 0 },
     ];
 
     return (
         <div className="tool-container">
             <div className="tool-input-main-container">
-                <div className="tool-input-container">
-                    <p className="tool-text">Total Assets (MYR)</p>
-                    <input 
-                        type="number" 
+                <div className="tool-input-container">                    
+                    <div className='tool-input-text-row'>
+                        <p className="tool-text">Total Assets (MYR)</p>
+                        
+                        <TooltipPopUp text={"Assets are valuable resources such as stocks, bonds, real estate, or cash that can generate income or appreciate over time."}>
+                            <span className="material-symbols-outlined">
+                                info
+                            </span>
+                        </TooltipPopUp>
+                    </div>
+                    <input
+                        type="number"
                         className="tool-input-text"
-                        value={totalAssests}
+                        value={totalAssets}
                         onChange={(e) => setTotalAssets(e.target.value === "" ? undefined : Number(e.target.value))}
                     />
                 </div>
+
                 <div className="tool-input-container">
-                    <p className="tool-text">Total Liabilities (MYR)</p>
-                    <input 
-                        type="number" 
+                    <div className='tool-input-text-row'>
+                        <p className="tool-text">Total Liabilities (MYR)</p>
+                        
+                        <TooltipPopUp text={"Liabilities are financial obligations or debts a person or company owes, such as loans, credit card debt, or mortgages."}>
+                            <span className="material-symbols-outlined">
+                                info
+                            </span>
+                        </TooltipPopUp>
+                    </div>
+
+                    <input
+                        type="number"
                         className="tool-input-text"
                         value={totalLiabilities}
                         onChange={(e) => setTotalLiabilities(e.target.value === "" ? undefined : Number(e.target.value))}
                     />
                 </div>
-
-                {/* <button className="tool-button" onClick={calculateNetWorth}>
-                    <p className="tool-button-text">Calculate</p>
-                </button> */}
             </div>
 
             <div className="tool-display-container">
@@ -69,23 +81,26 @@ const NetWorth = () => {
                     </div>
 
                     <table>
-                        <tr>
-                            <td className='tool-display-text'>Total Assets (MYR)</td>
-                            <td className='tool-display-text'>: {totalAssests !== undefined ? totalAssests.toFixed(2) : "-"}</td>
-                        </tr>
-                        <tr>
-                            <td className='tool-display-text'>Total Liabilities (MYR)</td>
-                            <td className='tool-display-text'>: {totalLiabilities !== undefined ? totalLiabilities.toFixed(2) : "-"}</td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td className='tool-display-text'>Total Assets (MYR)</td>
+                                <td className='tool-display-text'>: {totalAssets !== undefined ? totalAssets.toFixed(2) : "-"}</td>
+                            </tr>
+                            <tr>
+                                <td className='tool-display-text'>Total Liabilities (MYR)</td>
+                                <td className='tool-display-text'>: {totalLiabilities !== undefined ? totalLiabilities.toFixed(2) : "-"}</td>
+                            </tr>
+                        </tbody>
                     </table>
 
-                <p className='tool-display-text-small'>Net Worth</p>
-                <p className='tool-display-text-result'>MYR {(totalAssests - totalLiabilities) ? (totalAssests - totalLiabilities).toFixed(2) : "-"}</p>
-
+                    <p className='tool-display-text-small'>Net Worth</p>
+                    <p className='tool-display-text-result'>
+                        MYR {totalAssets !== undefined && totalLiabilities !== undefined ? (totalAssets - totalLiabilities).toFixed(2) : "-"}
+                    </p>
                 </div>
             </div>
         </div>
     );
-  };
+};
 
 export default NetWorth;

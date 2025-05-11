@@ -20,6 +20,36 @@
     margin-bottom: 35px;
 }
 
+.tool-input-text-row {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    gap: 5px;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 6px;
+    min-width: 200px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+}
+
+/* Behaves like text (font-based) */
+.material-symbols-outlined {
+    color: #0C75D6;
+}
+
 .tool-text {
     color: #000;
     font-size: 20px;
@@ -71,34 +101,6 @@
     align-items: center;
     justify-content: flex-start;
 }
-
-/* input[type="range"].tool-slider {
-    -webkit-appearance: none;
-    width: 328px;
-    height: 6px;
-    background: #ddd;
-    border-radius: 3px;
-}
-
-input[type="range"].tool-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #FFC300;
-    border-radius: 50%;
-    cursor: pointer;
-    border: none;
-}
-
-input[type="range"].tool-slider::-webkit-slider-runnable-track {
-    background: #ddd;
-    height: 6px;
-    border-radius: 3px;
-}
-
-input[type="range"].tool-slider:active::-webkit-slider-runnable-track {
-    background: #0C75D6;
-} */
 
 .tool-slider-output {
     display: flex;

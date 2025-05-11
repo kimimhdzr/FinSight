@@ -2,6 +2,8 @@ import { useState } from 'react';
 import "./Tools.css";
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
+import { Tooltip as TooltipPopUp } from "./Tooltip";
+
 const Tax = () => {
     const [grossIncome, setGrossIncome] = useState();
     const [reliefs, setReliefs] = useState();
@@ -63,7 +65,15 @@ const Tax = () => {
                 </div>
 
                 <div className="tool-input-container">
-                    <p className="tool-text">Tax Reliefs / Deductions (MYR)</p>
+
+                    <div className='tool-input-text-row'>
+                        <p className="tool-text">Tax Reliefs / Deductions (MYR)</p>                                    
+                        <TooltipPopUp text={"Liabilities are financial obligations or debts a person or company owes, such as loans, credit card debt, or mortgages."}>
+                            <span className="material-symbols-outlined">
+                                info
+                            </span>
+                        </TooltipPopUp>                                           
+                    </div>
                     <input 
                         type="number" 
                         className="tool-input-text"
