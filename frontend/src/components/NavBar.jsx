@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./NavBar.css";
 
-const NavBar = () => {
+const NavBar = ({ scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +16,17 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (sectionId) => {
+    if (location.pathname === "/" || location.pathname === "/home") {
+      scrollToSection(sectionId);
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100); // Small delay to ensure Home is rendered
+    }
+  };
+
   return (
     <nav className={isScrolled ? "scrolled" : "transparent"}>
       <div className="navbar-container">
@@ -24,8 +36,8 @@ const NavBar = () => {
         <div className="navbar-center">
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
-          <Link to="/features">Features</Link>
-          <Link to="/connect">Connect</Link>
+          <Link to="/Features">Features</Link>
+          <Link to="/Connect">Connect</Link>
         </div>
         <div className="navbar-right">
           <button className="btnLogin" onClick={() => navigate("/login")}>
