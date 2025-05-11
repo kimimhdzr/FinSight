@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Home from "../Landing/Home";
+import HomePriv from "../Tool/Home";
 import About from "../Landing/About";
 import Connect from "../Landing/Connect";
 import Features from "../Landing/Features";
@@ -34,6 +35,7 @@ const PublicRoutes = () => {
             <Route path="/Features" element={<Features />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
+            <Route path="/HomePriv" element={<HomePriv />} />
         </Routes>
       </div>
       <Footer /> {/* Footer added here */}

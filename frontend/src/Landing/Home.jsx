@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useScrollFade from "../Customs/useScrollFade"; // your custom hook
+import SliderWithFlipCards from '../Customs/SliderWithFlipCards.jsx';
 import "./Home.css";
 
 const Home = ({ setScrollToSection }) => {
@@ -85,7 +86,7 @@ const Home = ({ setScrollToSection }) => {
             <div className="bottom-left">Bottom Left</div>
           </div>
           <div className="right-side">
-            <div className="right-content">Right Side</div>
+            <SliderWithFlipCards />
           </div>
         </div>
       </div>
