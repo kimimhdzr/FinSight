@@ -9,6 +9,7 @@ import {
 
 
 
+
 import PublicRoutes from "./Routes/PublicRoutes";
 import PrivateRoutes from "./Routes/PrivateRoutes";
 import RequireAuth from "./Routes/RequireAuth";
@@ -16,6 +17,7 @@ import RequireAuth from "./Routes/RequireAuth";
 const AppWrapper = () => {
   return (
     <div className="App">
+
 
         <Router>
           <Routes>
@@ -32,6 +34,7 @@ const AppWrapper = () => {
             />
           </Routes>
         </Router>
+
 
     </div>
   );
