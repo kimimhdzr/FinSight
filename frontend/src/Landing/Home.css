@@ -210,7 +210,7 @@ h2 {
 }
 
 .right-side {
-  background-color: #c0c0c0; /* Example background color */
+  display: flex;/* Example background color */
   padding: 20px;
 }
 
