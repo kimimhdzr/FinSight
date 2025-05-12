@@ -152,7 +152,6 @@ h2 {
 .features-container {
   width: 100%;
   height: 700px;
-  overflow: hidden;
   position: relative;
 }
 
@@ -180,7 +179,9 @@ h2 {
   grid-template-columns: 1fr 2fr; /* Left side 1/3, Right side 2/3 */
   gap: 20px; /* Add some gap between the left and right sides */
 }
-
+.features-overlay button{
+  margin-left: 6px;
+}
 .features-overlay .button-2 {
   border: 1px solid #0c75d6;
   padding-inline: 6px;
@@ -209,7 +210,7 @@ h2 {
 }
 
 .right-side {
-  background-color: #c0c0c0; /* Example background color */
+  display: flex;/* Example background color */
   padding: 20px;
 }
 

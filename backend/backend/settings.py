@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like this: BASE_DIR / 'subdir'.    
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'rest_framework',
+    'corsheaders',
+    'market',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +133,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+FINNHUB_API_KEY = config("FINNHUB_API_KEY")
+
+CORS_ALLOW_ALL_ORIGINS = True  # Or use CORS_ALLOWED_ORIGINS for stricter security
