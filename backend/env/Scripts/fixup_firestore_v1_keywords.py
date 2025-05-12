@@ -1,4 +1,4 @@
-#!C:\Users\ASUS\Documents\VSC\WebProgGroup9\backend\env\Scripts\python.exe
+#!C:\Users\ASUS\Documents\VSC\FinSight\backend\env\Scripts\python.exe
 # -*- coding: utf-8 -*-
 # Copyright 2025 Google LLC
 #
