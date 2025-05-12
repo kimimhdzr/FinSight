@@ -3,19 +3,19 @@
   justify-content: center;
   background-color: #f5f7fa;
   min-height: 100vh;
-  padding: 10px;
   box-sizing: border-box;
 }
 
 .ai-advisor-content {
   display: flex;
+  margin-top: 50px;
   flex-direction: column;
   width: 100%;
   max-width: 1200px;
   gap: 20px;
 }
 
-.main-content {
+.main-content--padded {
   flex: 1;
   background-color: #ffffff;
   border-radius: 10px;
@@ -23,7 +23,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.main-content h1 {
+.main-content--padded h1 {
   font-size: 1.8rem;
   color: #333;
   margin-bottom: 20px;
@@ -56,14 +56,14 @@
   cursor: pointer;
 }
 
-.risk-tolerance-section, 
-.growth-section, 
+.risk-tolerance-section,
+.growth-section,
 .investment-range-section {
   margin-bottom: 20px;
 }
 
-.risk-tolerance-section h3, 
-.growth-section h3, 
+.risk-tolerance-section h3,
+.growth-section h3,
 .investment-range-section h3 {
   font-size: 1rem;
   color: #555;
@@ -171,7 +171,7 @@
 }
 
 /* Remove spinner arrows for number inputs in Firefox */
-.range-input[type=number] {
+.range-input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -337,12 +337,12 @@
   .ai-advisor-content {
     flex-direction: row;
   }
-  
+
   .ai-advisor-page {
     padding: 20px;
   }
-  
-  .main-content {
+
+  .main-content--padded {
     padding: 25px;
   }
 }
@@ -351,48 +351,48 @@
   .ai-advisor-page {
     padding: 0;
   }
-  
+
   .main-content h1 {
     font-size: 1.5rem;
     text-align: center;
   }
-  
+
   .section-header {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
   }
-  
+
   .section-header span {
     font-size: 1.1rem;
   }
-  
+
   .risk-options {
     flex-wrap: wrap;
   }
-  
+
   .risk-option {
     flex: 1;
     text-align: center;
     min-width: 80px;
   }
-  
+
   .growth-option label {
     font-size: 0.85rem;
   }
-  
+
   .recommended-strategies-panel {
     width: 100%;
   }
-  
+
   .strategy-card {
     padding: 12px;
   }
-  
+
   .strategy-actions {
     gap: 8px;
   }
-  
+
   .save-strategy-button,
   .view-profile-button,
   .view-saved-strategies-button {

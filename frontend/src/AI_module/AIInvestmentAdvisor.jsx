@@ -98,7 +98,7 @@ const AIInvestmentAdvisor = () => {
   return (
     <div className="ai-advisor-page">
       <div className="ai-advisor-content">
-        <div className="main-content">
+        <div className="main-content--padded">
           <h1>AI Investment Advisor</h1>
           
           <div className="financial-plan-section">

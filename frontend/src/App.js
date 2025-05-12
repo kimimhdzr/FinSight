@@ -7,9 +7,6 @@ import {
   useLocation,
 } from "react-router-dom";
 
-
-
-
 import PublicRoutes from "./Routes/PublicRoutes";
 import PrivateRoutes from "./Routes/PrivateRoutes";
 import RequireAuth from "./Routes/RequireAuth";
