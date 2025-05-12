@@ -4,6 +4,7 @@
   min-height: 100vh; /* Ensures the footer stays at the bottom */
 }
 .main-content {
+  display: flex;
   flex: 1; /* This will take all the available space */
 }
 
@@ -40,4 +41,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.page-content {
+  flex: 1;
+  padding: 1rem;
 }
