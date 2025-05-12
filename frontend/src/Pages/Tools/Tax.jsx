@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import "./Tools.css";
+import "./Tooltip.css";
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 
 import { Tooltip as TooltipPopUp } from "./Tooltip";

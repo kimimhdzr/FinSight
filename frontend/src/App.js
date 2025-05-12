@@ -14,8 +14,6 @@ import RequireAuth from "./Routes/RequireAuth";
 const AppWrapper = () => {
   return (
     <div className="App">
-
-
         <Router>
           <Routes>
             {/* Public routes */}

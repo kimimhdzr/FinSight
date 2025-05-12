@@ -68,7 +68,7 @@ const SignIn = () => {
       </div>
       <div className="login-image-container">
         <img
-          src="images/masjid2.jpg"
+          src="staticimages/homebanner.jpeg"
           alt="Login Visual"
           className="login-image"
         />

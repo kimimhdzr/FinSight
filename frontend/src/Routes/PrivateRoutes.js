@@ -5,27 +5,37 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import Home from "../Landing/Home";
-import SignIn from "../Auth/SignIn";
-import SignUp from "../Auth/SignUp";
+import Home from "../Pages/Landing/Landing";
+import SignIn from "../Pages/Auth/SignIn";
+import SignUp from "../Pages/Auth/SignUp";
 import Footer from "../components/Footer";
+import SideBar from "../components/SideBar";
 import "../App";
 
-import Market from "../Insights/Market"
-import Tool from "../Tool/Home"
+import Market from "../Pages/Insights/Market/Market";
+import Tool from "../Pages/Tools/Tool";
+import Insights from "../Pages/Insights/Insights";
+import HomePriv from "../Pages/Home/Home";
+import Track from "../Pages/Track/Tracking_tools";
 
 const PrivateRoutes = () => {
   return (
-    <div className="App">
-      <div className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/market" element={<Market />} />
-          <Route path="/tool" element={<Tool />} />
-        </Routes>
+    <div className="App-private">
+      <div className="app-content">
+        {/* <div className="filler" /> */}
+        <SideBar />
+        <div className="app-content-path">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/market" element={<Market />} />
+            <Route path="/tool" element={<Tool />} />
+            <Route path="/Insights" element={<Insights />} />
+            <Route path="/Home" element={<HomePriv />} />
+            <Route path="/Track" element={<Track />} />
+          </Routes>
+        </div>
       </div>
       <Footer /> {/* Footer added here */}
     </div>

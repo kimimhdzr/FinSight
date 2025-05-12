@@ -1,0 +1,404 @@
+.ai-advisor-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  background-color: #f5f7fa;
+  box-sizing: border-box;
+  height: auto;
+}
+
+.ai-advisor-content {
+  display: flex;
+  margin-top: 50px;
+  flex-direction: column;
+  width: auto;
+  max-width: 1200px;
+  gap: 20px;
+}
+
+.main-content--padded {
+  flex: 1;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-content--padded h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.financial-plan-section {
+  margin-bottom: 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-header span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.confirm-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.risk-tolerance-section,
+.growth-section,
+.investment-range-section {
+  margin-bottom: 20px;
+}
+
+.risk-tolerance-section h3,
+.growth-section h3,
+.investment-range-section h3 {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.risk-options {
+  display: flex;
+  gap: 10px;
+}
+
+.risk-option {
+  background-color: #f0f2f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.risk-option.selected {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.growth-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.growth-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.growth-option:hover {
+  background-color: #f0f2f5;
+}
+
+.growth-option input[type="checkbox"] {
+  accent-color: #3498db;
+  width: 16px;
+  height: 16px;
+}
+
+.growth-option label {
+  font-size: 0.9rem;
+  color: #555;
+  cursor: pointer;
+}
+
+.growth-option.selected {
+  background-color: #e6f2fa;
+}
+
+.range-slider-container {
+  padding: 10px 0;
+}
+
+.min-max-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.range-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 80px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.range-input:focus {
+  border-color: #3498db;
+}
+
+.range-separator {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 5px;
+  padding-top: 24px; /* Adjust this to align with inputs */
+}
+
+/* Remove spinner arrows for number inputs in Firefox */
+.range-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Remove spinner arrows for number inputs in Chrome, Safari, Edge, Opera */
+.range-input::-webkit-outer-spin-button,
+.range-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.chat-section {
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.start-chat-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.chat-icon {
+  font-size: 1.1rem;
+}
+
+.chat-message {
+  background-color: #f0f2f5;
+  border-radius: 18px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.message-text {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.chat-input-container {
+  display: flex;
+  gap: 10px;
+  background-color: #f0f2f5;
+  border-radius: 20px;
+  padding: 8px 15px;
+}
+
+.chat-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.send-button {
+  background: none;
+  border: none;
+  color: #3498db;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* Recommended Strategies Panel */
+.recommended-strategies-panel {
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.recommended-strategies-panel h2 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.strategies-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.strategy-card {
+  background-color: #f0f2f5;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.strategy-card h3 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.strategy-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.detail-label {
+  color: #777;
+}
+
+.detail-value {
+  color: #333;
+  font-weight: 500;
+}
+
+.strategy-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.save-strategy-button,
+.view-profile-button,
+.view-saved-strategies-button {
+  padding: 8px 0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.save-strategy-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+}
+
+.view-profile-button,
+.view-saved-strategies-button {
+  background-color: white;
+  color: #3498db;
+  border: 1px solid #3498db;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .ai-advisor-content {
+    flex-direction: row;
+  }
+
+  .ai-advisor-page {
+    padding: 20px;
+  }
+
+  .main-content--padded {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ai-advisor-page {
+    padding: 0;
+  }
+
+  .main-content h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .section-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .section-header span {
+    font-size: 1.1rem;
+  }
+
+  .risk-options {
+    flex-wrap: wrap;
+  }
+
+  .risk-option {
+    flex: 1;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .growth-option label {
+    font-size: 0.85rem;
+  }
+
+  .recommended-strategies-panel {
+    width: 100%;
+  }
+
+  .strategy-card {
+    padding: 12px;
+  }
+
+  .strategy-actions {
+    gap: 8px;
+  }
+
+  .save-strategy-button,
+  .view-profile-button,
+  .view-saved-strategies-button {
+    padding: 10px 0;
+    font-size: 1rem;
+  }
+}

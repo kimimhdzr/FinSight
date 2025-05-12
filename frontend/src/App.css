@@ -41,3 +41,26 @@
     transform: rotate(360deg);
   }
 }
+
+.App-private {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the footer stays at the bottom */
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.filler {
+  flex: 2;
+  background-color: #282c34;
+  height: auto;
+}
+
+.app-content-path {
+  flex: 8; /* Takes up remaining space */
+  background: #F9FAFC;
+}

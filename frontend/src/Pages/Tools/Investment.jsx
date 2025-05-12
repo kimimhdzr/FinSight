@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
-import "./Tools.css";
+import "./Tooltip.css";
 
 const Investment = () => {
     const [initialInvestment, setInitialInvestment] = useState();

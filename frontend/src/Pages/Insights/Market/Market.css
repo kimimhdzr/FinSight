@@ -200,7 +200,7 @@
 }
 
 /* For mobile compatibility */
-@media (max-width: 768px) {
+@media (max-width: 1050px) {
   .market-container {
     flex-direction: column;
     margin: 70px 10px;

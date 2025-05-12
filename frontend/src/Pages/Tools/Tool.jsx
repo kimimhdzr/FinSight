@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Home.css";
+import "./Tool.css";
 import Tax from "./Tax";
 import Investment from "./Investment";
 import NetWorth from "./NetWorth";

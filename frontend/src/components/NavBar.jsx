@@ -34,7 +34,7 @@ const NavBar = ({ scrollToSection }) => {
           <h3>FinSight</h3>
         </div>
         <div className="navbar-center">
-          <Link to="/">Home</Link>
+          <Link to="/landing">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/Features">Features</Link>
           <Link to="/Connect">Connect</Link>

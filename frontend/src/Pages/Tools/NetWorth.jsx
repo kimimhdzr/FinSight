@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
-import "./Tools.css";
+import "./Tooltip.css";
 
 import { Tooltip as TooltipPopUp } from "./Tooltip";
 
