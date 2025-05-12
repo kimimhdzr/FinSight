@@ -309,4 +309,9 @@
         padding-right: 16px !important;
         font-size: 14px; 
     }
+
+    .tooltip {
+        top: 100%; /* Position tooltip at the bottom of the element */
+        transform: translateY(10px); /* Offset it slightly from the element */
+    }
 }

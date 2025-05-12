@@ -11,6 +11,9 @@ import SignUp from "../Auth/SignUp";
 import Footer from "../components/Footer";
 import "../App";
 
+import Market from "../Insights/Market"
+import Tool from "../Tool/Home"
+
 const PrivateRoutes = () => {
   return (
     <div className="App">
@@ -20,6 +23,8 @@ const PrivateRoutes = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/market" element={<Market />} />
+          <Route path="/tool" element={<Tool />} />
         </Routes>
       </div>
       <Footer /> {/* Footer added here */}
