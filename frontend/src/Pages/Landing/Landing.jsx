@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import useScrollFade from "../../Customs/useScrollFade.jsx"; // your custom hook
@@ -12,7 +13,10 @@ const Home = () => {
   const [featuresRef, completedVisible] = useScrollFade();
   // Features Section
   const [subscriptionRef, subscriptionVisible] = useScrollFade();
+  const [email, setEmail] = useState("");
 
+  const navigate = useNavigate();
+  
   return (
     <div className="home-container">
       {/* Banner Section */}
@@ -32,7 +36,8 @@ const Home = () => {
             AI-powered budgeting, investment insights, and financial tools all
             in one place.
           </p>
-          <button className="button-1">Get Started</button>
+          <button className="button-1" 
+            onClick={() => navigate("/register")}>Get Started</button>
           <button className="button-2">Explore Features</button>
         </div>
       </div>
@@ -82,7 +87,6 @@ const Home = () => {
               <button className="button-2">Real Time</button>
               <button className="button-2">Insights</button>
             </div>
-            <div className="bottom-left">Bottom Left</div>
           </div>
           <div className="right-side">
             <SliderWithFlipCards />
@@ -93,15 +97,22 @@ const Home = () => {
       {/* Subscription Section */}
       <div
         ref={subscriptionRef}
-        className={`about-us-container scroll-fade ${
+        className={`subscription-container scroll-fade ${
           subscriptionVisible ? "visible" : ""
         }`}
       >
-        <div className="about-us-image">
+        <div className="subscription-image">
           <img src="staticimages/subscribe3dpic.png" alt="About Us" />
         </div>
-        <div className="about-us-block">
+        <div className="subscription-block">
+          <span className="landing-subscription-title">Subscription</span>
           <h2>Get Updates Directly to Your Inbox</h2>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
       </div>
     </div>

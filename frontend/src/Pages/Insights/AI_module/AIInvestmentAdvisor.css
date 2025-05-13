@@ -3,18 +3,17 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
-  background-color: #f5f7fa;
   box-sizing: border-box;
+  padding-top: 0px;
   height: auto;
 }
 
 .ai-advisor-content {
   display: flex;
-  margin-top: 50px;
   flex-direction: column;
   width: auto;
-  max-width: 1200px;
   gap: 20px;
+  background-color: #ffffff;
 }
 
 .main-content--padded {

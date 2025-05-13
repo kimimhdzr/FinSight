@@ -2,9 +2,9 @@
     display: flex;
     flex-wrap: wrap;
     max-width: 800px;
-    margin: 70px auto 40px auto;
+    margin: 40px auto 40px auto;
     align-items: start;
-    justify-content: start;
+    justify-content: center;
 }
 
 /* Shared style */
@@ -58,11 +58,11 @@
 }
 
 .tool-wrapper {
-    max-width: 1091px;
-    margin: 0 auto 70px auto;
+    width: 100%;
+    max-width: 2000px;
+    padding: 15px;
     border-radius: 6px;
-    padding: 50px;
-    background: #F9FAFC;
+    margin: 0 auto 0 auto;
 }
 
 /* For mobile compatibility */

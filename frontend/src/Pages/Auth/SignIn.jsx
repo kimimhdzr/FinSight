@@ -31,6 +31,9 @@ const SignIn = () => {
     <div className="login-container">
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
+        <span className="auth-logo-title" onClick={() => navigate("/landing")}>
+          Insight
+        </span>
         <h1>Hello!</h1>
         <h1>Welcome Back!</h1>
         <p>

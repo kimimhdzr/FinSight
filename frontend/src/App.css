@@ -5,6 +5,8 @@
 }
 .main-content {
   flex: 1; /* This will take all the available space */
+  /* display: flex; */
+  background: white;
 }
 
 .App-logo {

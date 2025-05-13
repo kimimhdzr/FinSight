@@ -1,6 +1,6 @@
 .market-loading-text {
   width: 100%;
-  height: 100vh; /* full screen height */
+  height: 100vh; /* full screen height (vh / vw)*/
   display: flex;
   align-items: center;     
   justify-content: center; 
@@ -8,28 +8,26 @@
 
 .market-container {
   display: flex;
-  max-width: 2000px; /* or any suitable max width */
+  width: fit-content;
   height: auto;
-  margin: 50px;
-  padding: 25px;
   box-sizing: border-box;
   gap: 18px;
   background-color: #F9FAFC;
   border-radius: 6px;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .market-overall-container {
   display: flex;
   flex-direction: column;
-  max-width: 100%;
   gap: 18px;
 }
 
 /* Main Container */
 .market-main-container {
   display: flex;
-  max-width: 100%;
+  max-width: 1100px;
+  width: auto;
   height: auto;
   border-radius: 10px 0px 0px 10px;
   background-color: #ffffff;
@@ -79,7 +77,7 @@
   font-size: 16px;
   font-weight: 400;
   padding-top: 10px;
-  color: #73808C;
+  color: #808080;
   margin: 0;
 }
 
@@ -107,7 +105,7 @@
   width: 100%;
   height: 131px;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
 }
 
 .market-text {
@@ -120,7 +118,9 @@
   letter-spacing: -0.4px;
   margin: 0;
   padding-top: 5px;
+  padding-bottom: 5px;
   max-width: 100%;
+  line-height: 25px;
 }
 
 /* Side Container */
@@ -137,7 +137,7 @@
 .market-side-container {
   display: flex;
   flex-direction: column;
-  max-width: 355px;
+  max-width: auto;
   max-height: auto;
   border-radius: 0px 10px 10px 0px;
   background: #FFF;
@@ -146,7 +146,7 @@
 }
 
 .market-title-text {
-  width: 82.5px;
+  width: 100%;
   height: 38px;
   color: #0C75D6;
   text-align: start;
@@ -156,16 +156,24 @@
   line-height: 38px;
   letter-spacing: -0.48px;
   margin: 0;
-  text-decoration: underline;
+  /* text-decoration: underline; */
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: #0C75D6;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 .market-side-text-container {
   display: flex;
   max-width: 100%;
   height: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  column-gap: 10;
   justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .market-side-box-text {
@@ -188,8 +196,8 @@
   width: 220px;
   height: auto;
   flex-shrink: 0;
-  color: #1B252F;
-  font-size: 15px;
+  color: #364049;
+  font-size: 16px;
   text-align: start;
   font-style: normal;
   font-weight: 500;
@@ -200,7 +208,7 @@
 }
 
 /* For mobile compatibility */
-@media (max-width: 1050px) {
+@media (max-width: 768px) {
   .market-container {
     flex-direction: column;
     margin: 70px 10px;

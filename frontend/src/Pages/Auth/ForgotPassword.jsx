@@ -10,7 +10,7 @@ import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 
 const ForgotPassword = () => {
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,25 +30,26 @@ const ForgotPassword = () => {
     <div className="login-container">
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
-        <h1>Confirm Your Identity</h1>
+        <span className="auth-logo-title" onClick={() => navigate("/landing")}>
+          Insight
+        </span>
+        <h1>Oops,</h1>
+        <h1>Don’t Worry</h1>
         <p>
-          Keep your account safe and secure by updating your password regularly.
-          Before we make any changes, let’s make sure it’s really you. Please
-          enter your current password to continue
+          It seems you’ve forgotten your password, don’t worry, we will help you get it back !
         </p>
         <div className="login-form-container">
-        
           <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <button
             className="login-button"
-            onClick={() => navigate("/create-new-password")}
+            onClick={() => navigate("/login")}
           >
-            Next
+            Retrieve
           </button>
           <button
             className="register-button"

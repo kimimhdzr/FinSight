@@ -58,7 +58,7 @@ const About = () => {
 
         <div className="about-image-container">
           <img
-            src="images/masjid2.jpg"
+            src="staticimages/homebanner.jpeg"
             alt="FinSight Dashboard"
             className="about-image"
           />

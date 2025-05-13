@@ -31,7 +31,8 @@ const ForgotPassword2 = () => {
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
         <h1>Hello!</h1>
-        <h1>Create a New Password</h1>
+        <h1>Create a</h1>
+        <h1>New Password</h1>
         <p>
           Your security matters. Choose a strong, memorable password and confirm
           it below to update your account. It’s a simple step toward keeping
@@ -55,7 +56,7 @@ const ForgotPassword2 = () => {
           </button>
           <button
             className="register-button"
-            onClick={() => navigate("/forgotpassword")}
+            onClick={() => navigate("/change-password")}
           >
             Back
           </button>

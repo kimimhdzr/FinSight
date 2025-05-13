@@ -2,46 +2,57 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./SignUp.css";
+import "./SignIn.css";
 // import { auth } from "../firebaseConfig";
 // import { signInWithEmailAndPassword } from "firebase/auth";
 import { Toaster, toast } from "react-hot-toast";
 
 import axios from "axios";
 
-const SignUp2 = () => {
+const ChangePassword = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const handleLogin = async (email, password) => {
+    // try {
+    //   const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    //   toast.success("🎉 Login successful!");
+    //   // Navigate to home after short delay
+    //   setTimeout(() => navigate("/Home"), 2000);
+    // } catch (error) {
+    //   console.error("Login error:", error);
+    //   toast.error("❌ Login failed. Please check your credentials.");
+    // }
+  };
 
   return (
     <div className="login-container">
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
-         <span className="auth-logo-title" onClick={() => navigate("/landing")}>
+        <span className="auth-logo-title" onClick={() => navigate("/landing")}>
           Insight
         </span>
-        <h1>You’re Almost Done</h1>
-        <p>Please set your password to complete your sign-up process</p>
+        <h1>Confirm Your</h1>
+        <h1>Identity</h1>
+        <p>
+          Keep your account safe and secure by updating your password regularly.
+          Before we make any changes, let’s make sure it’s really you. Please
+          enter your current password to continue
+        </p>
         <div className="login-form-container">
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Current Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className="login-button" onClick={() => navigate("/login")}>
-            Complete Sign Up
+          <button className="login-button" onClick={() => navigate("/create-new-password")}>
+            Next
           </button>
           <button
             className="register-button"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/app/profile")}
           >
             Back
           </button>
@@ -58,4 +69,4 @@ const SignUp2 = () => {
   );
 };
 
-export default SignUp2;
+export default ChangePassword;

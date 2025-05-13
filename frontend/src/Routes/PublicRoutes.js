@@ -13,7 +13,8 @@ import SignIn from "../Pages/Auth/SignIn";
 import SignUp from "../Pages/Auth/SignUp";
 import SignUp2 from "../Pages/Auth/SignUp2";
 import ForgotPassword from "../Pages/Auth/ForgotPassword";
-import ForgotPassword2 from "../Pages/Auth/ForgotPassword2";
+import ChangePassword from "../Pages/Auth/ChangePassword";
+import ChangePassword2 from "../Pages/Auth/ChangePassword2";
 import NavBar from "../components/NavBar"; // Navbar component for navigation
 import Footer from "../components/Footer";
 import "../App";
@@ -22,7 +23,7 @@ const PublicRoutes = () => {
   const location = useLocation();
   const [scrollToSection, setScrollToSection] = useState(() => () => {});
 
-  const hideNavbarRoutes = ["/login", "/register", "/confirm-password", "/forgotpassword", "/create-new-password"]; // Add '/register' if you make one
+  const hideNavbarRoutes = ["/login", "/register", "/confirm-password", "/forgotpassword", "/change-password", "/create-new-password"]; // Add '/register' if you make one
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -45,7 +46,8 @@ const PublicRoutes = () => {
           <Route path="/register" element={<SignUp />} />
           <Route path="/confirm-password" element={<SignUp2 />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/create-new-password" element={<ForgotPassword2 />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/create-new-password" element={<ChangePassword2 />} />
         </Routes>
       </div>
       <Footer /> {/* Footer added here */}

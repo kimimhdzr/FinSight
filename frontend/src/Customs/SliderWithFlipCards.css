@@ -1,9 +1,8 @@
 .card-slider {
-  justify-content: center;
-  align-items: center;
   display: flex;
+  flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 110px;
+  gap: 30px; /* Reduce the gap for better mobile fit */
   padding: 20px;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE and Edge */
@@ -23,6 +22,8 @@
   flex-shrink: 0;
   position: relative;
 }
+
+
 
 .flip-card-inner {
   background-color: transparent;
@@ -79,4 +80,8 @@
   cursor: pointer;
   margin-top: 20px;
   align-self: flex-end;
+}
+
+body {
+  overflow-x: hidden;
 }

@@ -127,3 +127,29 @@
   color: #0f7e75;
   text-decoration: underline;
 }
+
+.auth-logo-title {
+  color: #0C75D6;
+  font-size: 40px;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: inline-block;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.auth-logo-title:hover {
+  color: #0a5db2;
+  transform: scale(1.03);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .auth-logo-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+}
+
