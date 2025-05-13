@@ -11,33 +11,21 @@ import axios from "axios";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [dob, setDob] = useState("");
 
   const navigate = useNavigate();
-
-  const handleLogin = async (email, password) => {
-    // try {
-    //   const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    //   toast.success("🎉 Login successful!");
-    //   // Navigate to home after short delay
-    //   setTimeout(() => navigate("/Home"), 2000);
-    // } catch (error) {
-    //   console.error("Login error:", error);
-    //   toast.error("❌ Login failed. Please check your credentials.");
-    // }
-  };
 
   return (
     <div className="login-container">
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
-        <h1>Hello!</h1>
-        <h1>Welcome Back!</h1>
+        <h1>Join Us Today</h1>
         <p>
-          Welcome back! Log in to stay on top of your finances with smart
-          budgeting tools, real-time tracking, and personalized AI-driven
-          insights—all designed to help you plan better, spend wiser, and reach
-          your financial goals faster.
+          Sign up now and be part of a platform that makes giving accessible
+          access to a powerful FinTech powered by AI.
         </p>
         <div className="login-form-container">
           <input
@@ -47,22 +35,36 @@ const SignUp = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
           />
-          <button
-            className="login-button"
-            onClick={() => handleLogin(email, password)}
-          >
-            Login
-          </button>
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+          <input
+            type="date"
+            placeholder="Date of Birth"
+            value={dob}
+            onChange={(e) => setDob(e.target.value)}
+          />
+          <button className="login-button" 
+            onClick={() => navigate("/confirm-password")}>Sign Up</button>
           <button
             className="register-button"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/login")}
           >
-            Go to Register
+            Go to Login
           </button>
         </div>
       </div>

@@ -9,8 +9,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 import axios from "axios";
 
-const SignIn = () => {
-  const [email, setEmail] = useState("");
+const ForgotPassword = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -31,45 +30,31 @@ const SignIn = () => {
     <div className="login-container">
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
-        <h1>Hello!</h1>
-        <h1>Welcome Back!</h1>
+        <h1>Confirm Your Identity</h1>
         <p>
-          Welcome back! Log in to stay on top of your finances with smart
-          budgeting tools, real-time tracking, and personalized AI-driven
-          insights—all designed to help you plan better, spend wiser, and reach
-          your financial goals faster.
+          Keep your account safe and secure by updating your password regularly.
+          Before we make any changes, let’s make sure it’s really you. Please
+          enter your current password to continue
         </p>
         <div className="login-form-container">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <span
-            className="forgot-password"
-            onClick={() => navigate("/forgotpassword")}
-          >
-            Forgot Password?
-          </span>
-
           <button
             className="login-button"
-            onClick={() => navigate("/app/home")}
+            onClick={() => navigate("/create-new-password")}
           >
-            Login
+            Next
           </button>
           <button
             className="register-button"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/login")}
           >
-            Go to Register
+            Back
           </button>
         </div>
       </div>
@@ -84,4 +69,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;

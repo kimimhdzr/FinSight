@@ -17,6 +17,7 @@ import Tool from "../Pages/Tools/Tool";
 import Insights from "../Pages/Insights/Insights";
 import HomePriv from "../Pages/Home/Home";
 import Track from "../Pages/Track/Tracking_tools";
+import Profile from "../Pages/Profile/Profile";
 
 const PrivateRoutes = () => {
   return (
@@ -34,6 +35,7 @@ const PrivateRoutes = () => {
             <Route path="/Insights" element={<Insights />} />
             <Route path="/Home" element={<HomePriv />} />
             <Route path="/Track" element={<Track />} />
+            <Route path="/Profile" element={<Profile />} />
           </Routes>
         </div>
       </div>

@@ -9,8 +9,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 import axios from "axios";
 
-const SignIn = () => {
-  const [email, setEmail] = useState("");
+const ForgotPassword2 = () => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -32,44 +31,33 @@ const SignIn = () => {
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
         <h1>Hello!</h1>
-        <h1>Welcome Back!</h1>
+        <h1>Create a New Password</h1>
         <p>
-          Welcome back! Log in to stay on top of your finances with smart
-          budgeting tools, real-time tracking, and personalized AI-driven
-          insights—all designed to help you plan better, spend wiser, and reach
-          your financial goals faster.
+          Your security matters. Choose a strong, memorable password and confirm
+          it below to update your account. It’s a simple step toward keeping
+          your financial data safe.
         </p>
         <div className="login-form-container">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <span
-            className="forgot-password"
-            onClick={() => navigate("/forgotpassword")}
-          >
-            Forgot Password?
-          </span>
-
-          <button
-            className="login-button"
-            onClick={() => navigate("/app/home")}
-          >
-            Login
+          <input
+            type="password"
+            placeholder="Reconfirm Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="login-button" onClick={() => navigate("/login")}>
+            Next
           </button>
           <button
             className="register-button"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/forgotpassword")}
           >
-            Go to Register
+            Back
           </button>
         </div>
       </div>
@@ -84,4 +72,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword2;

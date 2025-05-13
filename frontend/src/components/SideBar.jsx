@@ -36,7 +36,7 @@ const Sidebar = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   const handleItemClick = () => {
-    Navigate("/verification/login");
+    Navigate("/login");
   };
 
   const menuItem = [
@@ -91,7 +91,7 @@ const Sidebar = () => {
               className="sidebar-icon"
               src={FinSightLogo}
               alt="More"
-              onClick={toggle}
+              onClick={() => Navigate("/landing")}
             />
           </div>
 
