@@ -80,23 +80,31 @@ const NetWorth = () => {
                         </PieChart>
                     </div>
 
-                    <table>
-                        <tbody>
+                    <div className='tool-display-text-container'>
+                        <table>
                             <tr>
                                 <td className='tool-display-text'>Total Assets (MYR)</td>
-                                <td className='tool-display-text'>: {totalAssets !== undefined ? totalAssets.toFixed(2) : "-"}</td>
+                            </tr>
+                            <tr>
+                                <td className='tool-display-text-bold'>
+                                    {totalAssets !== undefined ? totalAssets.toFixed(2) : "-"}
+                                </td>
                             </tr>
                             <tr>
                                 <td className='tool-display-text'>Total Liabilities (MYR)</td>
-                                <td className='tool-display-text'>: {totalLiabilities !== undefined ? totalLiabilities.toFixed(2) : "-"}</td>
                             </tr>
-                        </tbody>
-                    </table>
+                            <tr>
+                                <td className='tool-display-text-bold'>
+                                    {totalLiabilities !== undefined ? totalLiabilities.toFixed(2) : "-"}
+                                </td>
+                            </tr>
+                        </table>
 
-                    <p className='tool-display-text-small'>Net Worth</p>
-                    <p className='tool-display-text-result'>
-                        MYR {totalAssets !== undefined && totalLiabilities !== undefined ? (totalAssets - totalLiabilities).toFixed(2) : "-"}
-                    </p>
+                        <p className='tool-display-text-small'>Net Worth</p>
+                        <p className='tool-display-text-result'>
+                            MYR {totalAssets !== undefined && totalLiabilities !== undefined ? (totalAssets - totalLiabilities).toFixed(2) : "-"}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

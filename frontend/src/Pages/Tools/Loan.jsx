@@ -102,21 +102,32 @@ const Loan = () => {
                         </PieChart>
                     </div>
 
-                    <table>
-                        <tbody>
+                    <div className='tool-display-text-container'>
+                        <table>
                             <tr>
                                 <td className='tool-display-text'>Total Payment (MYR)</td>
-                                <td className='tool-display-text'>: {totalPayment ? totalPayment.toFixed(2) : "-"}</td>
+                            </tr>
+                            <tr>
+                                <td className='tool-display-text-bold'>
+                                    {totalPayment ? totalPayment.toFixed(2) : "-"}
+                                </td>
                             </tr>
                             <tr>
                                 <td className='tool-display-text'>Total Interest (MYR)</td>
-                                <td className='tool-display-text'>: {totalInterest ? totalInterest.toFixed(2) : "-"}</td>
                             </tr>
-                        </tbody>
-                    </table>
+                            <tr>
+                                <td className='tool-display-text-bold'>
+                                    {totalInterest ? totalInterest.toFixed(2) : "-"}
+                                </td>
+                            </tr>
+                        </table>
 
-                    <p className='tool-display-text-small'>Monthly Payment</p>
-                    <p className='tool-display-text-result'>MYR {monthlyPayment ? monthlyPayment.toFixed(2) : "-"}</p>
+                        <p className='tool-display-text-small'>Monthly Payment</p>
+                        <p className='tool-display-text-result'>
+                            MYR {monthlyPayment ? monthlyPayment.toFixed(2) : "-"}
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </div>

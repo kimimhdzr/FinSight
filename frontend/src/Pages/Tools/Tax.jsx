@@ -113,29 +113,45 @@ const Tax = () => {
                         </PieChart>
                     </div>
 
-                    <table>
-                        <tbody>
+                    <div className='tool-display-text-container'>
+                        <table>
                             <tr>
                                 <td className="tool-display-text">Status</td>
-                                <td className="tool-display-text">: {selectedOption === "" ? "-" : selectedOption}</td>
+                            </tr>
+                            <tr>
+                                <td className="tool-display-text-bold">
+                                    {selectedOption === "" ? "-" : selectedOption}
+                                </td>
                             </tr>
                             <tr>
                                 <td className="tool-display-text">Gross Income (MYR)</td>
-                                <td className="tool-display-text">: {grossIncome !== undefined ? grossIncome.toFixed(2) : "-"}</td>
+                            </tr>
+                            <tr>
+                                <td className="tool-display-text-bold">
+                                    {grossIncome !== undefined ? grossIncome.toFixed(2) : "-"}
+                                </td>
                             </tr>
                             <tr>
                                 <td className="tool-display-text">Total Reliefs (MYR)</td>
-                                <td className="tool-display-text">: {reliefs !== undefined ? reliefs.toFixed(2) : "-"}</td>
+                            </tr>
+                            <tr>
+                                <td className="tool-display-text-bold">
+                                    {reliefs !== undefined ? reliefs.toFixed(2) : "-"}
+                                </td>
                             </tr>
                             <tr>
                                 <td className="tool-display-text">Chargeable Income (MYR)</td>
-                                <td className="tool-display-text">: {(grossIncome - reliefs) ? (grossIncome - reliefs).toFixed(2) : "-"}</td>
                             </tr>
-                        </tbody>
-                    </table>
+                            <tr>
+                                <td className="tool-display-text-bold">
+                                    {(grossIncome - reliefs) ? (grossIncome - reliefs).toFixed(2) : "-"}
+                                </td>
+                            </tr>
+                        </table>
 
-                    <p className="tool-display-text-small">Estimated Tax Payable</p>
-                    <p className="tool-display-text-result">MYR {taxPayable ? taxPayable.toFixed(2) : "-"}</p>
+                        <p className="tool-display-text-small">Estimated Tax Payable</p>
+                        <p className="tool-display-text-result">MYR {taxPayable ? taxPayable.toFixed(2) : "-"}</p>
+                    </div>
                 </div>
             </div>
         </div>

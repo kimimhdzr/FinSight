@@ -17,7 +17,7 @@ const Insights = () => {
                 </button>
 
                 <button
-                    className={`button middle ${selectedTool === "AIAdvisor" ? "selected" : ""}`}
+                    className={`button right ${selectedTool === "AIAdvisor" ? "selected" : ""}`}
                     onClick={() => setSelectedTool("AIAdvisor")}
                 >
                     <p className="button-text">AI Advisor</p>

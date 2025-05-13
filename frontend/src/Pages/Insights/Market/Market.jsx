@@ -95,6 +95,7 @@ const Market = () => {
         <div className="market-overall-side-container">
           <div className="market-side-container">
               <p className="market-title-text">Just In</p>
+              <hr></hr>
               {data.slice(0, 6).map((item, index) => (
                 <div className="market-side-text-container">
                   <a href={data[0].url} style={{textDecoration: 'none', display: 'flex'}}>

@@ -141,19 +141,27 @@ const Investment = () => {
                     </PieChart>
                 </div>
 
+                <div className='tool-display-text-container'>
                     <table>
                         <tr>
-                            <td className="tool-display-text">Initial Investment (MYR)</td>
-                            <td className="tool-display-text">: {initialInvestment !== undefined ? initialInvestment.toFixed(2) : "-"}</td>
+                            <td className="tool-display-text">Initial Investment (MYR)</td>                            
                         </tr>
                         <tr>
-                            <td className="tool-display-text">Final Value (MYR)</td>
-                            <td className="tool-display-text">: {finalValue !== undefined ? finalValue.toFixed(2) : "-"}</td>
+                            <td className="tool-display-text-bold">{initialInvestment !== undefined ? initialInvestment.toFixed(2) : "-"}</td>
+                        </tr>
+                        <tr>
+                            <td className="tool-display-text">Final Value (MYR)</td>                            
+                        </tr>
+                        <tr>
+                            <td className="tool-display-text-bold">{finalValue !== undefined ? finalValue.toFixed(2) : "-"}</td>
                         </tr>
                     </table>
 
                     <p className="tool-display-text-small">Total you've gained over full term</p>
                     <p className="tool-display-text-result">MYR {(finalValue - initialInvestment) ? (finalValue - initialInvestment).toFixed(2) : "-" }</p>
+                </div>
+
+                    
                 </div>
             </div>
         </div>
