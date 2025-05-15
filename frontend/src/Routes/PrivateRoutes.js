@@ -16,8 +16,10 @@ import Market from "../Pages/Insights/Market/Market";
 import Tool from "../Pages/Tools/Tool";
 import Insights from "../Pages/Insights/Insights";
 import HomePriv from "../Pages/Home/Home";
-import Track from "../Pages/Track/Tracking_tools";
+import Track from "../Pages/Expenses/Expenses";
 import Profile from "../Pages/Profile/Profile";
+import GoalsOverview from "../Pages/FinancialPlanner/GoalsOverview";
+import GoalsProfile from "../Pages/FinancialPlanner/GoalsProfile";
 
 const PrivateRoutes = () => {
   return (
@@ -36,6 +38,8 @@ const PrivateRoutes = () => {
             <Route path="/Home" element={<HomePriv />} />
             <Route path="/Track" element={<Track />} />
             <Route path="/Profile" element={<Profile />} />
+            <Route path="/GoalsOverview" element={<GoalsOverview />} />
+            <Route path="/Goals-Profile" element={<GoalsProfile />} />
           </Routes>
         </div>
       </div>

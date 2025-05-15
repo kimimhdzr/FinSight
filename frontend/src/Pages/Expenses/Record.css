@@ -1,0 +1,178 @@
+/* Global Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+}
+
+/* Card Styling */
+.card {
+  background-color: white;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 20px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-body .d-flex {
+  justify-content: space-between;
+}
+
+.card-body .gap-2 {
+  gap: 1rem;
+}
+
+/* Toggle Buttons */
+.btn-lg {
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+}
+
+.btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Dropdown Styling */
+.dropdown-toggle {
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Expenses Breakdown & Pie Chart Section */
+.card-header h5,
+.card-header .mb-2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.expense-list {
+  margin-top: 20px;
+  padding-left: 0;
+}
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: none;
+}
+
+.category {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.amount {
+  font-weight: bold;
+  font-size: 0.6rem;
+}
+
+.change {
+  font-size: 0.9rem;
+}
+
+.change.up {
+  color: green;
+}
+
+.change.down {
+  color: red;
+}
+
+/* Transactions ListGroup */
+.list-group-item {
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+.list-group-item.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.fs-6 {
+  font-size: 1.1rem;
+}
+
+/* Monthly Expense Charts */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.card-header .ms-3 {
+  font-weight: bold;
+}
+
+.card-header .btn-primary {
+  padding: 0.4rem 1.5rem;
+  border-radius: 25px;
+}
+
+/* Chart Containers */
+.card-body .d-flex .card {
+  flex: 1;
+  margin-right: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.card-body .d-flex .card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide Non-Active Tabs */
+.card-body-expenses {
+  display: none;
+}
+
+/* Utility: White Box */
+.white-box {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .card-body .d-flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-body .d-flex .card {
+    margin-bottom: 20px;
+  }
+
+  .card-body .d-flex .card .expenses {
+    margin-top: 20px;
+  }
+
+  .container-fluid {
+    background-color: #f9fafc;
+  }
+}
