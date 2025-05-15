@@ -9,6 +9,7 @@ const Investment = () => {
     const [duration, setDuration] = useState(0);
     const [compoundingFrequency, setCompoundingFrequency] = useState("");
     const [finalValue, setFinalValue] = useState();
+    const [roi, setROI] = useState();
 
     const handleCalculate = () => {
         if (
@@ -30,12 +31,23 @@ const Investment = () => {
         else if (compoundingFrequency === "monthly") n = 12;
         else if (compoundingFrequency === "weekly") n = 52;
         else if (compoundingFrequency === "daily") n = 365;
-    
+
         const compoundInterest = initialInvestment * Math.pow(1 + r / n, n * t);
         const totalContributions = monthlyContribution * 12 * t;
         const futureValue = compoundInterest + totalContributions;
-    
+
         setFinalValue(futureValue);
+
+        // Calculate Total Investment
+        const totalInvestment = initialInvestment + totalContributions;
+
+        // Calculate ROI
+        let roi = 0;
+        if (totalInvestment !== 0) {
+        roi = ((futureValue - totalInvestment) / totalInvestment) * 100;
+}
+
+setROI(roi);
     };    
 
     const totalContributions = (monthlyContribution ?? 0) * 12 * (duration ?? 0);
@@ -141,19 +153,33 @@ const Investment = () => {
                     </PieChart>
                 </div>
 
+                <div className='tool-display-text-container'>
                     <table>
                         <tr>
                             <td className="tool-display-text">Initial Investment (MYR)</td>
-                            <td className="tool-display-text">: {initialInvestment !== undefined ? initialInvestment.toFixed(2) : "-"}</td>
+                        </tr>
+                        <tr>
+                            <td className="tool-display-text-bold">{initialInvestment !== undefined ? initialInvestment.toFixed(2) : "-"}</td>
                         </tr>
                         <tr>
                             <td className="tool-display-text">Final Value (MYR)</td>
-                            <td className="tool-display-text">: {finalValue !== undefined ? finalValue.toFixed(2) : "-"}</td>
+                        </tr>
+                        <tr>
+                            <td className="tool-display-text-bold">{finalValue !== undefined ? finalValue.toFixed(2) : "-"}</td>
+                        </tr>
+                        <tr>
+                            <td className="tool-display-text">Return on Investment (ROI)</td>
+                        </tr>
+                        <tr>
+                            <td className="tool-display-text-bold">{roi !== undefined ? roi.toFixed(2) + "%" : "-"}</td>
                         </tr>
                     </table>
 
                     <p className="tool-display-text-small">Total you've gained over full term</p>
                     <p className="tool-display-text-result">MYR {(finalValue - initialInvestment) ? (finalValue - initialInvestment).toFixed(2) : "-" }</p>
+                </div>
+
+                    
                 </div>
             </div>
         </div>

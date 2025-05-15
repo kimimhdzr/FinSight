@@ -5,12 +5,15 @@ import MoreIcon from "../resources/icons/logo512.png";
 import FinSightLogo from "../resources/icons/iconslogofinsight.png";
 import {
   FaHome,
+  FaBullseye,
+  FaRobot,
   FaChartLine,
+  FaTools,
+  FaTasks,
   FaUser,
-  FaCog,
   FaEllipsisV,
-  FaListAlt,
 } from "react-icons/fa";
+
 // import { useProfile } from "../../DataSets/ProfileContext";
 
 const Sidebar = () => {
@@ -41,29 +44,39 @@ const Sidebar = () => {
 
   const menuItem = [
     {
-      path: "/app/home",
+      path: "/app/Home",
       name: "Home",
       icon: <FaHome />,
     },
     {
-      path: "/app/Insights",
-      name: "Insights",
-      icon: <FaChartLine />,
+      path: "/app/GoalsOverview",
+      name: "Goals",
+      icon: <FaBullseye />, // 🎯 Represents goal/target
+    },
+    {
+      path: "/app/AIAdvisor",
+      name: "AI Advisor",
+      icon: <FaRobot />, // 🤖 AI assistant
+    },
+    {
+      path: "/app/Market",
+      name: "Market",
+      icon: <FaChartLine />, // 📈 Stock/market trends
+    },
+    {
+      path: "/app/Tool",
+      name: "Tools",
+      icon: <FaTools />, // 🛠 Tools section
     },
     {
       path: "/app/Track",
       name: "Track",
-      icon: <FaListAlt />,
-    },
-    {
-      path: "/app/tool",
-      name: "Tools",
-      icon: <FaCog />,
+      icon: <FaTasks />, // 📝 Task or progress tracking
     },
     {
       path: "/app/Profile",
       name: "Profile",
-      icon: <FaUser />,
+      icon: <FaUser />, // 👤 User profile
     },
   ];
 

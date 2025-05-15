@@ -51,7 +51,7 @@ const GoalsOverview = () => {
     <div className="goal-content">
       <div className="dashboard">
         <header className="goal-header">
-          <h1>
+          <h1 onClick={() => navigate("/app/GoalsOverview")}>
             Financial Planner |{" "}
             <span className="goal-header-specific">Goals Overview</span>
           </h1>

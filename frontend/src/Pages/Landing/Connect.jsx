@@ -3,7 +3,7 @@ import './Connect.css';
 
 // SignIn.jsx
 const Connect = () => {
-    return <div>Connect</div>;
+    return <div></div>;
   };
   
   export default Connect;

@@ -1,8 +1,11 @@
 .tool-container {
     display: flex;
-    flex-direction: row;
     align-items: start;
     justify-content: center;
+    padding: 0 40px 20px 40px;
+    gap: 50px;
+    height: 100%;
+    margin: auto;
 }
 
 /* input part */
@@ -63,7 +66,7 @@
 
 .tool-input-text {
     display: flex;
-    height: 30px;
+    height: 35px;
     flex-direction: column;
     align-items: flex-start;
     font-size: 20px;
@@ -90,16 +93,15 @@
 
 .tool-slider-container {
     display: flex;
-    flex-direction: row;
     width: 400px;
     height: 44px;
+    justify-content: space-between;
 }
 
 .tool-slider {
     display: flex;
     width: 328px;
-    align-items: center;
-    justify-content: flex-start;
+    padding: 0;
 }
 
 .tool-slider-output {
@@ -113,9 +115,7 @@
     color: #364049;
     align-items: center;
     justify-content: center;
-    margin-left: 25px;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .tool-select {
@@ -153,60 +153,44 @@
 
 /* animation */
 .tool-button:active {
-    background-color: #095aa3; /* slightly darker blue for click feedback */
+    background-color: #748798; /* slightly darker blue for click feedback */
     transform: scale(0.98);    /* slight shrink for a press effect */
 }
 
 /* result output */
 .tool-display-container {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    height: auto;
-    margin-left: 50px;
+  display: flex;
+  flex-direction: column; /* or row depending on your layout */
+  flex: 1; /* allow it to grow */
+  height: auto;
+  max-width: 900px;
+  align-self: stretch;
 }
 
 .tool-display {
     display: flex;
-    flex-direction: column;
-    width: 522px;
-    height: auto;
-    flex-shrink: 0;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    flex: 1;
     border-radius: 10px;
     background: #FFF;
     box-shadow: 0px 4px 4px 0px #A7CFF5;
     align-items: center;
     justify-content: center;
-    padding-top: 70px;
-    padding-bottom: 70px;
-}
-
-.tool-circle {
-    display: flex;
-    width: 275px;
-    height: 275px;
-    flex-shrink: 0;
-    border-radius: 300px;
-    background: #0C75D6;
-    margin-bottom: 30px;
-    align-items: center;
-    justify-content: center;
-}
-
-.tool-circle-text {
-    color: #FFF;
-    font-size: 64px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px; /* 37.5% */
-    letter-spacing: -1.28px;
-    align-items: center;
-    margin: 0;
+    padding: 70px;
+    gap: 50px;
 }
 
 .tool-recharts {
-    padding-bottom: 30px;
+    margin: 0;
 }  
+
+.tool-display-text-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
 
 .tool-display-text {
     color: #000;
@@ -215,8 +199,16 @@
     font-weight: 450;
     line-height: 24px; /* 100% */
     letter-spacing: -0.48px;
-    margin: 0;
-    margin-bottom: 11px;
+}
+
+.tool-display-text-bold {
+    color: #000;
+    font-size: 20px;
+    font-style: bold;
+    font-weight: bold; /* Explicitly set font-weight to bold */
+    line-height: 24px; /* 100% */
+    letter-spacing: -0.48px;
+    padding: 0 0 20px 0; /* Apply margin */
 }
 
 .tool-display-text-small {
@@ -227,8 +219,6 @@
     line-height: 24px; /* 150% */
     letter-spacing: -0.32px;
     margin: 0;
-    margin-top: 20px;
-    margin-bottom: 15px;
 }
 
 .tool-display-text-result {
@@ -248,6 +238,7 @@
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        gap: 20px;
     }
 
     .tool-input-main-container,
@@ -313,5 +304,111 @@
     .tooltip {
         top: 100%; /* Position tooltip at the bottom of the element */
         transform: translateY(10px); /* Offset it slightly from the element */
+    }
+}
+
+/* For mobile compatibility */
+@media (max-width: 768px) {
+    .tool-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .tool-input-main-container,
+    .tool-input-container,
+    .tool-button,
+    .tool-slider-container {
+        width: 100%;
+        max-width: 90vw;
+    }
+
+    .tool-slider {
+        width: 100%;
+    }
+
+    .tool-slider-output {
+        margin-left: 10px;
+    }
+
+    .tool-display-container {
+        margin-left: 0;
+        margin-top: 30px;
+        width: 100%;
+        max-width: 90vw;
+        align-items: center;
+    }
+
+    .tool-display {
+        flex-direction: column;
+        width: 100%;
+        padding: 40px 20px;
+    }
+
+    .tool-circle {
+        width: 200px;
+        height: 200px;
+    }
+
+    .tool-circle-text {
+        font-size: 48px;
+        line-height: 56px;
+    }
+
+    .tool-display-text,
+    .tool-display-text-bold {
+        font-size: 16px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .tool-display-text-small {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .tool-display-text-result {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .tool-table td {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .tooltip {
+        top: 100%; /* Position tooltip at the bottom of the element */
+        transform: translateY(10px); /* Offset it slightly from the element */
+    }
+
+    /* Ensure the tool-display-text-container stacks vertically */
+    .tool-display-text-container {
+        display: flex;
+        flex-direction: column; /* Stack items in a column */
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .tool-display-text-container table {
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* Ensure rows are stacked vertically */
+    }
+
+    .tool-display-text-container td {
+        padding: 8px 0; /* Adjust padding to suit the vertical layout */
+        font-size: 16px;
+    }
+
+    /* Adjust the text below the table for vertical layout */
+    .tool-display-text-container p {
+        margin-top: 10px;
     }
 }

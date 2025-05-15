@@ -3,7 +3,7 @@ import './Features.css';
 
 // SignIn.jsx
 const Features = () => {
-    return <div>Features</div>;
+    return <div></div>;
   };
   
   export default Features;

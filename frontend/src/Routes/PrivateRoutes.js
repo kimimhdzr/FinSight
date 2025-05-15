@@ -15,8 +15,10 @@ import "../App";
 import Market from "../Pages/Insights/Market/Market";
 import Tool from "../Pages/Tools/Tool";
 import Insights from "../Pages/Insights/Insights";
+import AIAdvisor from "../Pages/Insights/AI_module/AIInvestmentAdvisor";
 import HomePriv from "../Pages/Home/Home";
-import Track from "../Pages/Expenses/Expenses";
+import Expenses from "../Pages/Expenses/Expenses";
+import Record from "../Pages/Expenses/Record";
 import Profile from "../Pages/Profile/Profile";
 import GoalsOverview from "../Pages/FinancialPlanner/GoalsOverview";
 import GoalsProfile from "../Pages/FinancialPlanner/GoalsProfile";
@@ -29,17 +31,39 @@ const PrivateRoutes = () => {
         <SideBar />
         <div className="app-content-path">
           <Routes>
+            
+            {/* Landing */}
             <Route path="/" element={<Home />} />
+            
+            {/* Auth */}
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
-            <Route path="/market" element={<Market />} />
-            <Route path="/tool" element={<Tool />} />
-            <Route path="/Insights" element={<Insights />} />
+
+
+            {/* Home */}
             <Route path="/Home" element={<HomePriv />} />
-            <Route path="/Track" element={<Track />} />
-            <Route path="/Profile" element={<Profile />} />
+
+            {/* Goals */}
             <Route path="/GoalsOverview" element={<GoalsOverview />} />
             <Route path="/Goals-Profile" element={<GoalsProfile />} />
+            
+            {/* AI Advisor */}
+            <Route path="/AIAdvisor" element={<AIAdvisor />} />
+
+            {/* Market */}
+            <Route path="/Market" element={<Market />} />
+            
+            {/* Tools */}
+            <Route path="/Tool" element={<Tool />} />
+            
+            {/* Tracker */}
+            <Route path="/Track" element={<Expenses />} />
+            <Route path="/Record" element={<Record />} />
+            
+            {/* Profile */}
+            <Route path="/Profile" element={<Profile />} />
+
+
           </Routes>
         </div>
       </div>

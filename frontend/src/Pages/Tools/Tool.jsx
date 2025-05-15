@@ -6,48 +6,63 @@ import NetWorth from "./NetWorth";
 import Loan from "./Loan";
 
 const Home = () => {
-    const [selectedTool, setSelectedTool] = useState("tax");
+  const [selectedTool, setSelectedTool] = useState("tax");
 
-    return (
-        <div>
-            <div className="button-container">
-                <button
-                    className={`button left ${selectedTool === "tax" ? "selected" : ""}`}
-                    onClick={() => setSelectedTool("tax")}
-                >
-                    <p className="button-text">Tax</p>
-                </button>
+  return (
+    <div className="tool-content">
+      {/* Header */}
+      <header className="goal-header">
+        <h1>
+          Tools |{" "}
+          <span className="goal-header-specific">
+            Let's help you to calc
+          </span>
+        </h1>
+      </header>
+      <div className="button-container">
+        <button
+          className={`button left ${selectedTool === "tax" ? "selected" : ""}`}
+          onClick={() => setSelectedTool("tax")}
+        >
+          <p className="button-text">Tax</p>
+        </button>
 
-                <button
-                    className={`button middle ${selectedTool === "investment" ? "selected" : ""}`}
-                    onClick={() => setSelectedTool("investment")}
-                >
-                    <p className="button-text">Investment</p>
-                </button>
+        <button
+          className={`button middle ${
+            selectedTool === "investment" ? "selected" : ""
+          }`}
+          onClick={() => setSelectedTool("investment")}
+        >
+          <p className="button-text">Investment</p>
+        </button>
 
-                <button
-                    className={`button middle ${selectedTool === "net worth" ? "selected" : ""}`}
-                    onClick={() => setSelectedTool("net worth")}
-                >
-                    <p className="button-text">Net Worth</p>
-                </button>
+        <button
+          className={`button middle ${
+            selectedTool === "net worth" ? "selected" : ""
+          }`}
+          onClick={() => setSelectedTool("net worth")}
+        >
+          <p className="button-text">Net Worth</p>
+        </button>
 
-                <button
-                    className={`button right ${selectedTool === "loan" ? "selected" : ""}`}
-                    onClick={() => setSelectedTool("loan")}
-                >
-                    <p className="button-text">Loan</p>
-                </button>
-            </div>
+        <button
+          className={`button right ${
+            selectedTool === "loan" ? "selected" : ""
+          }`}
+          onClick={() => setSelectedTool("loan")}
+        >
+          <p className="button-text">Loan</p>
+        </button>
+      </div>
 
-            <div className="tool-wrapper">
-                {selectedTool === "tax" && <Tax />}
-                {selectedTool === "investment" && <Investment />}
-                {selectedTool === "net worth" && <NetWorth />}
-                {selectedTool === "loan" && <Loan />}
-            </div>
-        </div>
-    );
+      <div className="tool-wrapper">
+        {selectedTool === "tax" && <Tax />}
+        {selectedTool === "investment" && <Investment />}
+        {selectedTool === "net worth" && <NetWorth />}
+        {selectedTool === "loan" && <Loan />}
+      </div>
+    </div>
+  );
 };
 
 export default Home;

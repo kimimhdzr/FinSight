@@ -1,7 +1,6 @@
 :root {
   --line: #0c75d6;
   --font-color: #0c75d6;
-  --black: #000;
   --red: rgba(233, 30, 30, 0.22);
   --green: rgba(30, 233, 115, 0.22);
 }
@@ -19,12 +18,16 @@ body {
   color: #333;
 }
 
+.home-content {
+  padding: 2rem;
+}
+
 /* Header Section */
 .dashboard-header {
   display: flex;
   gap: 5rem;
   align-items: center;
-  margin: 10px;
+  margin: 2rem;
 }
 
 .dashboard-header h1 {
@@ -40,6 +43,10 @@ body {
     "summary summary expenses";
 }
 
+.goal-header {
+  margin: 10px;
+}
+
 /* Card Area Mapping */
 .card.income {
   grid-area: income;
@@ -51,6 +58,7 @@ body {
 
 .card.expenses {
   grid-area: expenses;
+  margin-right: 0px;
 }
 
 .card.summary {
@@ -63,7 +71,8 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
   text-align: left;
   flex: 1;
   min-width: 250px;
@@ -116,24 +125,24 @@ body {
 }
 
 /* Chart and Transaction Section */
-.chart-transaction {
+.home-chart-transaction {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.chart-section {
+.home-chart-section {
   display: flex;
   align-items: center;
 }
 
-.donut-chart {
+.home-donut-chart {
   position: relative;
   width: 200px;
   height: 200px;
 }
 
-.center-text {
+.home-center-text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -146,7 +155,7 @@ body {
 }
 
 /* Transaction Table */
-.transaction-list {
+.home-transaction-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -157,7 +166,7 @@ body {
   width: 100%;
 }
 
-.transaction-date {
+.home-transaction-date {
   font-size: 0.9em;
   color: #181818;
   background-color: #ececec;
@@ -165,27 +174,28 @@ body {
   padding: 0.1rem 0.5rem;
 }
 
-.transaction-table {
+.home-transaction-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.transaction-table td {
+.home-transaction-table td {
   padding: 0.5rem 0;
   font-size: 0.9em;
+  color: #181818;
 }
 
-.transaction-table tr {
+.home-transaction-table tr {
   border-bottom: 1px solid #ddd;
 }
 
-.transaction-name {
+.home-transaction-name {
   text-align: left;
   word-break: break-word;
   max-width: 60%;
 }
 
-.tx-amount {
+.home-tx-amount {
   text-align: right;
   color: red;
   white-space: nowrap;
@@ -201,20 +211,23 @@ body {
     gap: 0rem;
   }
 
-  .chart-section {
+  .home-chart-section {
     flex-direction: column;
     align-items: center;
   }
 
-  .donut-chart {
+  .home-donut-chart {
     margin-top: 2rem;
   }
 
   .card {
     min-width: 90%;
+    margin-right: 0px;
+    margin-bottom: 10px;
   }
 
   .stats {
+    padding: 0px;
     grid-template-columns: 1fr;
     grid-template-areas:
       "income"
@@ -223,17 +236,30 @@ body {
       "summary";
   }
 
-  .transaction-table td {
+  .home-transaction-table td {
     display: block;
     width: 100%;
+  color: #181818;
   }
 
-  .tx-amount {
+  .home-tx-amount {
     text-align: right;
   }
 
-  .transaction-table tr {
+  .home-transaction-table tr {
     display: flex;
     justify-content: space-between;
   }
+}
+
+.home-header-specific {
+  font-size: 1.5rem;
+  color: #000000;
+}
+
+.home-header {
+  margin-top: 1rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #0c75d6;
 }

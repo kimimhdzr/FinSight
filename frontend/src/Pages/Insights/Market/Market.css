@@ -6,13 +6,144 @@
   justify-content: center; 
 }
 
+.market-root-container {
+  display: flex;
+  flex-direction: column;
+  width: 1400px;
+  height: auto;
+  box-sizing: border-box;
+  gap: 18px;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.market-dashboard {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.market-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  gap: 20px;
+}
+
+/* Stocks Scroll */
+.ticker-container {
+  overflow: hidden;
+  color: 364049;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  border: 2px solid #D4D8DB;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ticker-track {
+  display: flex;
+  width: 100%;
+  animation: scrollTicker 50s linear infinite;
+}
+
+.ticker-item {
+  display: flex; /* This ensures the elements inside each ticker-item are aligned in a row */
+  align-items: center; /* Vertically centers the items */
+  margin-right: 50px; /* Adds space between the items */
+  white-space: nowrap;
+}
+
+.ticker-symbol {
+  display: flex; /* This will arrange the child elements in a row */
+  font-weight: bold;
+  font-size: 14px;
+  align-items: center; /* Vertically centers the company name and symbol */
+  font-size: 20px;
+}
+
+.company-name,
+.symbol {
+  margin-right: 5px; /* Add space between company name and symbol */
+}
+
+.symbol {
+  margin-left: 5px; /* Add space after the symbol if needed */
+}
+
+
+.ticker-price {
+  font-size: 20px;
+  display: flex;
+  align-items: center; /* Aligns price and change in a row */
+}
+
+.ticker-change {
+  font-weight: bold;
+  margin-left: 5px; /* Adds space between the price and the change */
+}
+
+.ticker-change.positive {
+  color: green; /* Green color for price increase */
+}
+
+.ticker-change.negative {
+  color: red; /* Red color for price decrease */
+}
+
+@keyframes scrollTicker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+h1 {
+  color: #0C75D6;
+  margin: 0;
+  margin-bottom: 0;
+}
+
+.market-dashboard-chart-container {
+  padding-bottom: 10px;
+  height: 100%;
+}
+
+.sparkline-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-text {
+  color: black;
+  font-size: 20px;
+  padding-left: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 .market-container {
   display: flex;
   width: fit-content;
   height: auto;
   box-sizing: border-box;
   gap: 18px;
-  background-color: #F9FAFC;
   border-radius: 6px;
   justify-content: center;
 }
@@ -165,6 +296,13 @@ hr {
   background-color: #0C75D6;
   margin: 0;
   margin-bottom: 10px;
+}
+
+.hr-2 {
+  border: none;
+  height: 2px;
+  background-color: #0C75D6;
+  margin: 0;
 }
 
 .market-side-text-container {

@@ -1,8 +1,12 @@
+.tool-content {
+  padding: 2rem;
+}
+
 .button-container {
     display: flex;
     flex-wrap: wrap;
     max-width: 800px;
-    margin: 40px auto 40px auto;
+    margin: 40px auto 20px auto;
     align-items: center;
     justify-content: center;
 }
