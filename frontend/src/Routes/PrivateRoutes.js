@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  BrowserRouter as Router,
   Route,
   Routes,
-  useLocation,
 } from "react-router-dom";
 import Home from "../Landing/Home";
 import SignIn from "../Auth/SignIn";
 import SignUp from "../Auth/SignUp";
+import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import "../App";
+import "../App.css";
 
-import Market from "../Insights/Market"
-import Tool from "../Tool/Home"
+import Market from "../Insights/Market";
+import Tool from "../Tool/Home";
 
 const PrivateRoutes = () => {
   return (
     <div className="App">
+      <NavBar />
       <div className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />

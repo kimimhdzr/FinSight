@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('api/authentication/', include('authentication.urls')),  # Link to your ledger app
-    path('market/', include('market.urls')),
+    path('admin/', admin.site.urls),
+    path('api/authentication/', include('authentication.urls')),
+    path('api/market/', include('market.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

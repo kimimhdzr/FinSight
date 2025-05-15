@@ -27,9 +27,9 @@ const AppWrapper = () => {
             <Route
               path="/app/*"
               element={
-                // <RequireAuth>
+                <RequireAuth>
                   <PrivateRoutes />
-                // </RequireAuth>
+                </RequireAuth>
               }
             />
           </Routes>

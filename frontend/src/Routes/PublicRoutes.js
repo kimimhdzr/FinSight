@@ -13,7 +13,7 @@ import SignIn from "../Auth/SignIn";
 import SignUp from "../Auth/SignUp";
 import NavBar from "../components/NavBar"; // Navbar component for navigation
 import Footer from "../components/Footer";
-import "../App";
+import "../App.css";
 
 const PublicRoutes = () => {
   const location = useLocation();
