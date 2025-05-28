@@ -95,8 +95,8 @@ const Sidebar = () => {
           <div
             className="bars"
             style={{
-              justifyContent: windowWidth >= 1620 ? "flex-start" : "center", // Horizontally center if less than 1620px, else left align
-              paddingRight: windowWidth >= 1620 ? "0px" : "15px",
+              justifyContent: windowWidth >= 1000 ? "flex-start" : "center", // Horizontally center if less than 1620px, else left align
+              paddingRight: windowWidth >= 1000 ? "0px" : "15px",
             }}
           >
             <img
@@ -127,8 +127,8 @@ const Sidebar = () => {
                 <div
                   className="link_text"
                   style={{
-                    display: windowWidth >= 1620 ? "block" : "none",
-                    width: windowWidth >= 1620 ? "280px" : "auto",
+                    display: windowWidth >= 1000 ? "block" : "none",
+                    width: windowWidth >= 1000 ? "280px" : "auto",
                   }}
                 >
                   {item.name}
@@ -139,8 +139,8 @@ const Sidebar = () => {
           <div
             className="bars-bottom"
             style={{
-              justifyContent: windowWidth >= 1620 ? "flex-start" : "center", // Horizontally center if less than 1620px, else left align
-              paddingRight: windowWidth >= 1620 ? "0px" : "15px",
+              justifyContent: windowWidth >= 1000 ? "flex-start" : "center", // Horizontally center if less than 1620px, else left align
+              paddingRight: windowWidth >= 1000 ? "0px" : "15px",
             }}
           >
             <div
@@ -183,12 +183,13 @@ const Sidebar = () => {
               <div
                 style={{
                   flex: "3",
-                  display: windowWidth >= 1620 ? "flex" : "none",
-                  width: windowWidth >= 1620 ? "280px" : "auto",
+                  display: windowWidth >= 1000 ? "flex" : "none",
+                  width: windowWidth >= 1000 ? "280px" : "auto",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "flex-start",
                   paddingLeft: "5px",
+                  zIndex: "10",
                   boxSizing:
                     "border-box" /* Ensure padding is included in the width and height */,
                 }}
@@ -216,18 +217,18 @@ const Sidebar = () => {
               </div>
               <div
                 style={{
-                  height: windowWidth >= 1620 ? "20px" : "auto",
-                  display: windowWidth >= 1620 ? "flex" : "none",
-                  width: windowWidth >= 1620 ? "40px" : "auto",
+                  height: windowWidth >= 1000 ? "20px" : "auto",
+                  display: windowWidth >= 1000 ? "flex" : "none",
+                  width: windowWidth >= 1000 ? "40px" : "auto",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
                 <FaEllipsisV
                   style={{
-                    height: windowWidth >= 1620 ? "20px" : "auto",
-                    width: windowWidth >= 1620 ? "20px" : "auto",
-                    display: windowWidth >= 1620 ? "flex" : "none",
+                    height: windowWidth >= 1000 ? "20px" : "auto",
+                    width: windowWidth >= 1000 ? "20px" : "auto",
+                    display: windowWidth >= 1000 ? "flex" : "none",
                     cursor: "pointer",
                   }}
                 />

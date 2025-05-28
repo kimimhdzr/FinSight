@@ -1,15 +1,12 @@
 import "./App.css";
-import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useLocation,
 } from "react-router-dom";
 
 import PublicRoutes from "./Routes/PublicRoutes";
 import PrivateRoutes from "./Routes/PrivateRoutes";
-import RequireAuth from "./Routes/RequireAuth";
 
 const AppWrapper = () => {
   return (
