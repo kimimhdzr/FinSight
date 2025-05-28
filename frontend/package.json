@@ -11,6 +11,7 @@
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.4.9",
+    "firebase": "^11.7.3",
     "frontend": "file:",
     "lucide-react": "^0.503.0",
     "react": "^19.1.0",

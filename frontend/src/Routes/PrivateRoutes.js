@@ -14,7 +14,6 @@ import "../App";
 
 import Market from "../Pages/Insights/Market/Market";
 import Tool from "../Pages/Tools/Tool";
-import Insights from "../Pages/Insights/Insights";
 import AIAdvisor from "../Pages/Insights/AI_module/AIInvestmentAdvisor";
 import HomePriv from "../Pages/Home/Home";
 import Expenses from "../Pages/Expenses/Expenses";
