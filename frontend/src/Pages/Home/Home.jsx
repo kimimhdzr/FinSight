@@ -1,24 +1,86 @@
 import React, { useState } from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import "./Home.css"; // CSS styling
 import { useNavigate } from "react-router-dom";
-
-// Pie chart data
-const pieData = [
-  { name: "Other Expenses", value: 567.5, color: "#00bfa5" },
-  { name: "Food & Beverages", value: 489.81, color: "#f44336" },
-  { name: "Shopping", value: 160.1, color: "#ffc107" },
-  { name: "Home & Property", value: 162.9, color: "#795548" },
-  { name: "Transportation", value: 132.0, color: "#455a64" },
-];
+import {
+  FaUserCircle,
+  FaEnvelope,
+  FaPhone,
+  FaEdit,
+  FaMapMarkerAlt,
+  FaCamera,
+  FaBars,
+  FaLock,
+  FaBell,
+  FaTextHeight,
+  FaReact,
+  FaHome,
+  FaBarcode,
+  FaMobile,
+  FaTruck,
+  FaGift,
+  FaReceipt,
+  FaAssistiveListeningSystems,
+  FaBomb,
+} from "react-icons/fa";
 
 // Recent transactions list
 const transactions = [
-  { name: "SALE 7-ELEVEN MALAYSIA SDN AP", amount: 28.3 },
-  { name: "MUHAMMAD NASYIRIN B*", amount: 28.3 },
-  { name: "ECO-MART SURIA PANTAI", amount: 31.0 },
-  { name: "DEBIT C-NEXUS KUALA LUMPUR", amount: 3.0 },
+  { name: "TESCO EXPRESS AMPANG", amount: 42.5, category: "Groceries" },
+  {
+    name: "GRABFOOD - NASI KUKUS WARISAN",
+    amount: 15.9,
+    category: "Food & Beverages",
+  },
+  { name: "MR DIY BANDAR BARU", amount: 18.75, category: "Shopping" },
+  { name: "PETRONAS - FUEL", amount: 65.0, category: "Transportation" },
+  { name: "OLDTOWN COFFEE", amount: 12.5, category: "Food & Beverages" },
+  { name: "MYDIN MALL", amount: 28.0, category: "Groceries" },
 ];
+
+const CustomPieTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const { name, value } = payload[0];
+    return (
+      <div className="profile-custom-tooltip">
+        <p className="profile-label">{name}</p>
+        <p className="profile-value">RM {value.toFixed(2)}</p>
+      </div>
+    );
+  }
+  return null;
+};
+
+const categoryColors = {
+  Groceries: "#00bfa5",
+  "Food & Beverages": "#f44336",
+  Shopping: "#ffc107",
+  Transportation: "#455a64",
+};
+
+const categoryIcons = {
+  Groceries: <FaBarcode />,
+  "Food & Beverages": <FaGift />,
+  Shopping: <FaReact />,
+  Transportation: <FaTruck />,
+  Utilities: <FaReceipt />,
+  Rent: <FaHome />,
+};
+
+// Pie chart data
+const pieData = transactions.reduce((acc, curr) => {
+  const existing = acc.find((item) => item.name === curr.category);
+  if (existing) {
+    existing.value += curr.amount;
+  } else {
+    acc.push({
+      name: curr.category,
+      value: curr.amount,
+      color: categoryColors[curr.category] || "#8884d8",
+    });
+  }
+  return acc;
+}, []);
 
 const goalsData = [
   {
@@ -82,8 +144,8 @@ const Home = () => {
         <div
           className="goals-grid"
           style={{
-          marginTop: "10px",
-          marginBottom: "20px"
+            marginTop: "10px",
+            marginBottom: "20px",
           }}
         >
           {filteredGoals.map((goal) => {
@@ -152,10 +214,11 @@ const Home = () => {
 
         <span className="home-header-specific">Your Expenses</span>
         {/* Statistics cards */}
-        <div className="stats"
-         style={{
-          marginTop: "10px",
-          marginBottom: "20px"
+        <div
+          className="stats"
+          style={{
+            marginTop: "10px",
+            marginBottom: "20px",
           }}
         >
           {/* Income Card */}
@@ -190,53 +253,80 @@ const Home = () => {
               </div>
             </div>
           </div>
-          {/* Monthly Summary with Chart and Transactions */}
-          <div className="card summary">
-            <h3>Monthly Summary</h3>
-            <div className="placeholder">
-              <div className="home-chart-transaction">
-                <div className="home-chart-section">
-                  {/* Donut Chart */}
-                  <div className="home-donut-chart">
-                    <PieChart width={200} height={200}>
-                      <Pie
-                        data={pieData}
-                        dataKey="value"
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={60}
-                        outerRadius={90}
-                        paddingAngle={0}
-                      >
-                        {pieData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                    <div className="home-center-text">29%</div>
-                  </div>
 
-                  {/* Transactions List */}
-                  <div className="home-transaction-list">
-                    <h5 className="home-transaction-date">20 Apr 2025</h5>
-                    {transactions.map((transaction, index) => (
-                      <table className="home-transaction-table" key={index}>
-                        <tbody>
-                          <tr>
-                            <td className="home-transaction-name">
-                              {transaction.name}
-                            </td>
-                            <td className="home-tx-amount">
-                              RM {transaction.amount.toFixed(2)}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+          {/* Pie Chart Card */}
+          <div className=" card profile-summary">
+            <section className="profile-dashboard-section">
+              <h1>Monthly Summary</h1>
+              <div className="profile-chart-section">
+                <PieChart width={200} height={200}>
+                  <Pie
+                    data={pieData}
+                    dataKey="value"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={90}
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
-                  </div>
-                </div>
+                  </Pie>
+
+                  <text
+                    x="50%"
+                    y="50%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                  >
+                    <tspan x="50%" dy="-0.4em" fontSize="14" fill="#888">
+                      Total Spending
+                    </tspan>
+                    <tspan
+                      x="50%"
+                      dy="1.2em"
+                      fontSize="16"
+                      fontWeight="600"
+                      fill="#333"
+                    >
+                      RM{" "}
+                      {pieData
+                        .reduce((sum, item) => sum + item.value, 0)
+                        .toFixed(2)}
+                    </tspan>
+                  </text>
+
+                  <Tooltip content={<CustomPieTooltip />} />
+                </PieChart>
               </div>
-            </div>
+
+              <div className="profile-transaction-list">
+                <h5 className="profile-transaction-date">20 Apr 2025</h5>
+                {transactions.map((transaction, index) => (
+                  <div className="profile-transaction-row" key={index}>
+                    <div className="profile-transaction-name">
+                      <div
+                        className="profile-transaction-icon"
+                        style={{
+                          backgroundColor: categoryColors[transaction.category],
+                        }}
+                      >
+                        {categoryIcons[transaction.category]}
+                      </div>
+                      <div className="profile-transaction-name-div">
+                        {transaction.name}
+                        <span className="profile-transaction-category">
+                          {transaction.category}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="profile-tx-amount">
+                      RM {transaction.amount.toFixed(2)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
 

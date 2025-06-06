@@ -8,6 +8,8 @@ import {
 import PublicRoutes from "./Routes/PublicRoutes";
 import PrivateRoutes from "./Routes/PrivateRoutes";
 
+console.log("App.js loaded");
+
 const AppWrapper = () => {
   return (
     <div className="App">

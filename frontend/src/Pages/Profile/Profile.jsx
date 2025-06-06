@@ -14,12 +14,10 @@ import {
   FaReact,
   FaHome,
   FaBarcode,
-  FaMobile,
   FaTruck,
   FaGift,
   FaReceipt,
-  FaAssistiveListeningSystems,
-  FaBomb,
+  FaMugHot,
 } from "react-icons/fa";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import "./Profile.css";
@@ -39,6 +37,7 @@ const Profile = () => {
   const [formData, setFormData] = useState(user);
   const [activeTab, setActiveTab] = useState("profile");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState("May");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -67,35 +66,241 @@ const Profile = () => {
   };
 
   const transactions = [
-    { name: "TESCO EXPRESS AMPANG", amount: 42.5, category: "Groceries" },
+    {
+      name: "TESCO EXPRESS AMPANG",
+      amount: 42.5,
+      category: "Groceries",
+      date: "2025-05-01",
+    },
     {
       name: "GRABFOOD - NASI KUKUS WARISAN",
       amount: 15.9,
       category: "Food & Beverages",
+      date: "2025-05-01",
     },
-    { name: "MR DIY BANDAR BARU", amount: 18.75, category: "Shopping" },
-    { name: "PETRONAS - FUEL", amount: 65.0, category: "Transportation" },
-    { name: "OLDTOWN COFFEE", amount: 12.5, category: "Food & Beverages" },
-    { name: "MYDIN MALL", amount: 28.0, category: "Groceries" },
+    {
+      name: "MR DIY BANDAR BARU",
+      amount: 18.75,
+      category: "Shopping",
+      date: "2025-05-01",
+    },
+    {
+      name: "BANK BRI - ATM CARD",
+      amount: 50.0,
+      category: "Utilities",
+      date: "2025-05-01",
+    },
+
+    {
+      name: "PETRONAS - FUEL",
+      amount: 65.0,
+      category: "Transportation",
+      date: "2025-05-04",
+    },
+
+    {
+      name: "OLDTOWN COFFEE",
+      amount: 12.5,
+      category: "Food & Beverages",
+      date: "2025-05-06",
+    },
+    {
+      name: "MYDIN MALL",
+      amount: 28.0,
+      category: "Groceries",
+      date: "2025-05-06",
+    },
+
+    {
+      name: "ZALORA ONLINE SHOPPING",
+      amount: 150.0,
+      category: "Shopping",
+      date: "2025-05-07",
+    },
+
+    {
+      name: "RAPID TNG TOP UP",
+      amount: 10.0,
+      category: "Transportation",
+      date: "2025-05-09",
+    },
+    {
+      name: "MAXIS - MOBILE BILL",
+      amount: 100.0,
+      category: "Utilities",
+      date: "2025-05-09",
+    },
+
+    {
+      name: "HOME RENT - MAY 2025",
+      amount: 1200.0,
+      category: "Rent",
+      date: "2025-05-10",
+    },
+
+    {
+      name: "STARBUCKS - COFFEE",
+      amount: 20.0,
+      category: "Food & Beverages",
+      date: "2025-05-11",
+    },
+
+    {
+      name: "LAZADA ONLINE ORDER",
+      amount: 85.0,
+      category: "Shopping",
+      date: "2025-05-13",
+    },
+
+    {
+      name: "7-ELEVEN SNACKS",
+      amount: 7.5,
+      category: "Food & Beverages",
+      date: "2025-05-14",
+    },
+    {
+      name: "TELEKOM BILL",
+      amount: 130.0,
+      category: "Utilities",
+      date: "2025-05-14",
+    },
+
+    {
+      name: "FUEL - SHELL",
+      amount: 70.0,
+      category: "Transportation",
+      date: "2025-05-17",
+    },
+
+    {
+      name: "AEON BIG GROCERIES",
+      amount: 95.0,
+      category: "Groceries",
+      date: "2025-05-18",
+    },
+    {
+      name: "KFC DINNER",
+      amount: 30.0,
+      category: "Food & Beverages",
+      date: "2025-05-18",
+    },
+
+    {
+      name: "NETFLIX SUBSCRIPTION",
+      amount: 55.0,
+      category: "Utilities",
+      date: "2025-05-20",
+    },
+
+    {
+      name: "GUARDIAN PHARMACY",
+      amount: 22.0,
+      category: "Shopping",
+      date: "2025-05-21",
+    },
+
+    {
+      name: "GRAB RIDE",
+      amount: 18.0,
+      category: "Transportation",
+      date: "2025-05-22",
+    },
+    { name: "TESCO", amount: 110.0, category: "Groceries", date: "2025-05-22" },
+
+    {
+      name: "PIZZA HUT",
+      amount: 45.0,
+      category: "Food & Beverages",
+      date: "2025-05-24",
+    },
+
+    {
+      name: "MR DIY CABLES",
+      amount: 26.0,
+      category: "Shopping",
+      date: "2025-05-26",
+    },
+
+    {
+      name: "GAS BILL",
+      amount: 90.0,
+      category: "Utilities",
+      date: "2025-05-27",
+    },
+
+    {
+      name: "SHELL TANK",
+      amount: 60.0,
+      category: "Transportation",
+      date: "2025-05-28",
+    },
+
+    {
+      name: "JAYA GROCER",
+      amount: 75.0,
+      category: "Groceries",
+      date: "2025-05-29",
+    },
+    {
+      name: "STARBUCKS COFFEE",
+      amount: 19.5,
+      category: "Food & Beverages",
+      date: "2025-05-29",
+    },
+
+    {
+      name: "AIRBNB - HOLIDAY",
+      amount: 400.0,
+      category: "Rent",
+      date: "2025-05-30",
+    },
+
+    {
+      name: "MAXIS PREPAID TOPUP",
+      amount: 30.0,
+      category: "Utilities",
+      date: "2025-05-31",
+    },
+    {
+      name: "BURGER KING",
+      amount: 22.0,
+      category: "Food & Beverages",
+      date: "2025-05-31",
+    },
+    {
+      name: "ZALORA - CLOTHING",
+      amount: 120.0,
+      category: "Shopping",
+      date: "2025-06-01",
+    },
   ];
+
+  const filteredTransactions = transactions.filter((tx) => {
+    const txMonth = new Date(tx.date).toLocaleString("default", {
+      month: "long",
+    });
+    return txMonth === selectedMonth;
+  });
 
   const categoryColors = {
     Groceries: "#00bfa5",
     "Food & Beverages": "#f44336",
     Shopping: "#ffc107",
     Transportation: "#455a64",
+    Utilities: "#3f51b5",
+    Rent: "#4caf50",
   };
 
   const categoryIcons = {
     Groceries: <FaBarcode />,
-    "Food & Beverages": <FaGift />,
+    "Food & Beverages": <FaMugHot />,
     Shopping: <FaReact />,
     Transportation: <FaTruck />,
     Utilities: <FaReceipt />,
     Rent: <FaHome />,
   };
 
-  const pieData = transactions.reduce((acc, curr) => {
+  const pieData = filteredTransactions.reduce((acc, curr) => {
     const existing = acc.find((item) => item.name === curr.category);
     if (existing) {
       existing.value += curr.amount;
@@ -133,31 +338,31 @@ const Profile = () => {
     },
   ];
 
+  const totalByCategory = transactions.reduce((acc, transaction) => {
+    const { category, amount } = transaction;
+    if (!acc[category]) {
+      acc[category] = 0;
+    }
+    acc[category] += amount;
+    return acc;
+  }, {});
+
   const expenses = [
-    { category: "Rent", amount: 1000, date: "2025-05-01", icon: <FaHome /> },
+    { category: "Rent", icon: <FaHome /> },
     {
       category: "Groceries",
-      amount: 250,
-      date: "2025-05-05",
-      icon: <FaBarcode />,
     },
     {
       category: "Transportation",
-      amount: 120,
-      date: "2025-05-06",
-      icon: <FaTruck />,
     },
     {
-      category: "Entertainment",
-      amount: 90,
-      date: "2025-05-10",
-      icon: <FaGift />,
+      category: "Food & Beverages",
     },
     {
       category: "Utilities",
-      amount: 160,
-      date: "2025-05-03",
-      icon: <FaReceipt />,
+    },
+    {
+      category: "Shopping",
     },
   ];
 
@@ -165,14 +370,22 @@ const Profile = () => {
     if (active && payload && payload.length) {
       const { name, value } = payload[0];
       return (
-        <div className="custom-tooltip">
-          <p className="label">{name}</p>
-          <p className="value">RM {value.toFixed(2)}</p>
+        <div className="profile-custom-tooltip">
+          <p className="profile-label">{name}</p>
+          <p className="profile-value">RM {value.toFixed(2)}</p>
         </div>
       );
     }
     return null;
   };
+
+  // Group transactions by date
+  const groupedByDate = filteredTransactions.reduce((acc, transaction) => {
+    const { date } = transaction;
+    if (!acc[date]) acc[date] = [];
+    acc[date].push(transaction);
+    return acc;
+  }, {});
 
   return (
     <div className="profile-container">
@@ -181,7 +394,10 @@ const Profile = () => {
           src={user.backgroundPic || "/staticimages/default_background.jpg"}
           alt="Background"
         />
-        <button className="edit-button" onClick={() => setIsEditing(true)}>
+        <button
+          className="profile-edit-button"
+          onClick={() => setIsEditing(true)}
+        >
           <FaEdit /> Edit Profile
         </button>
       </div>
@@ -196,7 +412,7 @@ const Profile = () => {
                 className="profile-image"
               />
             ) : (
-              <FaUserCircle className="default-profile-image" />
+              <FaUserCircle className="profile-default-profile-image" />
             )}
             <h2>{user.name}</h2>
             <p>
@@ -205,28 +421,28 @@ const Profile = () => {
           </div>
 
           <div className="profile-info">
-            <div className="info-row">
+            <div className="profile-info-row">
               <FaTextHeight className="profile-icon" />
               <span>{user.bio}</span>
             </div>
-            <div className="info-row">
+            <div className="profile-info-row">
               <FaEnvelope className="profile-icon" />
-              <span>{user.email}</span>
+              <a href={`mailto:${user.email}`}>{user.email}</a>
             </div>
-            <div className="info-row">
+            <div className="profile-info-row">
               <FaPhone className="profile-icon" />
               <span>{user.phone}</span>
             </div>
-            <div className="info-row">
+            <div className="profile-info-row">
               <FaMapMarkerAlt className="profile-icon" />
               <span>{user.location}</span>
             </div>
           </div>
         </div>
-        <div className="goals">
-          <section className="dashboard-section">
+        <div className="profile-goals">
+          <section className="profile-dashboard-section">
             <h1>Goals</h1>
-            <div className="goals-card-container">
+            <div className="profile-goals-card-container">
               {goals.map((goal, idx) => {
                 const progressPercent = Math.min(
                   (goal.amount / goal.goalAmount) * 100,
@@ -234,20 +450,27 @@ const Profile = () => {
                 );
 
                 return (
-                  <div key={idx} className="goal-card">
+                  <div key={idx} className="profile-goal-card">
                     <h3>{goal.title}</h3>
                     <p>{goal.description}</p>
                     <p>
                       RM {goal.amount.toFixed(2)} / RM{" "}
                       {goal.goalAmount.toFixed(2)}
                     </p>
-                    <div className="progress-bar-container">
+                    <div className="profile-progress-bar-container">
                       <div
-                        className="progress-bar"
+                        className="profile-progress-bar"
                         style={{ width: `${progressPercent}%` }}
                       ></div>
                     </div>
-                    <p className="goal-status">{goal.status}</p>
+                    <p
+                      className="profile-goal-status"
+                      style={{
+                        color: goal.status === "Completed" ? "green" : "red",
+                      }}
+                    >
+                      {goal.status}
+                    </p>
                   </div>
                 );
               })}
@@ -255,22 +478,44 @@ const Profile = () => {
           </section>
         </div>
 
-        <div className="expenses">
-          <section className="dashboard-section">
+        <div className="profile-expenses">
+          <section className="profile-dashboard-section">
             <h1>Expenses</h1>
-            <div className="expenses-card-container">
+            <div className="profile-month-tabs">
+              {["January", "February", "March", "April", "May", "June"].map(
+                (month, idx) => (
+                  <button
+                    key={idx}
+                    className={`profile-month-tab ${
+                      selectedMonth === month ? "active" : ""
+                    }`}
+                    onClick={() => setSelectedMonth(month)}
+                  >
+                    {month}
+                  </button>
+                )
+              )}
+            </div>
+            <div className="profile-expenses-card-container">
               {expenses.map((expense, idx) => (
-                <div key={idx} className="expense-card">
-                  <div className="expense-icon-wrapper">
-                    <span className="expense-icon">{expense.icon}</span>
+                <div key={idx} className="profile-expense-card">
+                  <div className="profile-expense-icon-wrapper">
+                    <div
+                      className="profile-transaction-icon"
+                      style={{
+                        backgroundColor: categoryColors[expense.category],
+                      }}
+                    >
+                      {categoryIcons[expense.category]}
+                    </div>
                   </div>
-                  <div className="expense-details">
-                    <div className="expense-header">
-                      <span className="expense-category">
+                  <div className="profile-expense-details">
+                    <div className="profile-expense-header">
+                      <span className="profile-expense-category">
                         {expense.category}
                       </span>
-                      <span className="expense-amount">
-                        RM {expense.amount.toFixed(2)}
+                      <span className="profile-expense-amount">
+                        RM {totalByCategory[expense.category]?.toFixed(2)}
                       </span>
                     </div>
                   </div>
@@ -280,10 +525,25 @@ const Profile = () => {
           </section>
         </div>
 
-        <div className="summary">
-          <section className="dashboard-section">
+        <div className="profile-summary">
+          <section className="profile-dashboard-section">
             <h1>Monthly Summary</h1>
-            <div className="chart-section">
+            <div className="profile-month-tabs">
+              {["January", "February", "March", "April", "May", "June"].map(
+                (month, idx) => (
+                  <button
+                    key={idx}
+                    className={`profile-month-tab ${
+                      selectedMonth === month ? "active" : ""
+                    }`}
+                    onClick={() => setSelectedMonth(month)}
+                  >
+                    {month}
+                  </button>
+                )
+              )}
+            </div>
+            <div className="profile-chart-section">
               <PieChart width={200} height={200}>
                 <Pie
                   data={pieData}
@@ -325,42 +585,51 @@ const Profile = () => {
               </PieChart>
             </div>
 
-            <div className="transaction-list">
-              <h5 className="transaction-date">20 Apr 2025</h5>
-              {transactions.map((transaction, index) => (
-                <div className="transaction-row" key={index}>
-                  <div className="transaction-name">
-                    <div
-                      className="transaction-icon"
-                      style={{
-                        backgroundColor: categoryColors[transaction.category],
-                      }}
-                    >
-                      {categoryIcons[transaction.category]}
-                    </div>
-                    <div className="transaction-name-div">
-                      {transaction.name}
-                      <span className="transaction-category">
-                        {transaction.category}
-                      </span>
-                    </div>
+            <div className="profile-transaction-list">
+              {Object.entries(groupedByDate).map(
+                ([date, transactionsOnDate]) => (
+                  <div key={date} className="profile-transaction-date-group">
+                    <h5 className="profile-transaction-date">
+                      {formatDateWithSuffix(date)}
+                    </h5>
+                    {transactionsOnDate.map((transaction, index) => (
+                      <div className="profile-transaction-row" key={index}>
+                        <div className="profile-transaction-name">
+                          <div
+                            className="profile-transaction-icon"
+                            style={{
+                              backgroundColor:
+                                categoryColors[transaction.category],
+                            }}
+                          >
+                            {categoryIcons[transaction.category]}
+                          </div>
+                          <div className="profile-transaction-name-div">
+                            {transaction.name}
+                            <span className="profile-transaction-category">
+                              {transaction.category}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="profile-tx-amount">
+                          RM {transaction.amount.toFixed(2)}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="tx-amount">
-                    RM {transaction.amount.toFixed(2)}
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </section>
         </div>
       </div>
 
       {isEditing && (
-        <div className="modal-backdrop">
-          <div className="modal modal-layout">
+        <div className="profile-modal-backdrop">
+          <div className="profile-modal modal-layout">
             {/* Hamburger Button */}
             <button
-              className="hamburger"
+              className="profile-hamburger"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -368,7 +637,7 @@ const Profile = () => {
             </button>
 
             {/* Sidenav Drawer */}
-            <div className={`sidenav ${isMenuOpen ? "open" : ""}`}>
+            <div className={`profile-sidenav ${isMenuOpen ? "open" : ""}`}>
               <ul>
                 <li
                   className={activeTab === "profile" ? "active" : ""}
@@ -402,9 +671,9 @@ const Profile = () => {
 
             <div className="profile-form">
               {activeTab === "profile" && (
-                <div className="form">
+                <div className="profile-form">
                   <h2>Edit Profile</h2>
-                  <div className="form-avatar">
+                  <div className="profile-form-avatar">
                     <label
                       htmlFor="profilePicInput"
                       className="profile-pic-wrapper"
@@ -416,9 +685,9 @@ const Profile = () => {
                           className="profile-image"
                         />
                       ) : (
-                        <FaUserCircle className="default-profile-image" />
+                        <FaUserCircle className="profile-default-profile-image" />
                       )}
-                      <div className="camera-icon">
+                      <div className="profile-camera-icon">
                         <FaCamera />
                       </div>
                     </label>
@@ -441,7 +710,7 @@ const Profile = () => {
                         }
                       }}
                     />
-                    <div className="avatar-actions">
+                    <div className="profile-avatar-actions">
                       <button
                         onClick={() =>
                           document.getElementById("profilePicInput").click()
@@ -458,10 +727,10 @@ const Profile = () => {
                       </button>
                     </div>
 
-                    <div className="form-group">
+                    <div className="profile-form-group">
                       <label
                         htmlFor="background-upload"
-                        className="upload-background"
+                        className="profile-upload-background"
                       >
                         Upload Background
                       </label>
@@ -469,8 +738,20 @@ const Profile = () => {
                         type="file"
                         id="background-upload"
                         accept="image/*"
-                        onChange={handleChange}
-                        className="upload-background-input"
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                              setFormData({
+                                ...formData,
+                                backgroundPic: reader.result,
+                              });
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                        className="profile-upload-background-input"
                       />
                     </div>
 
@@ -516,16 +797,18 @@ const Profile = () => {
                     />
                   </div>
 
-                  <button className="deactivate">Deactivate Account</button>
-                  <button className="deactivate">Delete Account</button>
+                  <button className="profile-deactivate">
+                    Deactivate Account
+                  </button>
+                  <button className="profile-deactivate">Delete Account</button>
                 </div>
               )}
               {/* end of active tab profile */}
 
               {activeTab === "password" && (
-                <div className="form">
+                <div className="profile-form">
                   <h2>Change Password</h2>
-                  <div className="form-field">
+                  <div className="profile-form-field">
                     <input
                       type="password"
                       id="currentPassword"
@@ -533,7 +816,7 @@ const Profile = () => {
                       placeholder="Current Password"
                     />
                   </div>
-                  <div className="form-field">
+                  <div className="profile-form-field">
                     <input
                       type="password"
                       id="newPassword"
@@ -542,7 +825,7 @@ const Profile = () => {
                     />
                   </div>
 
-                  <div className="form-field">
+                  <div className="profile-form-field">
                     <input
                       type="password"
                       id="confirmNewPassword"
@@ -555,20 +838,20 @@ const Profile = () => {
               {/* end of active tab pw */}
 
               {activeTab === "notifications" && (
-                <div className="form">
+                <div className="profile-form">
                   <h2>Notification Settings</h2>
-                  <div className="form-field">
-                    <label className="notification-label">
+                  <div className="profile-form-field">
+                    <label className="profile-notification-label">
                       Email Notifications
                       <input type="checkbox" />
-                      <span className="toggle"></span>
+                      <span className="profile-toggle"></span>
                     </label>
                   </div>
-                  <div className="form-field">
-                    <label className="notification-label">
+                  <div className="profile-form-field">
+                    <label className="profile-notification-label">
                       SMS Notifications
                       <input type="checkbox" />
-                      <span className="toggle"></span>
+                      <span className="profile-toggle"></span>
                     </label>
                   </div>
                 </div>
@@ -576,7 +859,7 @@ const Profile = () => {
 
               {/* end of active tab notifications */}
 
-              <div className="modal-actions">
+              <div className="profile-modal-actions">
                 <button onClick={handleSave}>Save</button>
                 <button onClick={() => setIsEditing(false)}>Cancel</button>
               </div>
