@@ -10,21 +10,22 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Configure Gemini API with proper error handling
-api_key = os.getenv("GEMINI_API_KEY")
-if not api_key:
-    logging.error("GEMINI_API_KEY not found in environment variables")
-    raise ValueError("GEMINI_API_KEY is not set in .env file")
-
-genai.configure(api_key=api_key)
-
-# Set up logging
+# Configure logging first (before any potential API key errors)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[logging.FileHandler("ai_service.log"), logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
+
+# Configure Gemini API with proper error handling
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    logger.error("GEMINI_API_KEY not found in environment variables")
+    raise ValueError("GEMINI_API_KEY environment variable is not set")
+
+# Configure Gemini with the API key (don't log the key!)
+genai.configure(api_key=api_key)
 
 class AIService:
     def __init__(self, ai_model_url: str):
@@ -199,7 +200,7 @@ class AIService:
                 """
             
             # Log the prompt for debugging
-            logger.info(f"Sending prompt to Gemini: {prompt}")
+            logger.info(f"Sending prompt to Gemini about: {message[:30]}...")
             
             # For gemini-2.0 models, try different generation settings
             generation_config = {
