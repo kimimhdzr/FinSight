@@ -262,7 +262,7 @@ const Record = () => {
             <div style={dropdownContainerStyle}>
               <div style={dropdownWrapperStyle}>
                 <button 
-                  classname={dropdownButtonStyle} 
+                  style={dropdownButtonStyle} 
                   onClick={() => setShowMonthDropdown(!showMonthDropdown)}
                 >
                   {selectedMonth} ▼
