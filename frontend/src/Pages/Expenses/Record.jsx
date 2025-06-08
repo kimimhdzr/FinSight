@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import axios from 'axios';
 
 const Record = () => {
   const [radioValue, setRadioValue] = useState('1');
@@ -69,11 +70,19 @@ const Record = () => {
     }));
   };
 
-  const handleSavePayment = () => {
-    console.log('Saving payment:', paymentForm);
-    // Here you would typically save to your state management or API
+const handleSavePayment = async () => {
+  try {
+    console.log('Submitting:', paymentForm);
+
+    if (!paymentForm.amount || !paymentForm.description) {
+      alert('Please enter both amount and description.');
+      return;
+    }
+
+    const response = await axios.post('http://localhost:3000/api/payments', paymentForm);
+    console.log('Saved to backend:', response.data);
+    alert('Payment saved successfully.');
     setIsAddingPayment(false);
-    // Reset form
     setPaymentForm({
       type: 'expense',
       category: 'Food',
@@ -81,7 +90,11 @@ const Record = () => {
       description: '',
       date: new Date().toISOString().split('T')[0],
     });
-  };
+  } catch (err) {
+    console.error('Failed to save payment:', err);
+    alert('Error saving payment. Is your backend running at http://localhost:3000?\n\nCheck console for details.');
+  }
+};
 
   const pieData = [
     { name: 'House', value: 1245.90, fill: '#FF8042' },
