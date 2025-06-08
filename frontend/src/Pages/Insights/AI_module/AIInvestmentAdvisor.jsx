@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./AIInvestmentAdvisor.css";
 
 const AIInvestmentAdvisor = () => {
@@ -13,6 +13,8 @@ const AIInvestmentAdvisor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [generatedStrategies, setGeneratedStrategies] = useState([]);
   const [savedStrategiesList, setSavedStrategiesList] = useState([]);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [strategyToDelete, setStrategyToDelete] = useState(null);
 
   // Initial recommended strategies (before user confirms changes)
   const [recommendedStrategies, setRecommendedStrategies] = useState([
@@ -32,6 +34,8 @@ const AIInvestmentAdvisor = () => {
     },
   ]);
 
+  const chatInputRef = useRef(null);
+
   const handleRiskToleranceChange = (value) => {
     setSelectedRiskTolerance(value);
   };
@@ -47,27 +51,38 @@ const AIInvestmentAdvisor = () => {
   };
 
   const handleMinChange = (value) => {
-    const newMin = parseInt(value) || 0;
-    setMinInvestment(newMin);
-
-    // Ensure max is always greater than or equal to min
-    if (newMin > maxInvestment) {
-      setMaxInvestment(newMin);
+    // Convert the value to a number, or use 0 if it's not a valid number
+    const parsedValue = value === '' ? 0 : parseInt(value, 10);
+    
+    // Only update if the value is a valid number
+    if (!isNaN(parsedValue)) {
+      setMinInvestment(parsedValue);
+      
+      // If current max is less than new min, update max to match min
+      if (maxInvestment < parsedValue) {
+        setMaxInvestment(parsedValue);
+      }
     }
   };
 
+  // Fix the handleMaxChange function to correctly handle user input
   const handleMaxChange = (value) => {
-    const newMax = parseInt(value) || 0;
-
-    // Ensure max is always greater than or equal to min
-    if (newMax < minInvestment) {
-      setMaxInvestment(minInvestment);
+    // Convert the value to a number, or use 0 if it's not a valid number
+    const parsedValue = value === '' ? 0 : parseInt(value, 10);
+    
+    // Only update if the value is a valid number
+    if (!isNaN(parsedValue)) {
+      // Ensure max is always greater than or equal to min
+      setMaxInvestment(Math.max(parsedValue, minInvestment));
     } else {
-      setMaxInvestment(newMax);
+      // If the input is not a valid number, just set it to the current min investment
+      setMaxInvestment(minInvestment);
     }
   };
 
   const handleChatInputChange = (e) => {
+    // Add debugging
+    console.log("Input changing:", e.target.value);
     setChatInput(e.target.value);
   };
 
@@ -84,7 +99,6 @@ const AIInvestmentAdvisor = () => {
     setIsLoading(true);
     
     try {
-      // For testing purposes, let's add a console log to verify the function is being called
       console.log("Confirming selection with:", {
         risk_tolerance: selectedRiskTolerance,
         growth_goals: selectedGrowth,
@@ -92,7 +106,7 @@ const AIInvestmentAdvisor = () => {
         max_investment: maxInvestment
       });
       
-      // First try to call the AI service
+      // Call the AI service
       const response = await fetch('http://localhost:8000/api/investment-advisor/generate-strategy', {
         method: 'POST',
         headers: {
@@ -116,89 +130,67 @@ const AIInvestmentAdvisor = () => {
       // Update recommended strategies with AI-generated ones
       if (data.strategies && Array.isArray(data.strategies)) {
         setRecommendedStrategies(data.strategies);
+      } else {
+        // If the API doesn't return strategies array, throw an error
+        throw new Error('Invalid response format from AI service');
       }
       
     } catch (error) {
       console.error('Error generating strategy:', error);
-      // Fallback to simple update without AI
-      console.log("Using fallback strategy generation");
+      // Fallback with AI-simulated strategies
+      console.log("Using AI-simulated strategy generation");
       
-      // Generate some basic recommendations based on selected risk tolerance
-      let newStrategies = [];
+      // Use local AI simulation to generate strategies
+      const simulatedAIStrategies = generateAISimulatedStrategies(
+        selectedRiskTolerance, 
+        selectedGrowth, 
+        minInvestment, 
+        maxInvestment
+      );
       
-      if (selectedRiskTolerance === "conservative") {
-        newStrategies = [
-          {
-            name: "Conservative Income Portfolio",
-            targetReturn: "5-7%",
-            riskLevel: "Low",
-            timeHorizon: "3+ years",
-            allocation: "30% stocks, 60% bonds, 10% cash"
-          },
-          {
-            name: "Dividend Focus",
-            targetReturn: "6-8%",
-            riskLevel: "Low-Moderate",
-            timeHorizon: "4+ years",
-            allocation: "40% dividend stocks, 50% bonds, 10% alternatives"
-          }
-        ];
-      } else if (selectedRiskTolerance === "moderate") {
-        newStrategies = [
-          {
-            name: "Balanced Growth Portfolio",
-            targetReturn: "8-10%",
-            riskLevel: "Moderate",
-            timeHorizon: "5+ years",
-            allocation: "60% stocks, 35% bonds, 5% alternatives"
-          },
-          {
-            name: "Global Diversification",
-            targetReturn: "7-9%",
-            riskLevel: "Moderate",
-            timeHorizon: "5+ years",
-            allocation: "50% US stocks, 20% international stocks, 30% bonds"
-          }
-        ];
-      } else { // aggressive
-        newStrategies = [
-          {
-            name: "Growth Stock Focus",
-            targetReturn: "10-12%",
-            riskLevel: "High",
-            timeHorizon: "7+ years",
-            allocation: "80% stocks, 10% bonds, 10% alternatives"
-          },
-          {
-            name: "Tech & Innovation Emphasis",
-            targetReturn: "12-15%",
-            riskLevel: "Very High",
-            timeHorizon: "10+ years",
-            allocation: "90% growth stocks, 10% alternatives"
-          }
-        ];
-      }
-      
-      setRecommendedStrategies(newStrategies);
+      setRecommendedStrategies(simulatedAIStrategies);
     } finally {
       setIsLoading(false);
     }
   };
   
-  // Function to save a strategy
+  // Add this useEffect to load saved strategies on component mount
+  useEffect(() => {
+    const loadSavedStrategies = () => {
+      const savedStrategiesString = localStorage.getItem('savedStrategies');
+      if (savedStrategiesString) {
+        try {
+          const saved = JSON.parse(savedStrategiesString);
+          if (Array.isArray(saved)) {
+            setSavedStrategiesList(saved);
+          }
+        } catch (error) {
+          console.error('Error loading saved strategies:', error);
+        }
+      }
+    };
+    
+    loadSavedStrategies();
+  }, []);
+
+  // Update your saveStrategy function to handle duplicates
   const saveStrategy = (strategy) => {
-    // Check if strategy is already saved
-    if (!savedStrategiesList.some(s => s.name === strategy.name)) {
-      const updatedSavedStrategies = [...savedStrategiesList, strategy];
-      setSavedStrategiesList(updatedSavedStrategies);
-      
-      // Optionally save to localStorage for persistence
-      localStorage.setItem('savedStrategies', JSON.stringify(updatedSavedStrategies));
-      
-      alert(`Strategy "${strategy.name}" has been saved!`);
-    } else {
-      alert(`Strategy "${strategy.name}" is already saved.`);
+    // Check if strategy already exists in saved list by name
+    const isDuplicate = savedStrategiesList.some(
+      saved => saved.name === strategy.name
+    );
+    
+    if (isDuplicate) {
+      alert("This strategy is already saved");
+      return;
     }
+    
+    const updatedList = [...savedStrategiesList, strategy];
+    setSavedStrategiesList(updatedList);
+    localStorage.setItem('savedStrategies', JSON.stringify(updatedList));
+    
+    // Give feedback to the user
+    alert("Strategy saved successfully!");
   };
   
   // Load saved strategies from localStorage on component mount
@@ -299,18 +291,24 @@ const AIInvestmentAdvisor = () => {
       if (response.ok) {
         const data = await response.json();
         
+        // Format the AI response text for better readability
+        const formattedText = formatAIResponse(data.response);
+        
         // Add AI response to chat history
         setChatHistory([
           ...newChatHistory,
-          { sender: 'ai', text: data.response }
+          { sender: 'ai', text: formattedText }
         ]);
       } else {
         // If API fails, fall back to local response
         console.log("API request failed, using local fallback");
         
+        // Format the local response as well
+        const formattedText = formatAIResponse(getLocalAIResponse(userQuestion));
+        
         setChatHistory([
           ...newChatHistory,
-          { sender: 'ai', text: getLocalAIResponse(userQuestion) }
+          { sender: 'ai', text: formattedText }
         ]);
       }
     } catch (error) {
@@ -328,9 +326,239 @@ const AIInvestmentAdvisor = () => {
 
   // Add this to handle Enter key press
   const handleChatKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
+    }
+  };
+
+  // Add this formatting helper function
+  const formatAIResponse = (text) => {
+    // If text is already formatted with HTML, return it as is
+    if (text.includes("<p>") || text.includes("<ul>") || text.includes("<br>")) {
+      return text;
+    }
+    
+    // Add basic formatting
+    let formatted = text;
+    
+    // Format list items
+    formatted = formatted.replace(/\* ([^\n]+)/g, '• $1<br>');
+    
+    // Format headings and sections
+    formatted = formatted.replace(/([\d]+\. [\w\s]+:)/g, '<strong>$1</strong>');
+    formatted = formatted.replace(/([\w\s]+:)\s/g, '<strong>$1</strong> ');
+    
+    // Format paragraphs
+    formatted = formatted.split('\n\n').map(p => `<p>${p}</p>`).join('');
+    
+    // Replace single line breaks
+    formatted = formatted.replace(/\n/g, '<br>');
+    
+    return formatted;
+  };
+
+  // Add this function to simulate AI-generated strategies when the backend is unavailable
+  const generateAISimulatedStrategies = (riskTolerance, growthGoals, minInvestment, maxInvestment) => {
+    // Calculate investment size tier (small, medium, large)
+    let investmentTier = "small";
+    const avgInvestment = (minInvestment + maxInvestment) / 2;
+    
+    if (avgInvestment > 50000) {
+      investmentTier = "large";
+    } else if (avgInvestment > 10000) {
+      investmentTier = "medium";
+    }
+    
+    // Base strategies on risk tolerance
+    let strategies = [];
+    
+    // Include growth goals in strategy naming and allocation
+    const hasIncome = growthGoals.includes("low-mid-income");
+    const hasPreservation = growthGoals.includes("capital-preservation");
+    const hasRetirement = growthGoals.includes("retirement-planning");
+    const hasShortTerm = growthGoals.includes("short-term-savings");
+    const hasSpecificPurchase = growthGoals.includes("specific-purchase");
+    
+    // Generate different strategies based on risk tolerance
+    if (riskTolerance === "conservative") {
+      strategies.push({
+        name: hasPreservation 
+          ? "Capital Preservation Portfolio" 
+          : (hasIncome ? "Income Focus Portfolio" : "Conservative Allocation"),
+        targetReturn: "4-6%",
+        riskLevel: "Low",
+        timeHorizon: hasRetirement ? "10+ years" : (hasShortTerm ? "2-3 years" : "3-5 years"),
+        allocation: hasPreservation 
+          ? "20% stocks, 60% bonds, 20% cash" 
+          : "30% stocks, 60% bonds, 10% cash"
+      });
+      
+      strategies.push({
+        name: hasIncome 
+          ? "Dividend Income Strategy" 
+          : (hasShortTerm ? "Short-Term Conservative Mix" : "Stable Value Portfolio"),
+        targetReturn: "5-7%",
+        riskLevel: "Low to Moderate",
+        timeHorizon: hasShortTerm ? "1-3 years" : "4+ years",
+        allocation: hasIncome 
+          ? "40% dividend stocks, 50% bonds, 10% cash" 
+          : "25% high-quality stocks, 65% bonds, 10% cash"
+      });
+      
+    } else if (riskTolerance === "moderate") {
+      strategies.push({
+        name: hasRetirement 
+          ? "Balanced Retirement Portfolio" 
+          : (hasSpecificPurchase ? "Goal-Based Balanced Fund" : "Balanced Growth Strategy"),
+        targetReturn: "7-9%",
+        riskLevel: "Moderate",
+        timeHorizon: hasRetirement ? "15+ years" : "5-7 years",
+        allocation: "50% stocks, 40% bonds, 10% alternatives"
+      });
+      
+      strategies.push({
+        name: hasIncome 
+          ? "Growth & Income Portfolio" 
+          : (hasPreservation ? "Value-Focused Balanced Fund" : "Global Diversified Mix"),
+        targetReturn: "8-10%",
+        riskLevel: "Moderate",
+        timeHorizon: "5+ years",
+        allocation: hasIncome 
+          ? "45% dividend stocks, 15% growth stocks, 35% bonds, 5% alternatives" 
+          : "50% US stocks, 15% international stocks, 30% bonds, 5% REITs"
+      });
+      
+    } else { // aggressive
+      strategies.push({
+        name: hasRetirement 
+          ? "Long-Term Growth Portfolio" 
+          : (hasSpecificPurchase ? "Accelerated Goal Strategy" : "Growth Focus Fund"),
+        targetReturn: "10-13%",
+        riskLevel: "High",
+        timeHorizon: "8+ years",
+        allocation: "75% stocks, 15% bonds, 10% alternatives"
+      });
+      
+      // Add more specialized aggressive strategy
+      if (hasIncome) {
+        strategies.push({
+          name: "High Growth with Income",
+          targetReturn: "9-11%",
+          riskLevel: "Moderately High",
+          timeHorizon: "7+ years",
+          allocation: "65% stocks, 20% high-yield bonds, 15% alternatives"
+        });
+      } else if (investmentTier === "large") {
+        strategies.push({
+          name: "Diversified Growth Portfolio",
+          targetReturn: "11-14%",
+          riskLevel: "High",
+          timeHorizon: "10+ years",
+          allocation: "70% stocks, 15% bonds, 15% alternative investments"
+        });
+      } else {
+        strategies.push({
+          name: "High Growth Stock Focus",
+          targetReturn: "12-15%",
+          riskLevel: "Very High",
+          timeHorizon: "10+ years",
+          allocation: "90% growth stocks, 10% alternatives"
+        });
+      }
+    }
+    
+    // Add a third strategy based on investment amount and goals
+    if (investmentTier === "large") {
+      strategies.push({
+        name: "Custom Diversified Portfolio",
+        targetReturn: riskTolerance === "conservative" ? "6-8%" : (riskTolerance === "moderate" ? "8-11%" : "11-14%"),
+        riskLevel: riskTolerance === "conservative" ? "Low to Moderate" : (riskTolerance === "moderate" ? "Moderate" : "High"),
+        timeHorizon: "5+ years",
+        allocation: riskTolerance === "conservative" 
+          ? "30% blue-chip stocks, 50% bonds, 10% REITs, 10% alternatives" 
+          : (riskTolerance === "moderate" 
+            ? "50% quality stocks, 30% bonds, 10% REITs, 10% alternatives"
+            : "70% growth stocks, 15% bonds, 15% alternatives")
+      });
+    } else if (hasSpecificPurchase || hasShortTerm) {
+      strategies.push({
+        name: hasSpecificPurchase ? "Goal-Based Time Strategy" : "Flexible Time Horizon Fund",
+        targetReturn: riskTolerance === "conservative" ? "4-6%" : (riskTolerance === "moderate" ? "6-8%" : "8-10%"),
+        riskLevel: riskTolerance === "conservative" ? "Low" : (riskTolerance === "moderate" ? "Low to Moderate" : "Moderate"),
+        timeHorizon: hasShortTerm ? "1-3 years" : "3-5 years",
+        allocation: riskTolerance === "conservative" 
+          ? "20% stocks, 60% short-term bonds, 20% cash" 
+          : (riskTolerance === "moderate" 
+            ? "40% stocks, 50% bonds, 10% cash"
+            : "60% quality stocks, 30% bonds, 10% cash")
+      });
+    }
+    
+    return strategies;
+  };
+
+  // Helper function to format allocation text nicely with bullet points
+  const formatAllocationText = (allocation) => {
+    if (!allocation) return "Not specified";
+    
+    if (typeof allocation === 'object') {
+      // If it's an object, convert it to a formatted string
+      return (
+        <ul className="allocation-list">
+          {Object.entries(allocation).map(([key, value], index) => (
+            <li key={index}>{value} {key}</li>
+          ))}
+        </ul>
+      );
+    }
+    
+    // If it's a string, break it into bullet points based on percentages
+    const segments = allocation.split(/,\s*(?=\d+%)/);
+    
+    if (segments.length <= 1) {
+      return allocation; // No formatting needed for simple strings
+    }
+    
+    return (
+      <ul className="allocation-list">
+        {segments.map((segment, index) => (
+          <li key={index}>{segment.trim()}</li>
+        ))}
+      </ul>
+    );
+  };
+
+  // Function to show the delete confirmation dialog
+  const confirmDeleteStrategy = (index) => {
+    setStrategyToDelete(index);
+    setShowDeleteConfirmation(true);
+  };
+
+  // Function to handle cancellation of delete operation
+  const handleCancelDelete = () => {
+    setStrategyToDelete(null);
+    setShowDeleteConfirmation(false);
+  };
+
+  // Function to handle confirmation of delete operation
+  const handleConfirmDelete = () => {
+    if (strategyToDelete !== null) {
+      // Create a new array without the strategy to delete
+      const updatedStrategies = savedStrategiesList.filter(
+        (_, index) => index !== strategyToDelete
+      );
+      
+      // Update state and local storage
+      setSavedStrategiesList(updatedStrategies);
+      localStorage.setItem('savedStrategies', JSON.stringify(updatedStrategies));
+      
+      // Show a brief success message
+      console.log("Strategy removed successfully");
+      
+      // Reset the delete confirmation state
+      setStrategyToDelete(null);
+      setShowDeleteConfirmation(false);
     }
   };
 
@@ -410,24 +638,29 @@ const AIInvestmentAdvisor = () => {
           </div>
         </div>
         
+        {/* Update your range inputs section */}
         <div className="investment-range-section">
           <h3>Investment Range</h3>
           <div className="range-inputs">
-            <div>
-              <label>Min</label>
+            <div className="input-group">
+              <label>Min ($)</label>
               <input 
                 type="number" 
                 value={minInvestment}
                 onChange={(e) => handleMinChange(e.target.value)}
+                min="0"
+                step="100"
               />
             </div>
             <div className="range-separator">-</div>
-            <div>
-              <label>Max</label>
+            <div className="input-group">
+              <label>Max ($)</label>
               <input 
                 type="number" 
                 value={maxInvestment}
                 onChange={(e) => handleMaxChange(e.target.value)}
+                min={minInvestment}
+                step="100"
               />
             </div>
           </div>
@@ -448,6 +681,7 @@ const AIInvestmentAdvisor = () => {
       <div className="strategies-section">
         <h2>Recommended Strategies</h2>
         <div className="strategies-list">
+          {/* Update recommended strategies card */}
           {recommendedStrategies.map((strategy, index) => (
             <div key={index} className="strategy-card">
               <h3>{strategy.name}</h3>
@@ -464,9 +698,11 @@ const AIInvestmentAdvisor = () => {
                   <span>Time horizon</span>
                   <span>{strategy.timeHorizon}</span>
                 </div>
-                <div className="detail-row">
+                <div className="detail-row allocation-row">
                   <span>Recommended allocation</span>
-                  <span>{strategy.allocation}</span>
+                  <div className="allocation-content">
+                    {formatAllocationText(strategy.allocation)}
+                  </div>
                 </div>
               </div>
               <button 
@@ -487,6 +723,7 @@ const AIInvestmentAdvisor = () => {
           <div className="saved-strategies">
             <h3>Your Saved Strategies</h3>
             <div className="strategies-list">
+              {/* Update saved strategies card */}
               {savedStrategiesList.length > 0 ? (
                 savedStrategiesList.map((strategy, index) => (
                   <div key={index} className="strategy-card">
@@ -504,10 +741,20 @@ const AIInvestmentAdvisor = () => {
                         <span>Time horizon</span>
                         <span>{strategy.timeHorizon}</span>
                       </div>
-                      <div className="detail-row">
+                      <div className="detail-row allocation-row">
                         <span>Recommended allocation</span>
-                        <span>{strategy.allocation}</span>
+                        <div className="allocation-content">
+                          {formatAllocationText(strategy.allocation)}
+                        </div>
                       </div>
+                    </div>
+                    <div className="strategy-card-actions">
+                      <button 
+                        className="delete-strategy-button"
+                        onClick={() => confirmDeleteStrategy(index)}
+                      >
+                        Remove Strategy
+                      </button>
                     </div>
                   </div>
                 ))
@@ -530,7 +777,14 @@ const AIInvestmentAdvisor = () => {
               className={`chat-message ${message.sender === 'user' ? 'user-message' : 'ai-message'}`}
             >
               <div className="message-content">
-                <span className="message-text">{message.text}</span>
+                {message.sender === 'user' ? (
+                  <span className="message-text">{message.text}</span>
+                ) : (
+                  <span 
+                    className="message-text"
+                    dangerouslySetInnerHTML={{ __html: message.text }}
+                  />
+                )}
               </div>
             </div>
           ))}
@@ -545,12 +799,22 @@ const AIInvestmentAdvisor = () => {
         
         <div className="chat-controls">
           <input
+            ref={chatInputRef}
             type="text"
             value={chatInput}
-            onChange={handleChatInputChange}
-            onKeyPress={handleChatKeyPress}
+            onChange={(e) => {
+              console.log("Input changing:", e.target.value);
+              setChatInput(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+              }
+            }}
             placeholder="Ask something about investing..."
             disabled={isLoading}
+            onClick={() => chatInputRef.current && chatInputRef.current.focus()}
           />
           <button 
             onClick={sendMessage}
@@ -559,7 +823,42 @@ const AIInvestmentAdvisor = () => {
             Send
           </button>
         </div>
+        
+        <button 
+          onClick={() => {
+            setIsLoading(false);
+            setChatInput("");
+            setTimeout(() => chatInputRef.current && chatInputRef.current.focus(), 100);
+          }}
+          className="reset-chat-button"
+        >
+          Reset Chat
+        </button>
       </div>
+      
+      {/* Delete confirmation dialog */}
+      {showDeleteConfirmation && (
+        <div className="confirmation-overlay">
+          <div className="confirmation-dialog">
+            <h4>Remove Strategy</h4>
+            <p>Are you sure you want to remove this investment strategy?</p>
+            <div className="confirmation-actions">
+              <button 
+                className="cancel-button"
+                onClick={handleCancelDelete}
+              >
+                Cancel
+              </button>
+              <button 
+                className="confirm-delete-button"
+                onClick={handleConfirmDelete}
+              >
+                Yes, Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

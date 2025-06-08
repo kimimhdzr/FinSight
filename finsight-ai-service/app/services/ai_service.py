@@ -104,70 +104,91 @@ class AIService:
         self,
         risk_tolerance: str,
         growth_goals: List[str],
-        min_investment: int,
-        max_investment: int
-    ) -> Dict[str, Any]:
+        min_investment: float,
+        max_investment: float
+    ) -> Dict:
         """
-        Generate investment strategy recommendations based on user criteria using Google's Gemini
+        Generate personalized investment strategies based on the user's profile
         """
-        # Format the prompt for the AI model
-        prompt = f"""
-        Generate an investment strategy recommendation based on the following criteria:
-        
-        Risk Tolerance: {risk_tolerance}
-        Growth Goals: {', '.join(growth_goals)}
-        Investment Range: ${min_investment} - ${max_investment}
-        
-        Provide the recommendation in JSON format with the following structure:
-        {{
-            "strategies": [
-                {{
-                    "name": "Strategy name",
-                    "targetReturn": "Expected percentage return",
-                    "riskLevel": "Risk level description",
-                    "timeHorizon": "Recommended time horizon",
-                    "allocation": "Asset allocation percentages",
-                    "description": "Detailed strategy description"
-                }}
-            ],
-            "explanation": "Overall explanation of recommendations"
-        }}
-        
-        Ensure the response is in valid JSON format without any additional text.
-        """
+        logger = logging.getLogger(__name__)
         
         try:
-            # Call Gemini API to generate the investment strategy
+            # Create a detailed prompt for generating investment strategies
+            prompt = f"""
+            Generate three comprehensive investment strategies based on the following investor profile:
+            - Risk tolerance: {risk_tolerance}
+            - Growth goals: {', '.join(growth_goals)}
+            - Investment range: ${min_investment} - ${max_investment}
+            
+            For each strategy, provide:
+            1. A descriptive strategy name that reflects the approach
+            2. Expected target return range (as a percentage)
+            3. Risk level classification
+            4. Recommended time horizon
+            5. Specific asset allocation breakdown (with percentages)
+            
+            Format the response as a JSON array of strategy objects with the following keys:
+            - name: The strategy name
+            - targetReturn: The target return range
+            - riskLevel: The risk level
+            - timeHorizon: The recommended time horizon
+            - allocation: The specific asset allocation breakdown
+            
+            Example:
+            [
+              {{
+                "name": "Conservative Income Portfolio",
+                "targetReturn": "4-6%",
+                "riskLevel": "Low",
+                "timeHorizon": "3+ years",
+                "allocation": "30% stocks, 60% bonds, 10% cash"
+              }},
+              ...
+            ]
+            """
+            
+            # Log the prompt for debugging
+            logger.info(f"Generating investment strategies for {risk_tolerance} risk tolerance")
+            
+            # Call Gemini API to generate investment strategies
             response = self.gemini_model.generate_content(prompt)
             
-            # Extract the text response
-            content = response.text
+            if not response or not hasattr(response, 'text'):
+                logger.error("No valid response from AI model")
+                return {"strategies": self._generate_fallback_strategies(risk_tolerance, growth_goals, min_investment, max_investment)}
+                
+            # Extract and parse the JSON from the response
+            response_text = response.text
             
-            # Try to parse as JSON
-            try:
-                strategy_data = json.loads(content)
-                return strategy_data
-            except json.JSONDecodeError:
-                # If parsing fails, return a structured response anyway
-                print(f"Failed to parse JSON from Gemini response: {content}")
-                return {
-                    "strategies": [
-                        {
-                            "name": "Balanced Portfolio",
-                            "targetReturn": "8-10%",
-                            "riskLevel": risk_tolerance.capitalize(),
-                            "timeHorizon": "5+ years",
-                            "allocation": "60% stocks, 30% bonds, 10% alternatives",
-                            "description": "This is a fallback recommendation based on your criteria."
-                        }
-                    ],
-                    "explanation": "Based on your risk tolerance and goals, I recommend a balanced approach.",
-                    "raw_response": content
-                }
-        
+            # Look for JSON array in the response
+            import re
+            json_match = re.search(r'\[\s*\{.*\}\s*\]', response_text, re.DOTALL)
+            
+            if json_match:
+                json_str = json_match.group(0)
+                try:
+                    strategies = json.loads(json_str)
+                    logger.info(f"Successfully generated {len(strategies)} strategies")
+                    
+                    # Process strategies to ensure allocation is always a string
+                    for strategy in strategies:
+                        if isinstance(strategy.get('allocation'), dict):
+                            strategy['allocation'] = ', '.join([f"{value} {key}" for key, value in strategy['allocation'].items()])
+                        elif not isinstance(strategy.get('allocation'), str):
+                            strategy['allocation'] = str(strategy.get('allocation', 'Diversified allocation'))
+                            
+                    return {"strategies": strategies}
+                except json.JSONDecodeError as e:
+                    logger.error(f"Error parsing JSON from AI response: {e}")
+            else:
+                logger.error("Could not find JSON array in AI response")
+            
+            # If we couldn't extract proper JSON, try to extract strategy info using regex
+            return {"strategies": self._parse_strategies_from_text(response_text)}
+            
         except Exception as e:
-            print(f"Error generating investment strategy: {str(e)}")
-            raise
+            logger.error(f"Error generating investment strategies: {str(e)}")
+            return {"strategies": self._generate_fallback_strategies(risk_tolerance, growth_goals, min_investment, max_investment)}
 
     def chat_response(self, message: str, context: Optional[dict] = None) -> str:
         """
@@ -233,5 +254,235 @@ class AIService:
         except Exception as e:
             logger.error(f"Error generating chat response: {str(e)}")
             return f"I'm having trouble processing your request. Technical details: {str(e)}"
+
+    def _parse_strategies_from_text(self, text: str) -> List[Dict]:
+        """Parse strategies from unstructured text when JSON parsing fails"""
+        logger = logging.getLogger(__name__)
+        
+        try:
+            strategies = []
+            # Look for patterns like "Strategy 1:", "Strategy 2:" etc.
+            import re
+            strategy_blocks = re.split(r'(?:Strategy\s+\d+:|^\d+\.)', text)
+            
+            # Remove empty blocks
+            strategy_blocks = [block.strip() for block in strategy_blocks if block.strip()]
+            
+            for block in strategy_blocks[:3]:  # Limit to 3 strategies
+                strategy = {}
+                
+                # Try to extract name
+                name_match = re.search(r'(?:Name|Title):\s*([^\n]+)', block)
+                if name_match:
+                    strategy["name"] = name_match.group(1).strip()
+                else:
+                    # Try to find the first line as the name
+                    first_line = block.split('\n')[0].strip()
+                    if first_line and len(first_line) < 100:  # Reasonable name length
+                        strategy["name"] = first_line
+                    else:
+                        strategy["name"] = "Investment Strategy"
+                
+                # Extract target return
+                return_match = re.search(r'(?:Target Return|Expected Return|Return):\s*([^\n]+)', block)
+                if return_match:
+                    strategy["targetReturn"] = return_match.group(1).strip()
+                else:
+                    # Look for percentage patterns
+                    percent_match = re.search(r'(\d+(?:\.\d+)?%\s*-\s*\d+(?:\.\d+)?%)', block)
+                    if percent_match:
+                        strategy["targetReturn"] = percent_match.group(1)
+                    else:
+                        strategy["targetReturn"] = "Varies"
+                
+                # Extract risk level
+                risk_match = re.search(r'(?:Risk Level|Risk):\s*([^\n]+)', block)
+                if risk_match:
+                    strategy["riskLevel"] = risk_match.group(1).strip()
+                else:
+                    strategy["riskLevel"] = "Moderate"
+                
+                # Extract time horizon
+                time_match = re.search(r'(?:Time Horizon|Horizon):\s*([^\n]+)', block)
+                if time_match:
+                    strategy["timeHorizon"] = time_match.group(1).strip()
+                else:
+                    strategy["timeHorizon"] = "5+ years"
+                
+                # Extract allocation
+                allocation_match = re.search(r'(?:Allocation|Asset Allocation|Breakdown):\s*([^\n]+)', block)
+                if allocation_match:
+                    strategy["allocation"] = allocation_match.group(1).strip()
+                else:
+                    allocation_match = re.search(r'(\d+%\s*(?:stocks|equities|bonds|cash|alternatives)[\s,]*(?:\d+%\s*(?:stocks|equities|bonds|cash|alternatives)[\s,]*)*)', block, re.IGNORECASE)
+                    if allocation_match:
+                        strategy["allocation"] = allocation_match.group(1)
+                    else:
+                        strategy["allocation"] = "Diversified mix of assets"
+                
+                # Validate allocation type
+                if isinstance(strategy["allocation"], dict):
+                    # Convert allocation dictionary to string 
+                    strategy["allocation"] = ", ".join([f"{value} {key}" for key, value in strategy["allocation"].items()])
+                elif not isinstance(strategy["allocation"], str):
+                    # If it's neither a dict nor string, convert to string
+                    strategy["allocation"] = str(strategy["allocation"])
+                
+                strategies.append(strategy)
+            
+            if not strategies:
+                logger.warning("Could not extract strategies from text, using fallbacks")
+                return self._generate_simple_fallbacks()
+                
+            return strategies
+            
+        except Exception as e:
+            logger.error(f"Error parsing strategies from text: {str(e)}")
+            return self._generate_simple_fallbacks()
+        
+    def _generate_fallback_strategies(self, risk_tolerance: str, growth_goals: List[str], min_investment: float, max_investment: float) -> List[Dict]:
+        """Generate fallback strategies based on input parameters"""
+        
+        has_income = "low-mid-income" in growth_goals
+        has_preservation = "capital-preservation" in growth_goals
+        has_retirement = "retirement-planning" in growth_goals
+        
+        strategies = []
+        
+        if risk_tolerance == "conservative":
+            strategies.append({
+                "name": "Income Preservation Portfolio",
+                "targetReturn": "4-6%",
+                "riskLevel": "Low",
+                "timeHorizon": "3+ years",
+                "allocation": "25% stocks, 65% bonds, 10% cash"
+            })
+            strategies.append({
+                "name": "Dividend Focus Strategy",
+                "targetReturn": "5-7%",
+                "riskLevel": "Low to Moderate",
+                "timeHorizon": "4+ years",
+                "allocation": "35% dividend stocks, 55% bonds, 10% cash"
+            })
+        elif risk_tolerance == "moderate":
+            strategies.append({
+                "name": "Balanced Growth Portfolio",
+                "targetReturn": "7-9%",
+                "riskLevel": "Moderate",
+                "timeHorizon": "5+ years",
+                "allocation": "55% stocks, 35% bonds, 10% alternatives"
+            })
+            strategies.append({
+                "name": "Global Diversification Strategy",
+                "targetReturn": "8-10%",
+                "riskLevel": "Moderate",
+                "timeHorizon": "5+ years",
+                "allocation": "50% US stocks, 15% international stocks, 30% bonds, 5% alternatives"
+            })
+        else:  # aggressive
+            strategies.append({
+                "name": "Growth Stock Focus",
+                "targetReturn": "10-12%",
+                "riskLevel": "High",
+                "timeHorizon": "7+ years",
+                "allocation": "80% stocks, 10% bonds, 10% alternatives"
+            })
+            strategies.append({
+                "name": "Innovation & Growth Strategy",
+                "targetReturn": "11-14%",
+                "riskLevel": "Very High",
+                "timeHorizon": "10+ years",
+                "allocation": "85% growth stocks, 15% alternatives"
+            })
+        
+        # Add a third strategy based on specific goals
+        if has_retirement:
+            # Fix ternary operator usage
+            target_return = "5-7%" if risk_tolerance == "conservative" else ("8-10%" if risk_tolerance == "moderate" else "10-12%")
+            risk_level = "Low to Moderate" if risk_tolerance == "conservative" else ("Moderate" if risk_tolerance == "moderate" else "Moderate to High")
+            
+            # Fix nested ternary operator
+            if risk_tolerance == "conservative":
+                allocation = "40% stocks, 50% bonds, 10% alternatives"
+            elif risk_tolerance == "moderate":
+                allocation = "60% stocks, 30% bonds, 10% alternatives"
+            else:
+                allocation = "75% stocks, 15% bonds, 10% alternatives"
+                
+            strategies.append({
+                "name": "Retirement Planning Portfolio",
+                "targetReturn": target_return,
+                "riskLevel": risk_level,
+                "timeHorizon": "10+ years",
+                "allocation": allocation
+            })
+        elif has_preservation:
+            # Fix ternary operator usage
+            target_return = "3-5%" if risk_tolerance == "conservative" else ("5-7%" if risk_tolerance == "moderate" else "7-9%")
+            risk_level = "Very Low" if risk_tolerance == "conservative" else ("Low" if risk_tolerance == "moderate" else "Moderate")
+            
+            # Fix nested ternary operator
+            if risk_tolerance == "conservative":
+                allocation = "15% stocks, 65% bonds, 20% cash"
+            elif risk_tolerance == "moderate":
+                allocation = "30% stocks, 60% bonds, 10% cash"
+            else:
+                allocation = "50% stocks, 40% bonds, 10% cash"
+                
+            strategies.append({
+                "name": "Capital Preservation Focus",
+                "targetReturn": target_return,
+                "riskLevel": risk_level,
+                "timeHorizon": "2-4 years",
+                "allocation": allocation
+            })
+        elif has_income:
+            # Fix ternary operator usage
+            target_return = "4-6%" if risk_tolerance == "conservative" else ("6-8%" if risk_tolerance == "moderate" else "8-10%")
+            risk_level = "Low" if risk_tolerance == "conservative" else ("Moderate" if risk_tolerance == "moderate" else "Moderate to High")
+            
+            # Fix nested ternary operator
+            if risk_tolerance == "conservative":
+                allocation = "30% dividend stocks, 60% bonds, 10% REITs"
+            elif risk_tolerance == "moderate":
+                allocation = "45% dividend stocks, 40% bonds, 15% REITs"
+            else:
+                allocation = "60% dividend stocks, 25% bonds, 15% REITs"
+                
+            strategies.append({
+                "name": "Income Generation Strategy",
+                "targetReturn": target_return,
+                "riskLevel": risk_level,
+                "timeHorizon": "3-5 years",
+                "allocation": allocation
+            })
+        
+        return strategies
+        
+    def _generate_simple_fallbacks(self) -> List[Dict]:
+        """Generate very simple fallback strategies when all else fails"""
+        return [
+            {
+                "name": "Conservative Portfolio",
+                "targetReturn": "4-6%",
+                "riskLevel": "Low",
+                "timeHorizon": "3+ years",
+                "allocation": "30% stocks, 60% bonds, 10% cash"
+            },
+            {
+                "name": "Balanced Portfolio",
+                "targetReturn": "7-9%",
+                "riskLevel": "Moderate",
+                "timeHorizon": "5+ years",
+                "allocation": "60% stocks, 35% bonds, 5% alternatives"
+            },
+            {
+                "name": "Growth Portfolio",
+                "targetReturn": "9-12%",
+                "riskLevel": "High",
+                "timeHorizon": "7+ years",
+                "allocation": "80% stocks, 15% bonds, 5% alternatives"
+            }
+        ]
 
 ai_service = AIService(ai_model_url="http://localhost:5000/ai")  # Replace with actual AI model URL

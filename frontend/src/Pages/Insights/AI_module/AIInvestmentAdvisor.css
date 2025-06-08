@@ -186,9 +186,9 @@ css file .ai-advisor-page {
 }
 
 .input-group label {
-  font-size: 14px;
-  margin-bottom: 4px;
-  color: #333;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .range-input {
@@ -205,11 +205,26 @@ css file .ai-advisor-page {
   border-color: #3498db;
 }
 
+.range-inputs input {
+  width: 120px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.range-inputs input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
+}
+
 .range-separator {
-  font-size: 18px;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
   font-weight: bold;
-  margin: 0 5px;
-  padding-top: 24px; /* Adjust this to align with inputs */
+  padding-top: 24px;
 }
 
 /* Remove spinner arrows for number inputs in Firefox */
@@ -244,47 +259,75 @@ css file .ai-advisor-page {
   height: 300px;
   overflow-y: auto;
   margin-bottom: 16px;
-  padding: 8px;
+  padding: 12px;
   background-color: #f9f9f9;
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 .chat-message {
-  margin-bottom: 8px;
-  max-width: 80%;
-  word-break: break-word;
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  line-height: 1.4;
+  word-wrap: break-word;
 }
 
 .user-message {
   align-self: flex-end;
   background-color: #0d6efd;
   color: white;
-  border-radius: 16px 16px 0 16px;
+  border-top-right-radius: 4px;
 }
 
 .ai-message {
   align-self: flex-start;
   background-color: #e9ecef;
   color: #212529;
-  border-radius: 16px 16px 16px 0;
+  border-top-left-radius: 4px;
+  white-space: pre-wrap; /* This helps preserve formatting */
 }
 
 .message-content {
-  padding: 8px 12px;
+  font-size: 0.95rem;
+}
+
+.message-text p {
+  margin: 8px 0;
+}
+
+.message-text ul, 
+.message-text ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.message-text strong {
+  font-weight: 600;
 }
 
 .chat-controls {
   display: flex;
-  gap: 8px;
+  position: relative;
+  z-index: 5;
 }
 
 .chat-controls input {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  margin-right: 8px;
+  min-width: 200px;
+  background-color: white;
+}
+
+.chat-controls input:focus {
+  outline: 2px solid #0d6efd;
+  border-color: #0d6efd;
 }
 
 .chat-controls button {
@@ -452,14 +495,25 @@ h3 {
 }
 
 .range-inputs input {
-  width: 100px;
-  padding: 8px;
-  border: 1px solid #ddd;
+  width: 120px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.range-inputs input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
 }
 
 .range-separator {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
   font-weight: bold;
+  padding-top: 24px;
 }
 
 .confirm-button {
@@ -617,6 +671,95 @@ h3 {
 
 .send-button:hover {
   color: #1f78b4;
+}
+
+/* Strategy card actions */
+.strategy-card-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.delete-strategy-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.delete-strategy-button:hover {
+  background-color: #bb2d3b;
+}
+
+/* Confirmation Dialog */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.confirmation-dialog {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.confirmation-dialog h4 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.confirmation-dialog p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.confirmation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-button {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #dee2e6;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #e9ecef;
+}
+
+.confirm-delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.confirm-delete-button:hover {
+  background-color: #bb2d3b;
 }
 
 /* Desktop layout (larger screens) */
@@ -828,4 +971,69 @@ h3 {
   .growth-option label {
     font-size: 0.8rem;
   }
+}
+
+/* Add these styles for better allocation display */
+.allocation-row {
+  align-items: flex-start !important; /* Override flex alignment */
+  margin-top: 8px;
+}
+
+.allocation-content {
+  max-width: 70%;
+  text-align: left;
+}
+
+.allocation-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  text-align: left; /* Changed from right to left */
+}
+
+.allocation-list li {
+  margin-bottom: 5px;
+  position: relative;
+  padding-left: 16px; /* Increased for better readability */
+  line-height: 1.4;
+}
+
+.allocation-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #198754; /* Green bullet points */
+}
+
+/* Adjust the layout of the detail row for better display */
+.detail-row.allocation-row {
+  flex-direction: column;
+  align-items: flex-start !important;
+}
+
+.detail-row.allocation-row span:first-child {
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Make sure long allocation text wraps properly */
+.detail-row.allocation-row .allocation-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 100%; /* Use full width */
+}
+
+.reset-chat-button {
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.reset-chat-button:hover {
+  background-color: #e0e0e0;
 }
