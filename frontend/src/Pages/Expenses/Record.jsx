@@ -4,6 +4,7 @@ import {
   PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line
 } from 'recharts';
 import axios from 'axios';
+import "./Record.css";
 
 const Record = () => {
   const [payments, setPayments] = useState([]);
@@ -261,7 +262,7 @@ const Record = () => {
             <div style={dropdownContainerStyle}>
               <div style={dropdownWrapperStyle}>
                 <button 
-                  style={dropdownButtonStyle} 
+                  classname={dropdownButtonStyle} 
                   onClick={() => setShowMonthDropdown(!showMonthDropdown)}
                 >
                   {selectedMonth} ▼
@@ -318,7 +319,7 @@ const Record = () => {
               </div>
             </div>
 
-            <div style={containerStyle}>
+            <div className="record-container">
               <div style={chartContainerStyle}>
                 <div style={{ width: '50%' }}>
                   <h3 style={{ textAlign: 'center', marginBottom: '12px' }}>
@@ -390,31 +391,56 @@ const Record = () => {
         )}
 
         {radioValue === '2' && (
-        <div>
-          <h3 style={{ textAlign: 'center', marginBottom: '24px' }}>Expense Trends of {selectedYear}</h3>
-          <div style={{ height: '400px' }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={lineChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip formatter={(value) => [`RM${value.toFixed(2)}`, 'Amount']} />
-                {uniqueExpenseCategories.map((category, i) => (
-                  <Line
-                    key={category}
-                    type="monotone"
-                    dataKey={category}
-                    stroke={lineColors[i % lineColors.length]}
-                    strokeWidth={2}
-                    dot={{ r: 3 }}
-                    activeDot={{ r: 5 }}
-                  />
-                ))}
-              </LineChart>
-            </ResponsiveContainer>
+          <div>
+            <h3 style={{ textAlign: 'center', marginBottom: '24px' }}>
+              Expense Trends of {selectedYear}
+            </h3>
+
+            <div style={{ height: '400px' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={lineChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => [`RM${value.toFixed(2)}`, 'Amount']} />
+                  {uniqueExpenseCategories.map((category, i) => (
+                    <Line
+                      key={category}
+                      type="monotone"
+                      dataKey={category}
+                      stroke={lineColors[i % lineColors.length]}
+                      strokeWidth={2}
+                      dot={{ r: 3 }}
+                      activeDot={{ r: 5 }}
+                    />
+                  ))}
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Custom Legend */}
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '12px',
+              marginTop: '16px'
+            }}>
+              {uniqueExpenseCategories.map((category, i) => (
+                <div key={category} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div style={{
+                    width: '16px',
+                    height: '16px',
+                    backgroundColor: lineColors[i % lineColors.length],
+                    borderRadius: '50%'
+                  }}></div>
+                  <span>{category}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
       </div>
 
       {/* Add Payment Modal */}
