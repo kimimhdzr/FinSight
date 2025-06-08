@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+// Cleaned Record.jsx
+import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import axios from 'axios';
 
 const Record = () => {
+  const [payments, setPayments] = useState([]);
   const [radioValue, setRadioValue] = useState('1');
   const [isAddingPayment, setIsAddingPayment] = useState(false);
   const [activeTab, setActiveTab] = useState('expense');
@@ -12,18 +14,76 @@ const Record = () => {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  
+
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => currentYear - 5 + i);
-  
   const [selectedMonth, setSelectedMonth] = useState(months[new Date().getMonth()]);
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [showMonthDropdown, setShowMonthDropdown] = useState(false);
   const [showYearDropdown, setShowYearDropdown] = useState(false);
 
-  // Form state for new payment
+  useEffect(() => {
+    fetchPayments();
+    const interval = setInterval(fetchPayments, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchPayments = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/api/payments');
+      const sorted = [...res.data].sort((a, b) => new Date(b.date) - new Date(a.date));
+      setPayments(sorted);
+    } catch (err) {
+      console.error('Error fetching payments:', err);
+    }
+  };
+
+  const filterByMonthYear = (records) => {
+    return records.filter((p) => {
+      const d = new Date(p.date);
+      return d.getFullYear() === selectedYear && months[d.getMonth()] === selectedMonth;
+    });
+  };
+
+  const groupByDate = (records) => {
+    const grouped = {};
+    records.forEach((item) => {
+      const date = new Date(item.date).toDateString();
+      if (!grouped[date]) grouped[date] = [];
+      grouped[date].push(item);
+    });
+    return Object.entries(grouped).map(([date, items]) => ({ date, items }));
+  };
+
+  const visiblePayments = filterByMonthYear(payments);
+  const uniqueExpenseCategories = [...new Set(
+    payments.filter(p => p.type === 'expense' && new Date(p.date).getFullYear() === currentYear).map(p => p.category)
+  )];
+  const groupedTransactions = groupByDate(visiblePayments);
+
+  const getPieData = (payments, selectedMonth, selectedYear) => {
+    const colorPalette = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DFF', '#FF7F7F', '#82CA9D', '#FF9F40'];
+    const filtered = payments.filter(p => {
+      const d = new Date(p.date);
+      return d.getFullYear() === selectedYear && months[d.getMonth()] === selectedMonth && p.type === 'expense';
+    });
+
+    const totalsByCategory = {};
+    filtered.forEach(p => {
+      totalsByCategory[p.category] = (totalsByCategory[p.category] || 0) + parseFloat(p.amount);
+    });
+
+    return Object.entries(totalsByCategory).map(([name, value], i) => ({
+      name,
+      value: parseFloat(value.toFixed(2)),
+      fill: colorPalette[i % colorPalette.length]
+    }));
+  };
+
+  const pieData = getPieData(payments, selectedMonth, selectedYear);
+
   const [paymentForm, setPaymentForm] = useState({
-    type: 'expense', // expense or income
+    type: 'expense',
     category: 'Food',
     amount: '',
     description: '',
@@ -33,7 +93,6 @@ const Record = () => {
   const expenseCategories = ['Food', 'House', 'Bills', 'Transportation', 'Shopping', 'Entertainment'];
   const incomeCategories = ['Salary', 'Freelance', 'Investment', 'Gift', 'Other'];
 
-  // Icon components using Unicode symbols
   const Icons = {
     Bars: () => <span>☰</span>,
     Home: () => <span>🏠</span>,
@@ -42,11 +101,16 @@ const Record = () => {
     Car: () => <span>🚗</span>,
     Shopping: () => <span>🛒</span>,
     Gamepad: () => <span>🎮</span>,
-    Calendar: () => <span>📅</span>,
     Dollar: () => <span>💰</span>,
     File: () => <span>📁</span>,
     Plus: () => <span>➕</span>
   };
+  
+  const chartColors = [
+  '#8884d8', '#82ca9d', '#ffc658', '#ff7f50', '#8dd1e1',
+  '#a28dff', '#ffbb28', '#d0ed57', '#a4de6c', '#d88884'
+];
+
 
   const categoryIcons = {
     Food: <Icons.Utensils />,
@@ -64,62 +128,80 @@ const Record = () => {
 
   const handlePaymentFormChange = (e) => {
     const { name, value } = e.target;
-    setPaymentForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setPaymentForm(prev => ({ ...prev, [name]: value }));
   };
 
-const handleSavePayment = async () => {
-  try {
-    console.log('Submitting:', paymentForm);
-
-    if (!paymentForm.amount || !paymentForm.description) {
-      alert('Please enter both amount and description.');
-      return;
+  const handleSavePayment = async () => {
+    try {
+      if (!paymentForm.amount || !paymentForm.description) {
+        alert('Please enter both amount and description.');
+        return;
+      }
+      await axios.post('http://localhost:3000/api/payments', paymentForm);
+      await fetchPayments();
+      alert('Payment saved successfully.');
+      setIsAddingPayment(false);
+      setPaymentForm({ type: 'expense', category: 'Food', amount: '', description: '', date: new Date().toISOString().split('T')[0] });
+    } catch (err) {
+      console.error('Failed to save payment:', err);
+      alert('Error saving payment. Is your backend running at http://localhost:3000?');
     }
-
-    const response = await axios.post('http://localhost:3000/api/payments', paymentForm);
-    console.log('Saved to backend:', response.data);
-    alert('Payment saved successfully.');
-    setIsAddingPayment(false);
-    setPaymentForm({
-      type: 'expense',
-      category: 'Food',
-      amount: '',
-      description: '',
-      date: new Date().toISOString().split('T')[0],
-    });
-  } catch (err) {
-    console.error('Failed to save payment:', err);
-    alert('Error saving payment. Is your backend running at http://localhost:3000?\n\nCheck console for details.');
-  }
-};
-
-  const pieData = [
-    { name: 'House', value: 1245.90, fill: '#FF8042' },
-    { name: 'Bills', value: 89.00, fill: '#FFBB28' },
-    { name: 'Food', value: 245.60, fill: '#00C49F' }
-  ];
-
-  const expenseData = {
-    Food: [120, 140, 130, 110, 160, 150],
-    Bills: [80, 90, 100, 85, 95, 105],
-    House: [500, 520, 530, 550, 540, 560]
   };
 
-  const getChartData = (category) => 
-    months.slice(0, 6).map((month, index) => ({
-      month: month.slice(0, 3),
-      amount: expenseData[category][index] || 0
-    }));
+  const getExpenseBreakdown = () => {
+    const currentFiltered = payments.filter(p => {
+      const d = new Date(p.date);
+      return d.getFullYear() === selectedYear && months[d.getMonth()] === selectedMonth && p.type === 'expense';
+    });
 
-  const transactions = [
-    { date: 'Wed, 14 May', items: [{ description: 'FOOD', amount: 5.00 }, { description: 'HOUSE', amount: 360.00 }] },
-    { date: 'Tue, 13 May', items: [{ description: 'BILLS', amount: 64.50 }] },
-    { date: 'Mon, 12 May', items: [{ description: 'TRANSPORTATION', amount: 7.00 }, { description: 'FOOD', amount: 7.00 }, { description: 'FOOD', amount: 6.50 }] },
-    { date: 'Sun, 11 May', items: [{ description: 'FOOD', amount: 5.00 }, { description: 'FOOD', amount: 4.50 }, { description: 'TRANSPORTATION', amount: 8.00 }] }
-  ];
+    const prevMonthIndex = months.indexOf(selectedMonth) - 1;
+    const prevMonth = months[prevMonthIndex < 0 ? 11 : prevMonthIndex];
+    const prevYear = prevMonthIndex < 0 ? selectedYear - 1 : selectedYear;
+
+    const previousFiltered = payments.filter(p => {
+      const d = new Date(p.date);
+      return d.getFullYear() === prevYear && months[d.getMonth()] === prevMonth && p.type === 'expense';
+    });
+
+    const totalByCategory = (data) => {
+      const map = {};
+      data.forEach(p => {
+        map[p.category] = (map[p.category] || 0) + parseFloat(p.amount);
+      });
+      return map;
+    };
+
+    const currentTotals = totalByCategory(currentFiltered);
+    const previousTotals = totalByCategory(previousFiltered);
+
+    const breakdown = Object.entries(currentTotals).map(([category, currentAmount]) => {
+      const previousAmount = previousTotals[category] || 0;
+      const change = previousAmount > 0 ? ((currentAmount - previousAmount) / previousAmount) * 100 : 100;
+      return {
+        category,
+        currentAmount: parseFloat(currentAmount.toFixed(2)),
+        change: parseFloat(change.toFixed(2))
+      };
+    });
+
+    return breakdown.sort((a, b) => b.currentAmount - a.currentAmount).slice(0, 2);
+  };
+
+  const breakdownTop2 = getExpenseBreakdown();
+
+  const getMonthlyExpensesByCategory = (category) => {
+    const result = Array(12).fill(0);
+    payments.forEach(p => {
+      const d = new Date(p.date);
+      if (d.getFullYear() === currentYear && p.type === 'expense' && p.category === category) {
+        result[d.getMonth()] += parseFloat(p.amount);
+      }
+    });
+    return result.map((amount, i) => ({ month: months[i].slice(0, 3), amount: parseFloat(amount.toFixed(2)) }));
+  };
+
+  const getChartData = getMonthlyExpensesByCategory;
+
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
@@ -222,32 +304,26 @@ const handleSavePayment = async () => {
                         cy="50%"
                         outerRadius={80}
                         dataKey="value"
-                        label={({ name, value }) => `${name}: RM${value}`}
-                      >
-                        {pieData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.fill} />
-                        ))}
-                      </Pie>
-                      <Tooltip formatter={(value) => [`RM${value}`, 'Amount']} />
+                        label={({ name, value }) => `${name}: RM${value.toFixed(2)}`}
+                      />
+                      <Tooltip formatter={(value) => [`RM${parseFloat(value).toFixed(2)}`, 'Amount']} />
+
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
                 <div style={expenseBreakdownStyle}>
                   <h3 style={{ marginBottom: '16px', fontSize: '1.25rem', fontWeight: '500' }}>Expenses Breakdown</h3>
-                  <div style={expenseItemStyle}>
-                    <div>
-                      <div style={{ fontWeight: '600' }}>Housing</div>
-                      <div style={{ fontSize: '1.2rem', fontWeight: 'lighter' }}>RM 1,245.90</div>
+                  {breakdownTop2.map((item, i) => (
+                    <div key={i} style={expenseItemStyle}>
+                      <div>
+                        <div style={{ fontWeight: '600' }}>{item.category}</div>
+                        <div style={{ fontSize: '1.2rem', fontWeight: 'lighter' }}>RM {item.currentAmount.toFixed(2)}</div>
+                      </div>
+                      <span style={{ color: item.change >= 0 ? 'green' : 'red' }}>
+                        {Math.abs(item.change)}% {item.change >= 0 ? '🔺' : '🔻'}
+                      </span>
                     </div>
-                    <span style={{ color: 'green' }}>15% 🔺</span>
-                  </div>
-                  <div style={expenseItemStyle}>
-                    <div>
-                      <div style={{ fontWeight: '600' }}>Bills</div>
-                      <div style={{ fontSize: '1.2rem', fontWeight: 'lighter' }}>RM 89.00</div>
-                    </div>
-                    <span style={{ color: 'red' }}>15% 🔻</span>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -262,15 +338,19 @@ const handleSavePayment = async () => {
                   </button>
                 </div>
                 <div style={transactionListStyle}>
-                  {transactions.map((day, i) => (
+                  {groupedTransactions.map((day, i) => (
                     <div key={i}>
                       <div style={dateHeaderStyle}>{day.date}</div>
                       {day.items.map((item, j) => (
                         <div key={j} style={transactionItemStyle}>
-                          <span>{item.description}</span>
+                          <div>
+                            <div style={{ fontWeight: 600 }}>{item.category.toUpperCase()}</div>
+                            <div style={{ fontSize: '0.85rem', color: '#555' }}>{item.description}</div>
+                          </div>
                           <span style={amountBadgeStyle}>RM {item.amount.toFixed(2)}</span>
                         </div>
                       ))}
+
                     </div>
                   ))}
                 </div>
@@ -281,9 +361,9 @@ const handleSavePayment = async () => {
 
         {radioValue === '2' && (
           <div style={containerStyle}>
-            <h2 style={{ textAlign: 'center', marginBottom: '32px' }}>Monthly Expense Comparison</h2>
+            <h2 style={{ textAlign: 'center', marginBottom: '32px' }}> 2025 Monthly Expense Comparison</h2>
 
-            {['Food', 'Bills', 'House'].map((category, i) => (
+            {uniqueExpenseCategories.map((category, i) => (
               <div key={i} style={chartCardStyle}>
                 <h3 style={{ textAlign: 'center', marginBottom: '24px', fontSize: '1.5rem' }}>{category} Expenses</h3>
                 <ResponsiveContainer width="100%" height={250}>
@@ -291,8 +371,8 @@ const handleSavePayment = async () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="month" />
                     <YAxis />
-                    <Tooltip formatter={(value) => [`RM${value}`, 'Amount']} />
-                    <Bar dataKey="amount" fill="#007bff" />
+                    <Tooltip formatter={(value) => [`RM${parseFloat(value).toFixed(2)}`, 'Amount']} />
+                    <Bar dataKey="amount" fill={chartColors[i % chartColors.length]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
