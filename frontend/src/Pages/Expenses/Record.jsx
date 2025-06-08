@@ -1,6 +1,8 @@
 // Cleaned Record.jsx
 import React, { useEffect, useState } from 'react';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line
+} from 'recharts';
 import axios from 'axios';
 
 const Record = () => {
@@ -14,6 +16,7 @@ const Record = () => {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
+  const shortMonths = months.map(m => m.slice(0, 3));
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 10 }, (_, i) => currentYear - 5 + i);
@@ -31,12 +34,12 @@ const Record = () => {
   const fetchPayments = async () => {
     try {
       const res = await axios.get('http://localhost:3000/api/payments');
-      const sorted = [...res.data].sort((a, b) => new Date(b.date) - new Date(a.date));
-      setPayments(sorted);
+      setPayments(res.data);
     } catch (err) {
       console.error('Error fetching payments:', err);
     }
   };
+
 
   const filterByMonthYear = (records) => {
     return records.filter((p) => {
@@ -57,9 +60,31 @@ const Record = () => {
 
   const visiblePayments = filterByMonthYear(payments);
   const uniqueExpenseCategories = [...new Set(
-    payments.filter(p => p.type === 'expense' && new Date(p.date).getFullYear() === currentYear).map(p => p.category)
+    payments.filter(p => p.type === 'expense' && new Date(p.date).getFullYear() === selectedYear).map(p => p.category)
   )];
+
   const groupedTransactions = groupByDate(visiblePayments);
+
+    const lineChartData = shortMonths.map((month, i) => {
+    const monthData = { month };
+    uniqueExpenseCategories.forEach(category => {
+      const total = payments
+        .filter(p => {
+          const d = new Date(p.date);
+          return (
+            p.type === 'expense' &&
+            p.category === category &&
+            d.getFullYear() === selectedYear &&
+            d.getMonth() === i
+          );
+        })
+        .reduce((sum, p) => sum + parseFloat(p.amount), 0);
+      monthData[category] = parseFloat(total.toFixed(2));
+    });
+    return monthData;
+  });
+
+  const lineColors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
 
   const getPieData = (payments, selectedMonth, selectedYear) => {
     const colorPalette = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28DFF', '#FF7F7F', '#82CA9D', '#FF9F40'];
@@ -105,7 +130,7 @@ const Record = () => {
     File: () => <span>📁</span>,
     Plus: () => <span>➕</span>
   };
-  
+
   const chartColors = [
   '#8884d8', '#82ca9d', '#ffc658', '#ff7f50', '#8dd1e1',
   '#a28dff', '#ffbb28', '#d0ed57', '#a4de6c', '#d88884'
@@ -295,31 +320,36 @@ const Record = () => {
 
             <div style={containerStyle}>
               <div style={chartContainerStyle}>
-                <div style={{ width: '50%', height: '300px' }}>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={pieData}
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={80}
-                        dataKey="value"
-                        label={({ name, value }) => `${name}: RM${value.toFixed(2)}`}
-                      />
-                      <Tooltip formatter={(value) => [`RM${parseFloat(value).toFixed(2)}`, 'Amount']} />
-
-                    </PieChart>
-                  </ResponsiveContainer>
+                <div style={{ width: '50%' }}>
+                  <h3 style={{ textAlign: 'center', marginBottom: '12px' }}>
+                    {`${selectedMonth} ${selectedYear} Expenses Distribution`}
+                  </h3>
+                  <div style={{ height: '300px' }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={pieData}
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={110}
+                          dataKey="value"
+                          label={({ name, value }) => `${name}: RM${value.toFixed(2)}`}
+                        />
+                        <Tooltip formatter={(value) => [`RM${parseFloat(value).toFixed(2)}`, 'Amount']} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
+
                 <div style={expenseBreakdownStyle}>
-                  <h3 style={{ marginBottom: '16px', fontSize: '1.25rem', fontWeight: '500' }}>Expenses Breakdown</h3>
+                  <h3 style={{ marginBottom: '16px', fontSize: '1.25rem', fontWeight: '500' }}>Trends </h3>
                   {breakdownTop2.map((item, i) => (
                     <div key={i} style={expenseItemStyle}>
                       <div>
                         <div style={{ fontWeight: '600' }}>{item.category}</div>
                         <div style={{ fontSize: '1.2rem', fontWeight: 'lighter' }}>RM {item.currentAmount.toFixed(2)}</div>
                       </div>
-                      <span style={{ color: item.change >= 0 ? 'green' : 'red' }}>
+                      <span style={{ color: item.change >= 0 ? 'red' : 'green' }}>
                         {Math.abs(item.change)}% {item.change >= 0 ? '🔺' : '🔻'}
                       </span>
                     </div>
@@ -360,25 +390,31 @@ const Record = () => {
         )}
 
         {radioValue === '2' && (
-          <div style={containerStyle}>
-            <h2 style={{ textAlign: 'center', marginBottom: '32px' }}> 2025 Monthly Expense Comparison</h2>
-
-            {uniqueExpenseCategories.map((category, i) => (
-              <div key={i} style={chartCardStyle}>
-                <h3 style={{ textAlign: 'center', marginBottom: '24px', fontSize: '1.5rem' }}>{category} Expenses</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={getChartData(category)} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip formatter={(value) => [`RM${parseFloat(value).toFixed(2)}`, 'Amount']} />
-                    <Bar dataKey="amount" fill={chartColors[i % chartColors.length]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            ))}
+        <div>
+          <h3 style={{ textAlign: 'center', marginBottom: '24px' }}>Expense Trends of {selectedYear}</h3>
+          <div style={{ height: '400px' }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={lineChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip formatter={(value) => [`RM${value.toFixed(2)}`, 'Amount']} />
+                {uniqueExpenseCategories.map((category, i) => (
+                  <Line
+                    key={category}
+                    type="monotone"
+                    dataKey={category}
+                    stroke={lineColors[i % lineColors.length]}
+                    strokeWidth={2}
+                    dot={{ r: 3 }}
+                    activeDot={{ r: 5 }}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
           </div>
-        )}
+        </div>
+      )}
       </div>
 
       {/* Add Payment Modal */}
