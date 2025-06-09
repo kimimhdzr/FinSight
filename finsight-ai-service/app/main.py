@@ -1,24 +1,21 @@
 from fastapi import FastAPI
-from app.routers import advisor
-import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+from .routes import strategy_routes
 
-app = FastAPI()
+app = FastAPI(title="FinSight AI Service")
 
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Replace with your frontend URL
+    allow_origins=["*"],  # For production, specify your frontend domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(advisor.router)
+# Include API routes
+app.include_router(strategy_routes.router)
 
 @app.get("/")
-def read_root():
-    return {"message": "Welcome to the FinSight AI Service!"}
-
-if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+async def root():
+    return {"message": "Welcome to FinSight AI Service"}
