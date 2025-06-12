@@ -1,7 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import "./AIInvestmentAdvisor.css";
+import axios from "axios";
 
 const AIInvestmentAdvisor = () => {
+  // All your state variables first
+  const [savedStrategiesList, setSavedStrategiesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [strategyToDelete, setStrategyToDelete] = useState(null);
   const [showSavedStrategies, setShowSavedStrategies] = useState(false);
   const [selectedRiskTolerance, setSelectedRiskTolerance] = useState("moderate");
   const [selectedGrowth, setSelectedGrowth] = useState(["low-mid-income"]);
@@ -10,11 +16,6 @@ const AIInvestmentAdvisor = () => {
   const [maxInvestment, setMaxInvestment] = useState(8018);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [generatedStrategies, setGeneratedStrategies] = useState([]);
-  const [savedStrategiesList, setSavedStrategiesList] = useState([]);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [strategyToDelete, setStrategyToDelete] = useState(null);
 
   // Initial recommended strategies (before user confirms changes)
   const [recommendedStrategies, setRecommendedStrategies] = useState([
@@ -154,9 +155,33 @@ const AIInvestmentAdvisor = () => {
     }
   };
   
-  // Add this useEffect to load saved strategies on component mount
-  useEffect(() => {
-    const loadSavedStrategies = () => {
+  // Add fetchSavedStrategies function EARLY in the component
+  const fetchSavedStrategies = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Try API first
+      const token = localStorage.getItem('token');
+      
+      if (token) {
+        try {
+          // Call AI service API
+          const response = await axios.get('http://localhost:8000/strategies/', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          
+          if (response.data.success) {
+            setSavedStrategiesList(response.data.strategies);
+            return;
+          }
+        } catch (error) {
+          console.log("API fetch failed, falling back to localStorage");
+        }
+      }
+      
+      // Fall back to localStorage if API fails or no token
       const savedStrategiesString = localStorage.getItem('savedStrategies');
       if (savedStrategiesString) {
         try {
@@ -165,42 +190,67 @@ const AIInvestmentAdvisor = () => {
             setSavedStrategiesList(saved);
           }
         } catch (error) {
-          console.error('Error loading saved strategies:', error);
+          console.error('Error parsing saved strategies from localStorage:', error);
         }
       }
-    };
-    
-    loadSavedStrategies();
-  }, []);
-
-  // Update your saveStrategy function to handle duplicates
-  const saveStrategy = (strategy) => {
-    // Check if strategy already exists in saved list by name
-    const isDuplicate = savedStrategiesList.some(
-      saved => saved.name === strategy.name
-    );
-    
-    if (isDuplicate) {
-      alert("This strategy is already saved");
-      return;
+    } catch (error) {
+      console.error("Error fetching strategies:", error);
+    } finally {
+      setIsLoading(false);
     }
-    
-    const updatedList = [...savedStrategiesList, strategy];
-    setSavedStrategiesList(updatedList);
-    localStorage.setItem('savedStrategies', JSON.stringify(updatedList));
-    
-    // Give feedback to the user
-    alert("Strategy saved successfully!");
   };
-  
-  // Load saved strategies from localStorage on component mount
-  useEffect(() => {
-    const savedStrategies = localStorage.getItem('savedStrategies');
-    if (savedStrategies) {
-      setSavedStrategiesList(JSON.parse(savedStrategies));
+
+  // Now define your other functions that call fetchSavedStrategies
+  const saveStrategy = async (strategy) => {
+    try {
+      setIsLoading(true);
+      
+      // Check for duplicates
+      const isDuplicate = savedStrategiesList.some(
+        saved => saved.name === strategy.name
+      );
+      
+      if (isDuplicate) {
+        alert("This strategy is already saved");
+        return;
+      }
+
+      // Try API first
+      const token = localStorage.getItem('token');
+      
+      if (token) {
+        try {
+          const response = await axios.post('http://localhost:8000/strategies/', strategy, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          
+          if (response.data.success) {
+            // Refresh the list after successful save
+            fetchSavedStrategies(); // This should now work
+            alert("Strategy saved successfully!");
+            return;
+          }
+        } catch (error) {
+          console.log("API save failed, falling back to localStorage");
+        }
+      }
+      
+      // Fall back to localStorage
+      const updatedList = [...savedStrategiesList, strategy];
+      setSavedStrategiesList(updatedList);
+      localStorage.setItem('savedStrategies', JSON.stringify(updatedList));
+      alert("Strategy saved successfully!");
+      
+    } catch (error) {
+      console.error("Error saving strategy:", error);
+      alert("Failed to save strategy. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-  }, []);
-  
+  };
+
   // Enhance your getLocalAIResponse function with more investment keywords:
 
   const getLocalAIResponse = (message) => {
@@ -542,25 +592,61 @@ const AIInvestmentAdvisor = () => {
   };
 
   // Function to handle confirmation of delete operation
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (strategyToDelete !== null) {
-      // Create a new array without the strategy to delete
-      const updatedStrategies = savedStrategiesList.filter(
-        (_, index) => index !== strategyToDelete
-      );
-      
-      // Update state and local storage
-      setSavedStrategiesList(updatedStrategies);
-      localStorage.setItem('savedStrategies', JSON.stringify(updatedStrategies));
-      
-      // Show a brief success message
-      console.log("Strategy removed successfully");
-      
-      // Reset the delete confirmation state
-      setStrategyToDelete(null);
-      setShowDeleteConfirmation(false);
+      try {
+        setIsLoading(true);
+        
+        const strategy = savedStrategiesList[strategyToDelete];
+        
+        // Try API deletion first
+        if (strategy._id) {
+          const token = localStorage.getItem('token');
+          
+          try {
+            const response = await axios.delete(`http://localhost:8000/strategies/${strategy._id}`, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
+            
+            if (response.data.success) {
+              // API deletion successful
+              fetchSavedStrategies(); // This should now work
+              setStrategyToDelete(null);
+              setShowDeleteConfirmation(false);
+              return;
+            }
+          } catch (error) {
+            console.log("API deletion failed, falling back to localStorage");
+          }
+        }
+        
+        // Fall back to localStorage
+        const updatedStrategies = savedStrategiesList.filter(
+          (_, index) => index !== strategyToDelete
+        );
+        
+        // Update state and local storage
+        setSavedStrategiesList(updatedStrategies);
+        localStorage.setItem('savedStrategies', JSON.stringify(updatedStrategies));
+        
+        // Reset the delete confirmation state
+        setStrategyToDelete(null);
+        setShowDeleteConfirmation(false);
+        
+      } catch (error) {
+        console.error("Error deleting strategy:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
+
+  // Load saved strategies on component mount
+  useEffect(() => {
+    fetchSavedStrategies();
+  }, []);
 
   // Render your component UI here
   return (

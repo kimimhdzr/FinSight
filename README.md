@@ -66,7 +66,9 @@ A modern, user-friendly web application designed to simplify personal financial 
 
 ## 📦 Installation
 
-### Backend Setup (Django)
+### Backend Setup
+
+#### Django Backend
 ```bash
 # Navigate to the backend folder
 cd backend
