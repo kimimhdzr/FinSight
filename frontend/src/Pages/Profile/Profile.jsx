@@ -342,7 +342,7 @@ const Profile = () => {
           <div className="profile-pic">
             {user?.profilePic ? (
               <img
-                src={user.profilePic}
+                src={user?.profilePic}
                 alt="Profile"
                 className="profile-image"
               />
@@ -354,7 +354,7 @@ const Profile = () => {
             </h2>
             <span>
               {user?.dob ? (
-                `${formatDateWithSuffix(user.dob)} (${calculateAge(user.dob)})`
+                `${formatDateWithSuffix(user?.dob)} (${calculateAge(user?.dob)})`
               ) : (
                 <LoadingSkeleton width="120px" height="20px" />
               )}
@@ -697,12 +697,12 @@ const Profile = () => {
                     >
                       {profileImagePreview ||
                         profileImageUrl ||
-                        user.profilePic ? (
+                        user?.profilePic ? (
                         <img
                           src={
                             profileImagePreview ||
                             profileImageUrl ||
-                            user.profilePic
+                            user?.profilePic
                           }
                           alt="Profile"
                           className="profile-image"
@@ -777,40 +777,40 @@ const Profile = () => {
                       type="text"
                       name="name"
                       placeholder="First name"
-                      value={formData.name}
+                      value={formData?.name}
                       onChange={handleChange}
                     />
                     <input
                       type="email"
                       name="email"
                       placeholder="Email"
-                      value={formData.email}
+                      value={formData?.email}
                       onChange={handleChange}
                     />
                     <input
                       type="text"
                       name="phone"
                       placeholder="Phone"
-                      value={formData.phone}
+                      value={formData?.phone}
                       onChange={handleChange}
                     />
                     <input
                       type="text"
                       name="location"
                       placeholder="Location"
-                      value={formData.location}
+                      value={formData?.location}
                       onChange={handleChange}
                     />
                     <input
                       type="date"
                       name="dob"
-                      value={formData.dob}
+                      value={formData?.dob}
                       onChange={handleChange}
                     />
                     <textarea
                       name="bio"
                       placeholder="Bio"
-                      value={formData.bio}
+                      value={formData?.bio}
                       onChange={handleChange}
                     />
                   </div>
