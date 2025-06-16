@@ -1,0 +1,1002 @@
+[
+  {
+    "_id": {
+      "$oid": "cbd5ebfd8daff0492d7bad6d"
+    },
+    "userId": 3,
+    "name": "Bayer, Wilkinson and Morissette - Handmade Plastic Pizza",
+    "amount": 102.81,
+    "category": "Groceries",
+    "date": "2025-06-01"
+  },
+  {
+    "_id": {
+      "$oid": "96e8e26e7a6e2ec8ef9b9db4"
+    },
+    "userId": 3,
+    "name": "Mosciski LLC - Rustic Steel Chicken",
+    "amount": 21.14,
+    "category": "Shopping",
+    "date": "2025-06-01"
+  },
+  {
+    "_id": {
+      "$oid": "3082997dd319f9eec47b3392"
+    },
+    "userId": 2,
+    "name": "Kuvalis LLC - Licensed Granite Pants",
+    "amount": 139.47,
+    "category": "Groceries",
+    "date": "2025-06-01"
+  },
+  {
+    "_id": {
+      "$oid": "8319eae3f93f8b8b5d6dadde"
+    },
+    "userId": 3,
+    "name": "Hagenes - Funk - Gorgeous Marble Ball",
+    "amount": 48.78,
+    "category": "Groceries",
+    "date": "2025-06-01"
+  },
+  {
+    "_id": {
+      "$oid": "3e92750c4c084c4705cac3df"
+    },
+    "userId": 1,
+    "name": "Luettgen, Schinner and Walter - Refined Plastic Keyboard",
+    "amount": 193.88,
+    "category": "Food & Beverages",
+    "date": "2025-06-02"
+  },
+  {
+    "_id": {
+      "$oid": "cebef641c783bb97ea5af6cd"
+    },
+    "userId": 1,
+    "name": "Hermann, Harber and Fay - Electronic Concrete Bacon",
+    "amount": 53.92,
+    "category": "Food & Beverages",
+    "date": "2025-06-02"
+  },
+  {
+    "_id": {
+      "$oid": "f095c3ddde9d2f90aef170a4"
+    },
+    "userId": 3,
+    "name": "Raynor - Koch - Small Steel Bike",
+    "amount": 1003.17,
+    "category": "Rent",
+    "date": "2025-06-02"
+  },
+  {
+    "_id": {
+      "$oid": "9df93b63b574cde781a3fbda"
+    },
+    "userId": 1,
+    "name": "Marquardt, Rosenbaum and Pouros - Awesome Ceramic Pants",
+    "amount": 197.39,
+    "category": "Utilities",
+    "date": "2025-06-02"
+  },
+  {
+    "_id": {
+      "$oid": "cc16e5e0bdeeb7d4ef20cb1d"
+    },
+    "userId": 1,
+    "name": "Welch, White and Mayer - Fantastic Rubber Shoes",
+    "amount": 117.73,
+    "category": "Utilities",
+    "date": "2025-06-02"
+  },
+  {
+    "_id": {
+      "$oid": "75c4fb9bd1e9ece2defe6812"
+    },
+    "userId": 1,
+    "name": "Rice, Ritchie and McDermott - Gorgeous Metal Bike",
+    "amount": 795.39,
+    "category": "Rent",
+    "date": "2025-06-03"
+  },
+  {
+    "_id": {
+      "$oid": "4bee0dff429c76ac5ac0ebc3"
+    },
+    "userId": 2,
+    "name": "Wyman, McKenzie and Schaden - Recycled Granite Chair",
+    "amount": 22.82,
+    "category": "Groceries",
+    "date": "2025-06-03"
+  },
+  {
+    "_id": {
+      "$oid": "e894cecfef03bf458dc969fe"
+    },
+    "userId": 3,
+    "name": "Halvorson - Mertz - Generic Wooden Ball",
+    "amount": 73.18,
+    "category": "Groceries",
+    "date": "2025-06-03"
+  },
+  {
+    "_id": {
+      "$oid": "bdc55da4d3bb4b0958dd9cec"
+    },
+    "userId": 3,
+    "name": "Nienow and Sons - Modern Rubber Pizza",
+    "amount": 83.42,
+    "category": "Transportation",
+    "date": "2025-06-03"
+  },
+  {
+    "_id": {
+      "$oid": "6adb8fe76eb3ca439ff318d2"
+    },
+    "userId": 3,
+    "name": "Dietrich Inc - Frozen Wooden Mouse",
+    "amount": 2323.66,
+    "category": "Rent",
+    "date": "2025-06-03"
+  },
+  {
+    "_id": {
+      "$oid": "3e4dcf37bc05633795b4fdfd"
+    },
+    "userId": 1,
+    "name": "Barrows - Rutherford - Bespoke Bronze Towels",
+    "amount": 46.86,
+    "category": "Groceries",
+    "date": "2025-06-03"
+  },
+  {
+    "_id": {
+      "$oid": "d3a8ec6f51b45afca3b82a72"
+    },
+    "userId": 2,
+    "name": "Champlin, Mills and Emmerich - Handcrafted Bamboo Gloves",
+    "amount": 68.78,
+    "category": "Transportation",
+    "date": "2025-06-03"
+  },
+  {
+    "_id": {
+      "$oid": "e7c2b78e29ff34b4aa5b5c4b"
+    },
+    "userId": 3,
+    "name": "Ebert - Herman - Rustic Metal Tuna",
+    "amount": 111.86,
+    "category": "Utilities",
+    "date": "2025-06-04"
+  },
+  {
+    "_id": {
+      "$oid": "44fe58efd1fa1e59947dcd77"
+    },
+    "userId": 3,
+    "name": "Conroy, Parisian and Grant - Handcrafted Bamboo Pizza",
+    "amount": 1681,
+    "category": "Rent",
+    "date": "2025-06-05"
+  },
+  {
+    "_id": {
+      "$oid": "3fbce94cfa5c9a1ba037ff26"
+    },
+    "userId": 3,
+    "name": "Kuhn - Crist - Modern Granite Cheese",
+    "amount": 199.41,
+    "category": "Food & Beverages",
+    "date": "2025-06-05"
+  },
+  {
+    "_id": {
+      "$oid": "7b8cbc90ff5e2defe3afa640"
+    },
+    "userId": 1,
+    "name": "Keebler - Larkin - Unbranded Wooden Car",
+    "amount": 119.38,
+    "category": "Food & Beverages",
+    "date": "2025-06-05"
+  },
+  {
+    "_id": {
+      "$oid": "f9cefad557f72cd5ad9d0f81"
+    },
+    "userId": 2,
+    "name": "Fay, Rodriguez and Keebler - Fresh Granite Computer",
+    "amount": 2198,
+    "category": "Rent",
+    "date": "2025-06-05"
+  },
+  {
+    "_id": {
+      "$oid": "bcbb0333d6de0a1b338b6bea"
+    },
+    "userId": 3,
+    "name": "Bruen, Mitchell and Towne - Bespoke Bamboo Sausages",
+    "amount": 194.29,
+    "category": "Groceries",
+    "date": "2025-06-05"
+  },
+  {
+    "_id": {
+      "$oid": "00caacdd41efa0ea7b01de01"
+    },
+    "userId": 1,
+    "name": "Baumbach and Sons - Fantastic Silk Ball",
+    "amount": 174.3,
+    "category": "Groceries",
+    "date": "2025-06-06"
+  },
+  {
+    "_id": {
+      "$oid": "d3e5cb6dbdca590c60c86c1b"
+    },
+    "userId": 1,
+    "name": "Dicki - Haley - Oriental Metal Shirt",
+    "amount": 164.62,
+    "category": "Shopping",
+    "date": "2025-06-06"
+  },
+  {
+    "_id": {
+      "$oid": "bd2c24fafcdfdceed33eb4af"
+    },
+    "userId": 3,
+    "name": "Harber - Will - Elegant Metal Cheese",
+    "amount": 127.15,
+    "category": "Food & Beverages",
+    "date": "2025-06-06"
+  },
+  {
+    "_id": {
+      "$oid": "e8ee9bc9e47e2b1fa3859b4f"
+    },
+    "userId": 1,
+    "name": "Altenwerth, Schultz and Howe - Unbranded Ceramic Tuna",
+    "amount": 17.16,
+    "category": "Groceries",
+    "date": "2025-06-06"
+  },
+  {
+    "_id": {
+      "$oid": "acddfeaed1dddd75a587ebfc"
+    },
+    "userId": 2,
+    "name": "Blick - Schiller - Modern Wooden Chips",
+    "amount": 1029.54,
+    "category": "Rent",
+    "date": "2025-06-06"
+  },
+  {
+    "_id": {
+      "$oid": "e8b6ed53894d7ce3654614cd"
+    },
+    "userId": 1,
+    "name": "Kautzer, Upton and Steuber - Soft Marble Pants",
+    "amount": 12.85,
+    "category": "Shopping",
+    "date": "2025-06-07"
+  },
+  {
+    "_id": {
+      "$oid": "e5baa11f201a547fd33f99d3"
+    },
+    "userId": 2,
+    "name": "Cartwright Inc - Gorgeous Concrete Pants",
+    "amount": 46.19,
+    "category": "Shopping",
+    "date": "2025-06-07"
+  },
+  {
+    "_id": {
+      "$oid": "fe34aeaa6dbf9ba4cfff592b"
+    },
+    "userId": 2,
+    "name": "Wilkinson, Jakubowski and Yundt - Electronic Steel Pizza",
+    "amount": 117.75,
+    "category": "Utilities",
+    "date": "2025-06-08"
+  },
+  {
+    "_id": {
+      "$oid": "066c20b8ff649923d17c366f"
+    },
+    "userId": 1,
+    "name": "Feeney - Hayes - Fantastic Ceramic Car",
+    "amount": 128.31,
+    "category": "Shopping",
+    "date": "2025-06-08"
+  },
+  {
+    "_id": {
+      "$oid": "a2d0bcf5ac0fece9a002aa51"
+    },
+    "userId": 2,
+    "name": "Walsh and Sons - Elegant Cotton Computer",
+    "amount": 551.17,
+    "category": "Rent",
+    "date": "2025-06-08"
+  },
+  {
+    "_id": {
+      "$oid": "b68e804afa6f8169ae44be3a"
+    },
+    "userId": 3,
+    "name": "Mitchell Inc - Luxurious Metal Chair",
+    "amount": 16.76,
+    "category": "Transportation",
+    "date": "2025-06-09"
+  },
+  {
+    "_id": {
+      "$oid": "fc00c220fddefcbdbe3bff86"
+    },
+    "userId": 2,
+    "name": "Pfannerstill - O'Connell - Rustic Silk Soap",
+    "amount": 20.12,
+    "category": "Transportation",
+    "date": "2025-06-09"
+  },
+  {
+    "_id": {
+      "$oid": "c2db1d50e39cb7f5a02748ef"
+    },
+    "userId": 3,
+    "name": "Franecki, White and Dicki - Oriental Bamboo Mouse",
+    "amount": 57.78,
+    "category": "Transportation",
+    "date": "2025-06-09"
+  },
+  {
+    "_id": {
+      "$oid": "bdc2027cfe7deebfa0d53c8e"
+    },
+    "userId": 1,
+    "name": "Larkin Group - Soft Bamboo Pants",
+    "amount": 765.05,
+    "category": "Rent",
+    "date": "2025-06-09"
+  },
+  {
+    "_id": {
+      "$oid": "befe629ef30c6ff8d47cd5b5"
+    },
+    "userId": 2,
+    "name": "Blanda, Wisoky and Stehr - Luxurious Rubber Towels",
+    "amount": 132.47,
+    "category": "Utilities",
+    "date": "2025-06-10"
+  },
+  {
+    "_id": {
+      "$oid": "3eb9c392fdd28c003804b953"
+    },
+    "userId": 1,
+    "name": "Lind - Bergnaum - Incredible Marble Car",
+    "amount": 75.03,
+    "category": "Utilities",
+    "date": "2025-06-10"
+  },
+  {
+    "_id": {
+      "$oid": "fef8d68c3bcc5a87e9d57883"
+    },
+    "userId": 2,
+    "name": "Schuppe and Sons - Gorgeous Granite Table",
+    "amount": 129.31,
+    "category": "Food & Beverages",
+    "date": "2025-06-10"
+  },
+  {
+    "_id": {
+      "$oid": "da8abbf967a3feeaff5d24fb"
+    },
+    "userId": 2,
+    "name": "Dicki, Robel and Hermann - Ergonomic Bamboo Computer",
+    "amount": 2314.01,
+    "category": "Rent",
+    "date": "2025-06-10"
+  },
+  {
+    "_id": {
+      "$oid": "d8aeb202fff4add4fdfabff0"
+    },
+    "userId": 3,
+    "name": "Hane, Medhurst and Frami - Practical Ceramic Keyboard",
+    "amount": 15.26,
+    "category": "Food & Beverages",
+    "date": "2025-06-11"
+  },
+  {
+    "_id": {
+      "$oid": "6ec9024de8a0fccdf1cebfbd"
+    },
+    "userId": 3,
+    "name": "O'Conner - Wehner - Oriental Cotton Shirt",
+    "amount": 50.18,
+    "category": "Transportation",
+    "date": "2025-06-11"
+  },
+  {
+    "_id": {
+      "$oid": "c12c15ddc2b94ffd703abecf"
+    },
+    "userId": 1,
+    "name": "Kuphal, Stamm and Hirthe - Refined Plastic Pants",
+    "amount": 18.91,
+    "category": "Groceries",
+    "date": "2025-06-11"
+  },
+  {
+    "_id": {
+      "$oid": "dcb4b89fa0efffc4ad89fb20"
+    },
+    "userId": 1,
+    "name": "Lueilwitz - Mayer - Luxurious Concrete Towels",
+    "amount": 1458.79,
+    "category": "Rent",
+    "date": "2025-06-11"
+  },
+  {
+    "_id": {
+      "$oid": "f898c8b1b4944acb7dde59c2"
+    },
+    "userId": 2,
+    "name": "Heidenreich and Sons - Luxurious Plastic Soap",
+    "amount": 48.81,
+    "category": "Transportation",
+    "date": "2025-06-11"
+  },
+  {
+    "_id": {
+      "$oid": "f45dff4b03e170df4eeb32af"
+    },
+    "userId": 3,
+    "name": "Witting, Veum and Prohaska - Refined Silk Chicken",
+    "amount": 137.91,
+    "category": "Food & Beverages",
+    "date": "2025-06-11"
+  },
+  {
+    "_id": {
+      "$oid": "7eec833b06e5f30bac9d7039"
+    },
+    "userId": 2,
+    "name": "Cummerata, Mraz and Kozey - Awesome Bronze Shirt",
+    "amount": 45.17,
+    "category": "Food & Beverages",
+    "date": "2025-06-12"
+  },
+  {
+    "_id": {
+      "$oid": "9e181fba6be30b78ccaecbc5"
+    },
+    "userId": 2,
+    "name": "Upton LLC - Luxurious Steel Pants",
+    "amount": 575.67,
+    "category": "Rent",
+    "date": "2025-06-13"
+  },
+  {
+    "_id": {
+      "$oid": "5686ea30abd6cf63221dd745"
+    },
+    "userId": 3,
+    "name": "Dare, Flatley and Muller - Gorgeous Rubber Chair",
+    "amount": 28.7,
+    "category": "Groceries",
+    "date": "2025-06-13"
+  },
+  {
+    "_id": {
+      "$oid": "5c8cd7ec5aec4fc46def14d7"
+    },
+    "userId": 1,
+    "name": "Sawayn - Botsford - Intelligent Steel Shirt",
+    "amount": 107.09,
+    "category": "Groceries",
+    "date": "2025-06-13"
+  },
+  {
+    "_id": {
+      "$oid": "92dc01dda66fd2b3ff18aad8"
+    },
+    "userId": 1,
+    "name": "Hackett - Rau - Rustic Cotton Tuna",
+    "amount": 198.72,
+    "category": "Food & Beverages",
+    "date": "2025-06-14"
+  },
+  {
+    "_id": {
+      "$oid": "27aaeebe1bd7f758c118ab5a"
+    },
+    "userId": 1,
+    "name": "Nikolaus LLC - Refined Gold Tuna",
+    "amount": 84.52,
+    "category": "Transportation",
+    "date": "2025-06-14"
+  },
+  {
+    "_id": {
+      "$oid": "67ed2030745102d8690facea"
+    },
+    "userId": 2,
+    "name": "Bahringer Group - Oriental Steel Soap",
+    "amount": 24.32,
+    "category": "Food & Beverages",
+    "date": "2025-06-14"
+  },
+  {
+    "_id": {
+      "$oid": "bc93fc5c1df4464a3edc2593"
+    },
+    "userId": 2,
+    "name": "Lueilwitz, Spinka and Kovacek - Luxurious Bronze Soap",
+    "amount": 152.43,
+    "category": "Shopping",
+    "date": "2025-06-15"
+  },
+  {
+    "_id": {
+      "$oid": "c1f6f12207e207d8df6be02b"
+    },
+    "userId": 2,
+    "name": "Hilll - Feest - Small Steel Gloves",
+    "amount": 147.21,
+    "category": "Shopping",
+    "date": "2025-06-15"
+  },
+  {
+    "_id": {
+      "$oid": "5a29922d55ae496fed21f55e"
+    },
+    "userId": 1,
+    "name": "Gottlieb, Ferry and Becker - Sleek Cotton Sausages",
+    "amount": 194.22,
+    "category": "Utilities",
+    "date": "2025-06-15"
+  },
+  {
+    "_id": {
+      "$oid": "e5a69ddf3db45fe037accc32"
+    },
+    "userId": 3,
+    "name": "Littel, Hudson and Keeling - Modern Bronze Salad",
+    "amount": 42.81,
+    "category": "Transportation",
+    "date": "2025-06-16"
+  },
+  {
+    "_id": {
+      "$oid": "dbac268847cc23a94b6ccd4d"
+    },
+    "userId": 1,
+    "name": "Heidenreich, Anderson and Yost - Unbranded Bamboo Gloves",
+    "amount": 75.29,
+    "category": "Food & Beverages",
+    "date": "2025-06-16"
+  },
+  {
+    "_id": {
+      "$oid": "303eddd6f7be41f8af3dad15"
+    },
+    "userId": 1,
+    "name": "Wilkinson - Douglas - Fantastic Bronze Hat",
+    "amount": 82.87,
+    "category": "Utilities",
+    "date": "2025-06-16"
+  },
+  {
+    "_id": {
+      "$oid": "bccd247adac19ccfb6dbdd9c"
+    },
+    "userId": 3,
+    "name": "Denesik - Abshire - Oriental Concrete Shoes",
+    "amount": 64.77,
+    "category": "Transportation",
+    "date": "2025-06-16"
+  },
+  {
+    "_id": {
+      "$oid": "ecf430acf94d6de4cdb9853e"
+    },
+    "userId": 2,
+    "name": "Wunsch Inc - Soft Granite Fish",
+    "amount": 120.3,
+    "category": "Utilities",
+    "date": "2025-06-17"
+  },
+  {
+    "_id": {
+      "$oid": "4b19dc0ae1ffa287a0d02f4b"
+    },
+    "userId": 2,
+    "name": "Cummerata, Hartmann and Marvin - Intelligent Wooden Hat",
+    "amount": 17.13,
+    "category": "Food & Beverages",
+    "date": "2025-06-17"
+  },
+  {
+    "_id": {
+      "$oid": "ad7556457bccae45de1f515a"
+    },
+    "userId": 3,
+    "name": "Wuckert, Schuppe and Cummerata - Ergonomic Bamboo Car",
+    "amount": 5.04,
+    "category": "Shopping",
+    "date": "2025-06-17"
+  },
+  {
+    "_id": {
+      "$oid": "d3e61c479194da98726fdbbe"
+    },
+    "userId": 2,
+    "name": "Jast, Greenfelder and Howell - Handcrafted Steel Keyboard",
+    "amount": 61.42,
+    "category": "Utilities",
+    "date": "2025-06-18"
+  },
+  {
+    "_id": {
+      "$oid": "fb9d3901be227eaf8d2eb2f8"
+    },
+    "userId": 3,
+    "name": "Muller Inc - Gorgeous Aluminum Salad",
+    "amount": 56.27,
+    "category": "Transportation",
+    "date": "2025-06-18"
+  },
+  {
+    "_id": {
+      "$oid": "7c60a1ac5f590cec3fec8ac0"
+    },
+    "userId": 1,
+    "name": "Cruickshank, Rosenbaum and Block - Awesome Ceramic Chair",
+    "amount": 70.19,
+    "category": "Groceries",
+    "date": "2025-06-18"
+  },
+  {
+    "_id": {
+      "$oid": "35ecc5a22a0401af6c3d8c67"
+    },
+    "userId": 2,
+    "name": "Champlin, Mraz and Hegmann - Fantastic Plastic Shoes",
+    "amount": 8.67,
+    "category": "Food & Beverages",
+    "date": "2025-06-18"
+  },
+  {
+    "_id": {
+      "$oid": "f598fd7d853cdf5e62cf1a57"
+    },
+    "userId": 3,
+    "name": "Greenholt, Will and Crona - Small Metal Table",
+    "amount": 1252.2,
+    "category": "Rent",
+    "date": "2025-06-19"
+  },
+  {
+    "_id": {
+      "$oid": "d250fe4a00adcc0ebfefc09a"
+    },
+    "userId": 2,
+    "name": "Price, Streich and Jast - Incredible Bronze Tuna",
+    "amount": 1770.79,
+    "category": "Rent",
+    "date": "2025-06-19"
+  },
+  {
+    "_id": {
+      "$oid": "44e97bcfc1afad3d1e701df3"
+    },
+    "userId": 1,
+    "name": "Hilll, Hauck and Purdy - Incredible Silk Shirt",
+    "amount": 1353.7,
+    "category": "Rent",
+    "date": "2025-06-19"
+  },
+  {
+    "_id": {
+      "$oid": "f5d2f3faa22ffe58ca24faa5"
+    },
+    "userId": 2,
+    "name": "Mertz - Metz - Incredible Bamboo Table",
+    "amount": 177.89,
+    "category": "Utilities",
+    "date": "2025-06-19"
+  },
+  {
+    "_id": {
+      "$oid": "bacac0ea4e05a9756ee076f6"
+    },
+    "userId": 1,
+    "name": "Hamill - Price - Tasty Silk Fish",
+    "amount": 68.26,
+    "category": "Transportation",
+    "date": "2025-06-19"
+  },
+  {
+    "_id": {
+      "$oid": "2b1be7d73351969a4eeb79e4"
+    },
+    "userId": 1,
+    "name": "Koelpin, Willms and Barrows - Unbranded Metal Bacon",
+    "amount": 2277.54,
+    "category": "Rent",
+    "date": "2025-06-20"
+  },
+  {
+    "_id": {
+      "$oid": "fe2d0cb3b5edd00e533cfa2a"
+    },
+    "userId": 3,
+    "name": "Waters Group - Incredible Wooden Hat",
+    "amount": 135.33,
+    "category": "Food & Beverages",
+    "date": "2025-06-20"
+  },
+  {
+    "_id": {
+      "$oid": "44eafb9ecb1a8ce30684f7b6"
+    },
+    "userId": 3,
+    "name": "Block, Keebler and MacGyver - Electronic Aluminum Pizza",
+    "amount": 42.43,
+    "category": "Transportation",
+    "date": "2025-06-20"
+  },
+  {
+    "_id": {
+      "$oid": "37b210edfdba1e6ba28ac6ce"
+    },
+    "userId": 3,
+    "name": "Waelchi, Stokes and Koelpin - Refined Wooden Cheese",
+    "amount": 178.53,
+    "category": "Utilities",
+    "date": "2025-06-20"
+  },
+  {
+    "_id": {
+      "$oid": "13ab5ea3fb1a08a1db2e4a1c"
+    },
+    "userId": 2,
+    "name": "Swift - O'Keefe - Electronic Granite Chair",
+    "amount": 1844.94,
+    "category": "Rent",
+    "date": "2025-06-20"
+  },
+  {
+    "_id": {
+      "$oid": "cb6abbcaccc101fd66c8aa3f"
+    },
+    "userId": 3,
+    "name": "Maggio - Bartoletti - Elegant Aluminum Car",
+    "amount": 31.52,
+    "category": "Groceries",
+    "date": "2025-06-21"
+  },
+  {
+    "_id": {
+      "$oid": "fc1ca4a5ebd8bd3c22aba915"
+    },
+    "userId": 2,
+    "name": "Kohler LLC - Tasty Gold Gloves",
+    "amount": 2345.18,
+    "category": "Rent",
+    "date": "2025-06-21"
+  },
+  {
+    "_id": {
+      "$oid": "faef2be149dbede61af03fa3"
+    },
+    "userId": 3,
+    "name": "Buckridge - Bosco - Awesome Ceramic Bike",
+    "amount": 88.33,
+    "category": "Utilities",
+    "date": "2025-06-21"
+  },
+  {
+    "_id": {
+      "$oid": "c6e9ba48df89cf3fdc3a4976"
+    },
+    "userId": 1,
+    "name": "Bailey, Doyle and McKenzie - Rustic Cotton Keyboard",
+    "amount": 108.75,
+    "category": "Food & Beverages",
+    "date": "2025-06-22"
+  },
+  {
+    "_id": {
+      "$oid": "d86e5a98c9bfdfabdce01c55"
+    },
+    "userId": 3,
+    "name": "Goyette - Wiegand - Intelligent Bronze Tuna",
+    "amount": 92.26,
+    "category": "Transportation",
+    "date": "2025-06-23"
+  },
+  {
+    "_id": {
+      "$oid": "dfd5e9dfc93fc05c977bf9cf"
+    },
+    "userId": 3,
+    "name": "Crooks and Sons - Unbranded Steel Hat",
+    "amount": 69.38,
+    "category": "Food & Beverages",
+    "date": "2025-06-23"
+  },
+  {
+    "_id": {
+      "$oid": "bee87c9d08aedbcf1211964c"
+    },
+    "userId": 3,
+    "name": "Monahan - Kozey - Fantastic Rubber Table",
+    "amount": 59.42,
+    "category": "Groceries",
+    "date": "2025-06-23"
+  },
+  {
+    "_id": {
+      "$oid": "fbbb2b4fac97f14fbf7f08ba"
+    },
+    "userId": 3,
+    "name": "Runte - Kerluke - Rustic Metal Ball",
+    "amount": 120.74,
+    "category": "Shopping",
+    "date": "2025-06-23"
+  },
+  {
+    "_id": {
+      "$oid": "7c51aeb2dbebb53a3cc6dce8"
+    },
+    "userId": 3,
+    "name": "Bednar, Runolfsson and Smith - Modern Metal Cheese",
+    "amount": 11.32,
+    "category": "Food & Beverages",
+    "date": "2025-06-23"
+  },
+  {
+    "_id": {
+      "$oid": "39d22ebfa4dafa6a4df3b7ca"
+    },
+    "userId": 2,
+    "name": "Kertzmann and Sons - Tasty Cotton Keyboard",
+    "amount": 1873.97,
+    "category": "Rent",
+    "date": "2025-06-24"
+  },
+  {
+    "_id": {
+      "$oid": "dfbc2fa85e8a1e7af72cf2ec"
+    },
+    "userId": 1,
+    "name": "Romaguera LLC - Tasty Ceramic Cheese",
+    "amount": 17.95,
+    "category": "Groceries",
+    "date": "2025-06-24"
+  },
+  {
+    "_id": {
+      "$oid": "fbcc46970f58bc73d9e70eac"
+    },
+    "userId": 1,
+    "name": "Smith - Pfeffer - Fresh Plastic Fish",
+    "amount": 65.82,
+    "category": "Utilities",
+    "date": "2025-06-24"
+  },
+  {
+    "_id": {
+      "$oid": "c23fcd86d94f00a052ff7b49"
+    },
+    "userId": 2,
+    "name": "Veum Group - Bespoke Plastic Sausages",
+    "amount": 187.55,
+    "category": "Groceries",
+    "date": "2025-06-25"
+  },
+  {
+    "_id": {
+      "$oid": "ac4a55a9fc5f90b6afaeddbb"
+    },
+    "userId": 3,
+    "name": "Kautzer - Morar - Practical Silk Tuna",
+    "amount": 736.55,
+    "category": "Rent",
+    "date": "2025-06-25"
+  },
+  {
+    "_id": {
+      "$oid": "e884b811f2b7fcb49fed5a47"
+    },
+    "userId": 2,
+    "name": "Paucek - Flatley - Intelligent Marble Sausages",
+    "amount": 194.07,
+    "category": "Groceries",
+    "date": "2025-06-26"
+  },
+  {
+    "_id": {
+      "$oid": "86ef9b2ccbfb095607bec69d"
+    },
+    "userId": 3,
+    "name": "Cole, Cronin and Hegmann - Handcrafted Ceramic Chicken",
+    "amount": 72.13,
+    "category": "Groceries",
+    "date": "2025-06-26"
+  },
+  {
+    "_id": {
+      "$oid": "ab9a865479bb859e181fdcfd"
+    },
+    "userId": 3,
+    "name": "Russel, Abbott and Macejkovic - Elegant Steel Chips",
+    "amount": 1378.13,
+    "category": "Rent",
+    "date": "2025-06-28"
+  },
+  {
+    "_id": {
+      "$oid": "f347ddd83bf24cc48beda2d7"
+    },
+    "userId": 1,
+    "name": "Ullrich LLC - Electronic Marble Mouse",
+    "amount": 62.41,
+    "category": "Food & Beverages",
+    "date": "2025-06-28"
+  },
+  {
+    "_id": {
+      "$oid": "beae713bfd7111e6b9b8ee41"
+    },
+    "userId": 2,
+    "name": "Block - Jerde - Rustic Metal Bacon",
+    "amount": 172.57,
+    "category": "Food & Beverages",
+    "date": "2025-06-28"
+  },
+  {
+    "_id": {
+      "$oid": "ef2962e4b3cdcb1ccbbc7737"
+    },
+    "userId": 2,
+    "name": "Hartmann - Schroeder - Bespoke Bronze Tuna",
+    "amount": 175.25,
+    "category": "Shopping",
+    "date": "2025-06-28"
+  },
+  {
+    "_id": {
+      "$oid": "fc5cf0808608be6b5b2fde2d"
+    },
+    "userId": 1,
+    "name": "Beahan - Gutkowski - Rustic Granite Bacon",
+    "amount": 169.07,
+    "category": "Utilities",
+    "date": "2025-06-28"
+  },
+  {
+    "_id": {
+      "$oid": "aebf62b449bcc2dcf9bc0be7"
+    },
+    "userId": 1,
+    "name": "Padberg LLC - Refined Bronze Bike",
+    "amount": 646.78,
+    "category": "Rent",
+    "date": "2025-06-28"
+  },
+  {
+    "_id": {
+      "$oid": "0b8ff9da58e9827bb2fdf5fc"
+    },
+    "userId": 3,
+    "name": "Witting, Nader and Wuckert - Generic Silk Gloves",
+    "amount": 176.01,
+    "category": "Utilities",
+    "date": "2025-06-29"
+  }
+]

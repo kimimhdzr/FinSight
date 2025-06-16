@@ -90,6 +90,7 @@ body {
 }
 
 /* Expense Breakdown */
+
 .expense-list {
   text-align: left;
 }
@@ -125,6 +126,12 @@ body {
 }
 
 /* Chart and Transaction Section */
+.home-expense-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 150px;
+}
 .home-chart-transaction {
   display: flex;
   flex-direction: column;
