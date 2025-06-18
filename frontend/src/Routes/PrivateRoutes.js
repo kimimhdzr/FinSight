@@ -56,8 +56,8 @@ const PrivateRoutes = () => {
             <Route path="/Tool" element={<Tool />} />
             
             {/* Tracker */}
-            <Route path="/Track" element={<Expenses />} />
-            <Route path="/Record" element={<Record />} />
+            {/* <Route path="/Track" element={<Expenses />} /> */}
+            <Route path="/Track" element={<Record />} />
             
             {/* Profile */}
             <Route path="/Profile" element={<Profile />} />
