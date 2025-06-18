@@ -8,6 +8,11 @@
 # testing
 /coverage
 
+# Security
+.env
+*.log
+__pycache__/
+
 # production
 /build
 
@@ -21,3 +26,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Security
+.env
+*.log
+__pycache__/
