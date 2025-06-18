@@ -454,14 +454,15 @@
   display: flex;
   margin-top: 10px;
   background-color: white;
-  padding: 10px;
   margin-bottom: 0;
+  flex-direction: row-reverse;
 }
 
 .modal-actions button {
   width: 15%;
   height: 100%;
   padding: 8px;
+  margin: 0 5px;
   font-size: .9em;
   border: none;
   border-radius: 8px;
@@ -511,6 +512,7 @@
 
 .sidenav ul {
   list-style: none;
+  padding-left: 0;
 }
 
 .sidenav li.active {
