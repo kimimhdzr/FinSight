@@ -36,49 +36,49 @@ const Loan = () => {
     ];
 
     return (
-        <div className="tool-container">
-            <div className="tool-input-main-container">
-                <div className="tool-input-container">
-                    <p className="tool-text">Loan Amount (MYR)</p>
+        <div className="tooltip-container">
+            <div className="tooltip-input-main-container">
+                <div className="tooltip-input-container">
+                    <p className="tooltip-text">Loan Amount (MYR)</p>
                     <input
                         type="number"
-                        className="tool-input-text"
+                        className="tooltip-input-text"
                         value={loanAmount}
                         onChange={(e) => setLoanAmount(e.target.value === "" ? undefined : Number(e.target.value))}
                     />
                 </div>
-                <div className="tool-input-container">
-                    <p className="tool-text">Annual Interest Rate (%)</p>
+                <div className="tooltip-input-container">
+                    <p className="tooltip-text">Annual Interest Rate (%)</p>
                     <input
                         type="number"
-                        className="tool-input-text"
+                        className="tooltip-input-text"
                         value={interest}
                         onChange={(e) => setInterest(e.target.value === "" ? undefined : Number(e.target.value))}
                     />
                 </div>
-                <div className="tool-input-container">
-                    <p className="tool-text">Loan Term<span className="tool-input-text-smaller"> (max: 30 years)</span></p>
-                    <div className="tool-slider-container">
+                <div className="tooltip-input-container">
+                    <p className="tooltip-text">Loan Term<span className="tooltip-input-text-smaller"> (max: 30 years)</span></p>
+                    <div className="tooltip-slider-container">
                         <input
                             type="range"
-                            className="tool-slider"
+                            className="tooltip-slider"
                             min="0"
                             max="30"
                             value={loanTerm}
                             onChange={(e) => setLoanTerm(Number(e.target.value))}
                         />
-                        <p className="tool-slider-output">{loanTerm}</p>
+                        <p className="tooltip-slider-output">{loanTerm}</p>
                     </div>
                 </div>
 
-                <button className="tool-button" onClick={calculateLoan}>
-                    <p className="tool-button-text">Calculate</p>
+                <button className="tooltip-button" onClick={calculateLoan}>
+                    <p className="tooltip-button-text">Calculate</p>
                 </button>
             </div>
 
-            <div className="tool-display-container">
-                <div className='tool-display'>
-                    <div className='tool-recharts'>
+            <div className="tooltip-display-container">
+                <div className='tooltip-display'>
+                    <div className='tooltip-recharts'>
                         <PieChart width={300} height={300}>
                             <Pie
                                 data={chartData}
@@ -102,21 +102,32 @@ const Loan = () => {
                         </PieChart>
                     </div>
 
-                    <table>
-                        <tbody>
+                    <div className='tooltip-display-text-container'>
+                        <table>
                             <tr>
-                                <td className='tool-display-text'>Total Payment (MYR)</td>
-                                <td className='tool-display-text'>: {totalPayment ? totalPayment.toFixed(2) : "-"}</td>
+                                <td className='tooltip-display-text'>Total Payment (MYR)</td>
                             </tr>
                             <tr>
-                                <td className='tool-display-text'>Total Interest (MYR)</td>
-                                <td className='tool-display-text'>: {totalInterest ? totalInterest.toFixed(2) : "-"}</td>
+                                <td className='tooltip-display-text-bold'>
+                                    {totalPayment ? totalPayment.toFixed(2) : "-"}
+                                </td>
                             </tr>
-                        </tbody>
-                    </table>
+                            <tr>
+                                <td className='tooltip-display-text'>Total Interest (MYR)</td>
+                            </tr>
+                            <tr>
+                                <td className='tooltip-display-text-bold'>
+                                    {totalInterest ? totalInterest.toFixed(2) : "-"}
+                                </td>
+                            </tr>
+                        </table>
 
-                    <p className='tool-display-text-small'>Monthly Payment</p>
-                    <p className='tool-display-text-result'>MYR {monthlyPayment ? monthlyPayment.toFixed(2) : "-"}</p>
+                        <p className='tooltip-display-text-small'>Monthly Payment</p>
+                        <p className='tooltip-display-text-result'>
+                            MYR {monthlyPayment ? monthlyPayment.toFixed(2) : "-"}
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </div>
