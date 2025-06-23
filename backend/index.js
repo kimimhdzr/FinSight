@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const financialplannerRoutes = require('./routes/financialplanner');
 const marketRoutes = require('./routes/market');
+const paymentRoutes = require('./routes/payment');
+// const userprofileRoutes = require('./routes/userProfile');
 
 dotenv.config();
 
@@ -14,7 +17,10 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/financial-planner', financialplannerRoutes);
 app.use('/api/market', marketRoutes); //Market
+app.use('/api', paymentRoutes);
+// app.use('/api/userprofile', userprofileRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected"))

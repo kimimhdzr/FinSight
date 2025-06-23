@@ -1,10 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./UseAuth"; // Custom auth hook
-
-
+import { useAuthContext } from "./AuthContext"; // path as needed
 
 const RequireAuth = ({ children }) => {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   return user ? children : <Navigate to="/login" replace />;
 };
 

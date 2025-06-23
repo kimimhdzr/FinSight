@@ -18,9 +18,7 @@ const NetWorth = () => {
                 <div className="tooltip-input-container">
                     <div className='tooltip-input-text-row'>
                         <p className="tooltip-text">Total Assets (MYR)</p>
-                        <TooltipPopUp text={"Assets are valuable resources such as stocks, bonds, real estate, or cash that can generate income or appreciate over time."}>
-                            <span className="material-symbols-outlined">info</span>
-                        </TooltipPopUp>
+                     
                     </div>
                     <input
                         type="number"
@@ -33,9 +31,7 @@ const NetWorth = () => {
                 <div className="tooltip-input-container">
                     <div className='tooltip-input-text-row'>
                         <p className="tooltip-text">Total Liabilities (MYR)</p>
-                        <TooltipPopUp text={"Liabilities are financial obligations or debts a person or company owes, such as loans, credit card debt, or mortgages."}>
-                            <span className="material-symbols-outlined">info</span>
-                        </TooltipPopUp>
+                    
                     </div>
                     <input
                         type="number"

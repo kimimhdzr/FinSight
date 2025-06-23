@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SignIn.css";
+import { useAuthContext } from "../../Routes/AuthContext";
 // import { auth } from "../firebaseConfig";
 // import { signInWithEmailAndPassword } from "firebase/auth";
 import { Toaster, toast } from "react-hot-toast";
@@ -13,18 +14,33 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { login } = useAuthContext();
+
   const navigate = useNavigate();
 
-  const handleLogin = async (email, password) => {
-    // try {
-    //   const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    //   toast.success("🎉 Login successful!");
-    //   // Navigate to home after short delay
-    //   setTimeout(() => navigate("/Home"), 2000);
-    // } catch (error) {
-    //   console.error("Login error:", error);
-    //   toast.error("❌ Login failed. Please check your credentials.");
-    // }
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      const { token, user } = response.data;
+
+      login(user, token); // store in context and localStorage
+
+      toast.success("🎉 Login successful!");
+
+      setTimeout(() => {
+        navigate("/app/home");
+      }, 1000);
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("❌ Login failed. Please check your credentials.");
+    }
   };
 
   return (
@@ -62,10 +78,7 @@ const SignIn = () => {
             Forgot Password?
           </span>
 
-          <button
-            className="login-button"
-            onClick={() => navigate("/app/home")}
-          >
+          <button className="login-button" onClick={handleLogin}>
             Login
           </button>
           <button

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./GoalsOverview.css"; // CSS styling
 import { useNavigate } from "react-router-dom";
+import GoalForm from "../../components/GoalForm";
 
 const GoalsOverview = () => {
+  const [isAddingGoal, setIsAddingGoal] = useState(false);
+
   const goalsData = [
     {
       id: 1,
@@ -68,7 +71,10 @@ const GoalsOverview = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
             <div className="filler-goal"></div>
-            <button className="add-goal-button">
+            <button
+              className="add-goal-button"
+              onClick={() => setIsAddingGoal(true)}
+            >
               <span className="button-icon">➕</span>{" "}
               {/* Replace with icon if using a library */}
               <span>Add Goal</span>
@@ -140,6 +146,14 @@ const GoalsOverview = () => {
               );
             })}
           </div>
+
+          {/* Popup form */}
+          {isAddingGoal && (
+            <GoalForm
+              isAddingGoal={isAddingGoal}
+              setIsAddingGoal={setIsAddingGoal}
+            />
+          )}
         </div>
       </div>
     </div>
