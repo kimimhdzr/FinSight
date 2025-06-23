@@ -9,12 +9,13 @@
 .market-root-container {
   display: flex;
   flex-direction: column;
-  width: 1400px;
   height: auto;
   box-sizing: border-box;
   gap: 18px;
   justify-content: center;
   padding: 2rem;
+  width: 1146px;
+  margin: 0 auto;
 }
 
 .market-dashboard {
@@ -36,10 +37,29 @@
   gap: 20px;
 }
 
+.market-select {
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 20px;
+  padding: 5px;
+  color: #364049;
+  border-radius: 6px;
+  border: #CCCFD1 1px solid;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+
+.news {
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
 /* Stocks Scroll */
 .ticker-container {
-  overflow: hidden;
-  color: 364049;
+  overflow-x: hidden;
+  box-sizing: border-box;
   width: 100%;
   height: 50px;
   display: flex;
@@ -47,10 +67,8 @@
   border-radius: 6px;
   border: 2px solid #D4D8DB;
   background-color: white;
-  overflow: hidden;
   position: relative;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin: 0 auto 0 auto;
 }
 
 .ticker-track {
@@ -157,6 +175,7 @@ h1 {
 /* Main Container */
 .market-main-container {
   display: flex;
+  flex-direction: column;
   max-width: 1100px;
   width: auto;
   height: auto;
@@ -166,7 +185,7 @@ h1 {
 }
 
 .market-main-image {
-  max-width: 500px;
+  max-width: 100%;
   height: 100%; 
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -242,9 +261,8 @@ h1 {
 .market-text {
   flex-shrink: 0;
   color: #1B252F;
-  font-size: 20px;
+  font-size: 17px;
   font-style: normal;
-  font-weight: 600;
   line-height: 20px; /* 100% */
   letter-spacing: -0.4px;
   margin: 0;
@@ -345,18 +363,44 @@ hr {
   margin-right: 25px;
 }
 
-/* For mobile compatibility */
-@media (max-width: 768px) {
+.market-text-title-big {
+  color: #0C75D6;
+  margin-top: 2rem;
+}
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 1091px) {
+  .market-root-container {
+    width: 100%;  
+  }
+
+  .market-dashboard,
+  .market-dashboard-container {
+    width: 100%;
+    max-width: 100%;
+    
+  }
+
+  .ticker-container {
+    max-width: 600px; /* need to be fixed */
+    height: 40px;
+    overflow-x: hidden;
+  }
+
+  .market-dashboard-chart-container {
+    width: 100%;
+    max-width: 100%;
+    height: fit-content;
+  }
+
   .market-container {
     flex-direction: column;
-    margin: 70px 10px;
     padding: 0;
     flex-wrap: wrap;
   }
 
   .market-main-container {
-    display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -408,7 +452,27 @@ hr {
     width: auto;
     padding: 5px 10px;
   }
+
+  .recharts-responsive-container {
+    width: 100%;
+    height: fit-content;
+  } 
+
+  .ticker-symbol,
+  .ticker-price {
+    font-size: 14px;
+  }
+
+  .display-text {
+    font-size: 16px;
+    padding-left: 10px;
+  }
+
+  .market-text-title-big {
+    font-size: 20px;
+  }
 }
+
 
 
 

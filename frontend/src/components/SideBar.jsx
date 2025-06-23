@@ -13,11 +13,14 @@ import {
   FaUser,
   FaEllipsisV,
 } from "react-icons/fa";
+import { useAuthContext } from "../Routes/AuthContext";
 
 // import { useProfile } from "../../DataSets/ProfileContext";
 
 const Sidebar = () => {
   const Navigate = useNavigate();
+  const { logout } = useAuthContext();
+
   const [isHovered1, setIsHovered1] = useState(false);
   const location = useLocation();
 
@@ -38,7 +41,8 @@ const Sidebar = () => {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const handleItemClick = () => {
+  const handleLogout = () => {
+    logout(); // clear auth context & localStorage
     Navigate("/login");
   };
 
@@ -157,7 +161,7 @@ const Sidebar = () => {
             >
               <div
                 className={`tooltip ${isHovered1 ? "show-tooltip" : ""}`}
-                onClick={() => handleItemClick()}
+                onClick={() => handleLogout()}
               >
                 <p>Log out</p>
                 {/* <p>@{profileData ? profileData.username : ""}</p> */}

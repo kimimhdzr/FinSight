@@ -1,36 +1,42 @@
-.tool-container {
+.tooltip-container {
     display: flex;
     align-items: start;
-    justify-content: center;
-    padding: 0 40px 20px 40px;
-    gap: 50px;
+    justify-content: center;    
     height: 100%;
-    margin: auto;
+    gap: 70px;
 }
 
 /* input part */
-.tool-input-main-container {
+.tooltip-input-main-container {
     display: flex;
     flex-direction: column;
     width: 400px;
     height: auto;
 }
 
-.tool-input-container {
+.tooltip-input-container {
     display: flex;
     flex-direction: column;
-    width: 400px;
     margin-bottom: 35px;
 }
 
-.tool-input-text-row {
+.tooltip-overall-container {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip-input-text-row {
     display: flex;
     width: 100%;
     margin: 0;
     gap: 5px;
 }
 
-.tooltip-container {
+.tooltip-icon-container {
     position: relative;
     display: inline-block;
 }
@@ -48,40 +54,44 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
 }
 
-/* Behaves like text (font-based) */
 .material-symbols-outlined {
     color: #0C75D6;
 }
 
-.tool-text {
+.tooltip-text {
     color: #000;
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
-    line-height: 24px; /* 120% */
+    line-height: 24px;
     letter-spacing: -0.4px;
-    margin: 0;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
 }
 
-.tool-input-text {
+.tooltip-detail {
+    font-size: 13px;
+    margin: 1px 0 0 0;
+    color: #696868;
+}
+
+.tooltip-input-text {
     display: flex;
     height: 35px;
     flex-direction: column;
     align-items: flex-start;
     font-size: 20px;
     padding: 5px;
-    color: #364049;
+    color: #0C75D6;
     border-radius: 6px;
     border: #CCCFD1 1px solid;
     outline: none;
 }
 
-.tool-input-text:focus {
+.tooltip-input-text:focus {
     border-color: #0C75D6;
 }
 
-.tool-input-text-smaller {
+.tooltip-input-text-smaller {
     color: #364049;
     font-size: 12px;
     font-style: italic;
@@ -91,20 +101,20 @@
     margin: 0;
 }
 
-.tool-slider-container {
+.tooltip-slider-container {
     display: flex;
     width: 400px;
     height: 44px;
     justify-content: space-between;
 }
 
-.tool-slider {
+.tooltip-slider {
     display: flex;
     width: 328px;
     padding: 0;
 }
 
-.tool-slider-output {
+.tooltip-slider-output {
     display: flex;
     width: 44px;
     height: 44px;
@@ -118,7 +128,7 @@
     margin: 0;
 }
 
-.tool-select {
+.tooltip-select {
     display: flex;
     height: auto;
     flex-direction: column;
@@ -130,7 +140,7 @@
     border: #CCCFD1 1px solid;
 }
 
-.tool-button {
+.tooltip-button {
     display: flex;
     width: 400px;
     height: 44px;
@@ -142,32 +152,32 @@
     border: 1px solid #0C75D6;
 }
 
-.tool-button-text {
+.tooltip-button-text {
     color: #FFF;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
-    line-height: 24px; /* 150% */
+    line-height: 24px;
     letter-spacing: -0.32px;
+    margin: 0;
 }
 
-/* animation */
-.tool-button:active {
-    background-color: #748798; /* slightly darker blue for click feedback */
-    transform: scale(0.98);    /* slight shrink for a press effect */
+.tooltip-button:active {
+    background-color: #748798;
+    transform: scale(0.98);
 }
 
-/* result output */
-.tool-display-container {
-  display: flex;
-  flex-direction: column; /* or row depending on your layout */
-  flex: 1; /* allow it to grow */
-  height: auto;
-  max-width: 900px;
-  align-self: stretch;
+.tooltip-display-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: auto;
+    width: 100%;
+    max-width: 900px;
+    align-self: stretch;
 }
 
-.tool-display {
+.tooltip-display {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -182,157 +192,87 @@
     gap: 50px;
 }
 
-.tool-recharts {
+.tooltip-recharts {
     margin: 0;
-}  
+}
 
-.tool-display-text-container {
+.tooltip-display-text-container {
     display: flex;
     flex-direction: column;
     margin: 0;
 }
 
-.tool-display-text {
+.tooltip-display-text {
     color: #000;
     font-size: 20px;
     font-style: normal;
     font-weight: 450;
-    line-height: 24px; /* 100% */
+    line-height: 24px;
     letter-spacing: -0.48px;
 }
 
-.tool-display-text-bold {
+.tooltip-display-text-bold {
     color: #000;
     font-size: 20px;
-    font-style: bold;
-    font-weight: bold; /* Explicitly set font-weight to bold */
-    line-height: 24px; /* 100% */
+    font-weight: bold;
+    line-height: 24px;
     letter-spacing: -0.48px;
-    padding: 0 0 20px 0; /* Apply margin */
+    padding: 0 0 20px 0;
 }
 
-.tool-display-text-small {
+.tooltip-display-text-small {
     color: #000;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 24px; /* 150% */
+    line-height: 24px;
     letter-spacing: -0.32px;
     margin: 0;
 }
 
-.tool-display-text-result {
+.tooltip-display-text-result {
     flex-shrink: 0;
     color: #FFC300;
     font-size: 36px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 40px; /* 111.111% */
+    line-height: 40px;
     letter-spacing: -0.72px;
     margin: 0;
 }
 
-/* For mobile compatibility */
-@media (max-width: 1050px) {
-    .tool-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        gap: 20px;
-    }
-
-    .tool-input-main-container,
-    .tool-input-container,
-    .tool-button,
-    .tool-slider-container {
-        width: 100%;
-        max-width: 90vw;
-    }
-
-    .tool-slider {
-        width: 100%;
-    }
-
-    .tool-slider-output {
-        margin-left: 10px;
-    }
-
-    .tool-display-container {
-        margin-left: 0;
-        margin-top: 30px;
-        width: 100%;
-        max-width: 90vw;
-        align-items: center;
-    }
-
-    .tool-display {
-        width: 100%;
-        padding: 40px 20px;
-    }
-
-    .tool-circle {
-        width: 200px;
-        height: 200px;
-    }
-
-    .tool-circle-text {
-        font-size: 48px;
-        line-height: 56px;
-    }
-
-    .tool-display-text {
-        font-size: 16px;
-        text-align: start;
-    }
-
-    .tool-display-text-small {
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .tool-display-text-result {
-        font-size: 28px;
-        text-align: center;
-    }
-
-    .tool-table td {
-        padding-left: 16px !important;
-        padding-right: 16px !important;
-        font-size: 14px; 
-    }
-
-    .tooltip {
-        top: 100%; /* Position tooltip at the bottom of the element */
-        transform: translateY(10px); /* Offset it slightly from the element */
-    }
+.tooltip-compare-container {
+    display: flex;
 }
 
-/* For mobile compatibility */
-@media (max-width: 768px) {
-    .tool-container {
+.tooltip-compare {
+    display: flex;
+}
+
+/* Mobile styles */
+@media (max-width: 1050px), (max-width: 768px) {
+    .tooltip-container {
         flex-direction: column;
         align-items: center;
         padding: 20px;
         gap: 20px;
     }
 
-    .tool-input-main-container,
-    .tool-input-container,
-    .tool-button,
-    .tool-slider-container {
+    .tooltip-input-main-container,
+    .tooltip-input-container,
+    .tooltip-button,
+    .tooltip-slider-container {
         width: 100%;
         max-width: 90vw;
     }
 
-    .tool-slider {
+    .tooltip-slider {
         width: 100%;
     }
 
-    .tool-slider-output {
+    .tooltip-slider-output {
         margin-left: 10px;
     }
 
-    .tool-display-container {
+    .tooltip-display-container {
         margin-left: 0;
         margin-top: 30px;
         width: 100%;
@@ -340,41 +280,39 @@
         align-items: center;
     }
 
-    .tool-display {
+    .tooltip-display {
         flex-direction: column;
         width: 100%;
         padding: 40px 20px;
     }
 
-    .tool-circle {
+    .tooltip-circle {
         width: 200px;
         height: 200px;
     }
 
-    .tool-circle-text {
+    .tooltip-circle-text {
         font-size: 48px;
         line-height: 56px;
     }
 
-    .tool-display-text,
-    .tool-display-text-bold {
+    .tooltip-display-text,
+    .tooltip-display-text-bold {
         font-size: 16px;
-        align-items: center;
-        justify-content: center;
         text-align: center;
     }
 
-    .tool-display-text-small {
+    .tooltip-display-text-small {
         font-size: 14px;
         text-align: center;
     }
 
-    .tool-display-text-result {
+    .tooltip-display-text-result {
         font-size: 28px;
         text-align: center;
     }
 
-    .tool-table td {
+    .tooltip-table td {
         padding-left: 16px !important;
         padding-right: 16px !important;
         font-size: 14px;
@@ -382,33 +320,30 @@
     }
 
     .tooltip {
-        top: 100%; /* Position tooltip at the bottom of the element */
-        transform: translateY(10px); /* Offset it slightly from the element */
+        top: 100%;
+        transform: translateY(10px);
     }
 
-    /* Ensure the tool-display-text-container stacks vertically */
-    .tool-display-text-container {
+    .tooltip-display-text-container {
         display: flex;
-        flex-direction: column; /* Stack items in a column */
+        flex-direction: column;
         width: 100%;
         align-items: center;
         justify-content: center;
-
     }
 
-    .tool-display-text-container table {
+    .tooltip-display-text-container table {
         width: 100%;
         display: flex;
-        flex-direction: column; /* Ensure rows are stacked vertically */
+        flex-direction: column;
     }
 
-    .tool-display-text-container td {
-        padding: 8px 0; /* Adjust padding to suit the vertical layout */
+    .tooltip-display-text-container td {
+        padding: 8px 0;
         font-size: 16px;
     }
 
-    /* Adjust the text below the table for vertical layout */
-    .tool-display-text-container p {
+    .tooltip-display-text-container p {
         margin-top: 10px;
     }
 }

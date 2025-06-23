@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation,  useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./SignUp.css";
@@ -11,8 +11,36 @@ import axios from "axios";
 
 const SignUp2 = () => {
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const userData = location.state;
+
+  const handleRegister = async () => {
+    if (!userData) {
+      toast.error("Missing registration data.");
+      return navigate("/register");
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/auth/register", {
+        ...userData,
+        password,
+      });
+
+      toast.success("🎉 Registration successful!");
+      setTimeout(() => navigate("/login"), 1500);
+    } catch (error) {
+      console.error(error);
+      toast.error("❌ Registration failed.");
+    }
+  };
 
   return (
     <div className="login-container">
@@ -33,10 +61,10 @@ const SignUp2 = () => {
           <input
             type="password"
             placeholder="Confirm Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <button className="login-button" onClick={() => navigate("/login")}>
+          <button className="login-button" onClick={handleRegister}>
             Complete Sign Up
           </button>
           <button

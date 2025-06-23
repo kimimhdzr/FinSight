@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./Market.css";
 
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   ResponsiveContainer,
-// } from "recharts";
-
-// import { Sparklines, SparklinesLine, SparklinesTooltip } from 'react-sparklines';
-
-import { Sparklines as MySparklines, SparklinesLine as MySparklinesLine, SparklinesTooltip as MySparklinesTooltip } from 'react-sparklines';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const formatTimeAgo = (timestamp) => {
   const secondsAgo = Math.floor(Date.now() / 1000) - timestamp;
@@ -29,36 +25,32 @@ const formatTimeAgo = (timestamp) => {
 const Market = () => {
   const [data, setData] = useState([]);
   const [tickers, setTickers] = useState([]);
-  const [unemploymentData, setUnemploymentData] = useState([]); 
+  const [selectedStock, setSelectedStock] = useState("AAPL");
+  const [historicalData, setHistoricalData] = useState([]);
+  const [newsCategory, setNewsCategory] = useState("general");
 
   useEffect(() => {
-    fetch("http://localhost:8000/market/news/")
+    fetch(`http://localhost:5000/api/market/market-news?category=${newsCategory}`)
       .then((response) => response.json())
       .then((json) => setData(json))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+      .catch((error) => console.error("Error fetching news:", error));
+  }, [newsCategory]);  // refetch whenever category changes
 
   useEffect(() => {
-    fetch("http://localhost:8000/market/ticker/")
+    fetch("http://localhost:5000/api/market/market-ticker")
       .then((res) => res.json())
       .then((data) => setTickers(data))
       .catch((err) => console.error("Ticker error:", err));
   }, []);
 
-  // Dummy data for unemployment rate over the past 6 months
-  const dummyData = [
-    { date: "2024-11-01", unemployment_rate: 3.2 },
-    { date: "2024-12-01", unemployment_rate: 3.4 },
-    { date: "2025-01-01", unemployment_rate: 3.5 },
-    { date: "2025-02-01", unemployment_rate: 3.3 },
-    { date: "2025-03-01", unemployment_rate: 3.1 },
-    { date: "2025-04-01", unemployment_rate: 3.0 },
-  ];
-
   useEffect(() => {
-    // Use dummy data for unemployment rate instead of fetching from an API
-    setUnemploymentData(dummyData);
-  }, []);
+    if (!selectedStock) return;
+
+    fetch(`http://localhost:5000/api/market/historical/${selectedStock}`)
+      .then((res) => res.json())
+      .then((data) => setHistoricalData(data))
+      .catch((err) => console.error("Error fetching historical data:", err));
+  }, [selectedStock]);
 
   if (data.length === 0)
     return (
@@ -67,12 +59,16 @@ const Market = () => {
       </div>
     );
 
-  const unemploymentRates = unemploymentData.map((data) => data.unemployment_rate);
-  console.log("unemploymentRates:", unemploymentRates);
-
   return (
     <div className="market-root-container">
-
+      <header className="goal-header">
+        <h1>
+          Insights |{" "}
+          <span className="goal-header-specific">
+            World's Latest News
+          </span>
+        </h1>
+      </header>
       <div className="ticker-container">
           <div className="ticker-track">
             {[...tickers, ...tickers].map((item, index) => (
@@ -93,46 +89,61 @@ const Market = () => {
           </div>          
         </div>
 
-        <h1>Market Trends</h1>
+        <h1 className="market-text-title-big">Market Trends</h1>
         <hr className="hr-2" />
 
       <div className="market-dashboard">
         <div className="market-dashboard-container">
           <div className="market-dashboard-chart-container">
-            <h3 className="display-text">Unemployment Rate - Malaysia (Last 6 Months)</h3>
-            
-            {/* <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={unemploymentData} margin={{ top: 20, right: 60, left: 20, bottom: 0 }}>
+            <select
+              id="stock"
+              className="market-select"
+              value={selectedStock}
+              onChange={(e) => setSelectedStock(e.target.value)}
+            >
+              <option value="">-- Select Stock --</option>
+              <option value="AAPL">Apple (AAPL)</option>
+              <option value="GOOGL">Google (GOOGL)</option>
+              <option value="AMZN">Amazon (AMZN)</option>
+              <option value="TSLA">Tesla (TSLA)</option>
+              <option value="MSFT">Microsoft (MSFT)</option>
+              <option value="NFLX">Netflix (NFLX)</option>
+              <option value="NVDA">Nvidia (NVDA)</option>
+            </select>
+            <ResponsiveContainer width="100%" height={450}>
+              <LineChart data={historicalData} margin={{ top: 20, right: 60, left: 20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" tick={{ fontSize: 10 }} />
                 <YAxis domain={["auto", "auto"]} />
                 <Tooltip />
                 <Line
                   type="monotone"
-                  dataKey="unemployment_rate"
+                  dataKey="close"
                   stroke="#0C75D6"
                   strokeWidth={2}
                   dot={false}
                 />
               </LineChart>
-            </ResponsiveContainer> */}
-
-           <div className="sparkline-wrapper">
-            <MySparklines data={unemploymentRates} limit={6} height={20} width={100}>
-              <MySparklinesLine color="#0C75D6" strokeWidth={0.2}/>
-            </MySparklines>
+            </ResponsiveContainer>
           </div>
-
-          </div>
-          
         </div>
       </div>
 
-      <h1>Market Insights</h1>
+      <h1 className="market-text-title-big">Market Insights</h1>
       <hr className="hr-2" />
 
       <div className="market-container">
         <div className="market-overall-container">
+           <select
+            id="news-category"
+            className="market-select news"
+            value={newsCategory}
+            onChange={(e) => setNewsCategory(e.target.value)}
+          >
+            <option value="general">General</option>
+            <option value="crypto">Crypto</option>
+            <option value="merger">Merger</option>
+          </select>
           <div className="market-main-container">
               <img
                 className="market-main-image"
@@ -168,7 +179,7 @@ const Market = () => {
                 <a href={item.url} style={{ textDecoration: 'none' }}>
                   <img
                     className="market-image"
-                    src={item?.image || "/staticimages/default_market.jpg"}
+                    src={item.image}
                     alt="Market"
                   />
                   <div className="market-main-texts">

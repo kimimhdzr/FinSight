@@ -1,30 +1,29 @@
 import { useState, useEffect } from "react";
 
 export const useAuth = () => {
-  // Simulate a logged-in user (null = not logged in)
   const [user, setUser] = useState(null);
 
-  // Simulate login after 1 second (for demo/testing)
+  // Check localStorage on mount
   useEffect(() => {
-    const fakeUser = {
-      id: "123",
-      name: "Test User",
-      email: "test@example.com",
-    };
+    const storedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-    // Simulate auto-login
-    setTimeout(() => {
-      setUser(fakeUser); // Set to null to simulate not logged in
-    }, 1000);
+    if (storedUser && token) {
+      setUser(JSON.parse(storedUser));
+    }
   }, []);
 
-    const login = (userData) => {
+  const login = (userData, token) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("token", token);
     setUser(userData);
   };
 
   const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUser(null);
   };
 
-  return { user, login, logout};
+  return { user, login, logout };
 };

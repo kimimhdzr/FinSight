@@ -18,11 +18,18 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
+  const handleNext = () => {
+    // Send user data to SignUp2 through router state
+    navigate("/confirm-password", {
+      state: { email, firstName, lastName, phoneNumber, dob },
+    });
+  };
+
   return (
     <div className="login-container">
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="login-text-container">
-         <span className="auth-logo-title" onClick={() => navigate("/landing")}>
+        <span className="auth-logo-title" onClick={() => navigate("/landing")}>
           Insight
         </span>
         <h1>Join Us Today</h1>
@@ -61,8 +68,9 @@ const SignUp = () => {
             value={dob}
             onChange={(e) => setDob(e.target.value)}
           />
-          <button className="login-button" 
-            onClick={() => navigate("/confirm-password")}>Sign Up</button>
+          <button className="login-button" onClick={handleNext}>
+            Next
+          </button>
           <button
             className="register-button"
             onClick={() => navigate("/login")}
