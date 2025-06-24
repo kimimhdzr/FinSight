@@ -21,13 +21,17 @@ exports.getUserById = async (req, res) => {
   }
 };
 
+// controllers/userController.js
 exports.updateUser = async (req, res) => {
   try {
-    const user = await UserProfile.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!user) return res.status(404).json({ message: "User not found" });
-    res.json(user);
+    const updatedUser = await UserProfile.findByIdAndUpdate(
+      req.user.id, // Extracted from JWT
+      req.body, // Update with body data
+      { new: true, select: "-passwordHash" } // Return updated data, exclude password
+    );
+    if (!updatedUser)
+      return res.status(404).json({ message: "User not found" });
+    res.json(updatedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -114,35 +114,54 @@ const Profile = () => {
     try {
       // 🗂️ Prepare updated data
       const updatedData = {
-        name: formData.name,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
-        phone: formData.phone,
+        phoneNumber: formData.phoneNumber,
         location: formData.location,
         dob: formData.dob,
         bio: formData.bio,
-        profilePic: profileImageUrl || user.profilePic || "",
-        backgroundPic: backgroundImageUrl || user.backgroundPic || "",
+        profilePicUrl: profileImageUrl || user.profilePicUrl || "",
+        bannerPicUrl: backgroundImageUrl || user.bannerPicUrl || "",
         emailNotification: formData.emailNotification,
         smsNotification: formData.smsNotification,
       };
 
       // ✅ If user is changing password, add `password`
-      if (formData.newPassword) {
-        // (Optional: check new === confirm in frontend)
-        if (formData.newPassword !== formData.confirmNewPassword) {
-          alert("New password and confirmation do not match.");
-          return;
-        }
-        updatedData.password = formData.newPassword;
-      }
+      // if (formData.newPassword) {
+      //   // (Optional: check new === confirm in frontend)
+      //   if (formData.newPassword !== formData.confirmNewPassword) {
+      //     alert("New password and confirmation do not match.");
+      //     return;
+      //   }
+      //   updatedData.password = formData.newPassword;
+      // }
 
       // ✅ Send PUT to backend on correct port
+      const token = localStorage.getItem("token");
       const response = await axios.put(
-        `http://localhost:5000/api/users/${userId}`,
-        updatedData
+        "http://localhost:5000/api/user/profile",
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       alert("Profile updated successfully!");
+
+      user.firstName = response.data.firstName;
+      user.lastName = response.data.lastName;
+      user.profilePicUrl = response.data.profilePicUrl;
+      user.bannerPicUrl = response.data.bannerPicUrl;
+      user.phoneNumber = response.data.phoneNumber;
+      user.email = response.data.email;
+      user.dob = response.data.dob;
+      user.bio = response.data.bio;
+      user.location = response.data.location;
+
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -231,20 +250,20 @@ const Profile = () => {
 
   const categoryColors = {
     Groceries: "#00bfa5",
-    "Food & Beverages": "#f44336",
+    Food: "#f44336",
     Shopping: "#ffc107",
     Transportation: "#455a64",
-    Utilities: "#3f51b5",
-    Rent: "#4caf50",
+    Bills: "#3f51b5",
+    House: "#4caf50",
   };
 
   const categoryIcons = {
     Groceries: <FaBarcode />,
-    "Food & Beverages": <FaMugHot />,
+    Food: <FaMugHot />,
     Shopping: <FaReact />,
     Transportation: <FaTruck />,
-    Utilities: <FaReceipt />,
-    Rent: <FaHome />,
+    Bills: <FaReceipt />,
+    House: <FaHome />,
   };
 
   const pieData = filteredTransactions.reduce((acc, curr) => {
@@ -290,7 +309,7 @@ const Profile = () => {
   };
 
   const expenses = [
-    { category: "Rent", icon: <FaHome /> },
+    { category: "House", icon: <FaHome /> },
     {
       category: "Groceries",
     },
@@ -298,10 +317,10 @@ const Profile = () => {
       category: "Transportation",
     },
     {
-      category: "Food & Beverages",
+      category: "Food",
     },
     {
-      category: "Utilities",
+      category: "Bills",
     },
     {
       category: "Shopping",
@@ -331,39 +350,45 @@ const Profile = () => {
 
   //delete account
   const deleteAccount = async () => {
-  if (window.confirm("Are you sure you want to delete your account?")) {
-    try {
-      const token = localStorage.getItem("token");
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      try {
+        const token = localStorage.getItem("token");
 
-      await axios.delete("http://localhost:5000/api/user/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
-      });
+        await axios.delete("http://localhost:5000/api/user/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
 
-      alert("Your account has been deleted.");
-      // Optional: log out, clear localStorage, redirect
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      window.location.href = "/landing";
-    } catch (err) {
-      console.error("Error deleting account:", err);
-      alert("Failed to delete account.");
+        alert("Your account has been deleted.");
+        // Optional: log out, clear localStorage, redirect
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/landing";
+      } catch (err) {
+        console.error("Error deleting account:", err);
+        alert("Failed to delete account.");
+      }
     }
-  }
-};
+  };
 
   return (
     <div className="profile-container">
       <div className="profile-background">
-        <img
-          src={
-            user?.backgroundPic || <LoadingSkeleton /> ||
-            "../../staticimages/default_background.jpg"
-          }
-          alt="Background"
-        />
+        {user?.bannerPicUrl === undefined ? (
+          <LoadingSkeleton />
+        ) : (
+          <img
+            src={
+              user?.bannerPicUrl && user?.bannerPicUrl.trim() !== ""
+                ? user.bannerPicUrl
+                : "/staticimages/default_background.jpg"
+            }
+            alt="Background"
+          />
+        )}
+
         <button
           className="profile-edit-button"
           onClick={() => setIsEditing(true)}
@@ -377,7 +402,7 @@ const Profile = () => {
           <div className="profile-pic">
             {user?.profilePic ? (
               <img
-                src={user?.profilePic}
+                src={user?.profilePicUrl}
                 alt="Profile"
                 className="profile-image"
               />
@@ -385,7 +410,11 @@ const Profile = () => {
               <FaUserCircle className="profile-default-profile-image" />
             )}
             <h2>
-              {user?.name || <LoadingSkeleton width="140px" height="30px" />}
+              {user?.firstName != null ? (
+                user.firstName + " " + user.lastName
+              ) : (
+                <LoadingSkeleton width="140px" height="30px" />
+              )}
             </h2>
             <span>
               {user?.dob ? (
@@ -423,7 +452,7 @@ const Profile = () => {
             </div>
             <div className="profile-info-row">
               <FaPhone className="profile-icon" />
-              {user?.phone || (
+              {user?.phoneNumber || (
                 <LoadingSkeleton
                   width="250px"
                   height="20px"
@@ -735,7 +764,7 @@ const Profile = () => {
                     >
                       {profileImagePreview ||
                       profileImageUrl ||
-                      user?.profilePic ? (
+                      user?.profilePicUrl ? (
                         <img
                           src={
                             profileImagePreview ||
@@ -813,9 +842,16 @@ const Profile = () => {
 
                     <input
                       type="text"
-                      name="name"
+                      name="firstName"
                       placeholder="First name"
-                      value={formData?.name}
+                      value={formData?.firstName}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      name="lastName"
+                      placeholder="Last name"
+                      value={formData?.lastName}
                       onChange={handleChange}
                     />
                     <input
@@ -827,9 +863,9 @@ const Profile = () => {
                     />
                     <input
                       type="text"
-                      name="phone"
+                      name="phoneNumber"
                       placeholder="Phone"
-                      value={formData?.phone}
+                      value={formData?.phoneNumber}
                       onChange={handleChange}
                     />
                     <input
@@ -856,9 +892,12 @@ const Profile = () => {
                   <button className="profile-deactivate">
                     Deactivate Account
                   </button>
-                  <button className="profile-deactivate"
-                      onClick={deleteAccount}
-                  >Delete Account</button>
+                  <button
+                    className="profile-deactivate"
+                    onClick={deleteAccount}
+                  >
+                    Delete Account
+                  </button>
                 </div>
               )}
               {/* end of active tab profile */}

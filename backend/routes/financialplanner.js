@@ -1,15 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const goalController = require('../controllers/goalController');
-const paymentController = require('../controllers/recordPaymentGoal');
-const authMiddleware = require('../middleware/authMiddleware');
+const goalController = require("../controllers/goalController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-
-router.post('/', authMiddleware, goalController.createGoal);
-router.get('/user/:userId', authMiddleware, goalController.getGoalsByUser);
-
-router.post('/', authMiddleware, paymentController.addPayment);
-router.get('/goal/:goalId', authMiddleware, paymentController.getPaymentsByGoal);
-
+router.post("/goal", authMiddleware, goalController.createGoal);
+router.get("/goal", authMiddleware, goalController.getGoalsByUser);
+router.put("/goal/:goalId", authMiddleware, goalController.updateGoal);
+router.delete("/goal/:goalId", authMiddleware, goalController.deleteGoal);
 
 module.exports = router;
