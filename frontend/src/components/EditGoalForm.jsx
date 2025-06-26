@@ -1,31 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function PaymentGoalForm({
-  isAddingPayment,
-  setIsAddingPayment,
-  isEditing,
-  editingId,
-  existingPayment,
-  goalId
-}) {
+function EditGoalForm({ isAddingGoal, setIsAddingGoal, goalId, existingGoal }) {
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("expense");
   const [goalForm, setGoalForm] = useState({
+    goalname: "",
     amount: "",
-    desc: "",
-    Date: "",
+    description: "",
+    startDate: "",
+    endDate: "",
   });
 
+  // Inside your component
   useEffect(() => {
-    if (isEditing && existingPayment) {
+    if (existingGoal) {
       setGoalForm({
-        amount: existingPayment.amount,
-        desc: existingPayment.desc,
-        date: existingPayment.date?.split("T")[0] || "", // Format ISO date
+        goalname: existingGoal.goalName || "",
+        amount: existingGoal.goalAmount || "",
+        description: existingGoal.desc || "",
+        startDate: existingGoal.startDate?.split("T")[0] || "",
+        endDate: existingGoal.endDate?.split("T")[0] || "",
       });
     }
-  }, [isEditing, existingPayment]);
+  }, [existingGoal]);
 
   const Icons = {
     Bars: () => <span>☰</span>,
@@ -40,37 +39,36 @@ function PaymentGoalForm({
     Plus: () => <span>➕</span>,
   };
 
-  const handleSavePayment = async () => {
-    const token = localStorage.getItem("token");
+const handleSaveGoal = async () => {
+  const token = localStorage.getItem("token");
 
-    const payload = {
-      goal_ID: goalId,
-      amount: parseFloat(goalForm.amount),
-      desc: goalForm.desc,
-      date: goalForm.date,
-    };
+  const payload = {
+    goalName: goalForm.goalname,
+    goalAmount: parseFloat(goalForm.amount),
+    desc: goalForm.description,
+    startDate: goalForm.startDate,
+    endDate: goalForm.endDate,
+  };
 
-    try {
-      const url = isEditing
-        ? `http://localhost:5000/api/financial-planner/record/payment/${editingId}`
-        : "http://localhost:5000/api/financial-planner/record/payment";
-
-      const method = isEditing ? axios.put : axios.post;
-
-      const res = await method(url, payload, {
+  try {
+    const res = await axios.put(
+      `http://localhost:5000/api/financial-planner/goal/${goalId}`, // 👈 use goalId
+      payload,
+      {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      });
-
-      alert(isEditing ? "Payment updated!" : "Payment created!");
-      setIsAddingPayment(false);
-    } catch (err) {
-      console.error("Error saving payment:", err);
-      alert("Failed to save payment.");
-    }
-  };
+      }
+    );
+    console.log("Goal updated:", res.data);
+    alert("Goal updated successfully!");
+    setIsAddingGoal(false);
+  } catch (err) {
+    console.error("Error updating goal:", err);
+    alert("Failed to update goal.");
+  }
+};
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -80,7 +78,14 @@ function PaymentGoalForm({
     }));
   };
 
-  if (!isAddingPayment) return null;
+  const goalCategories = ["Food", "Transport", "Utilities"]; // example
+  const categoryIcons = {
+    Food: "🍔",
+    Transport: "🚗",
+    Utilities: "💡",
+  };
+
+  if (!isAddingGoal) return null;
 
   return (
     <div style={modalBackdropStyle}>
@@ -119,14 +124,54 @@ function PaymentGoalForm({
                 setIsMenuOpen(false);
               }}
             >
-              <Icons.Receipt /> Add Payment
+              <Icons.Receipt /> Edit Goal
             </li>
           </ul>
         </div>
 
         <div style={formContainerStyle}>
           <div style={formStyle}>
-            <h2 style={{ marginBottom: "24px", color: "#333" }}>Payment</h2>
+            <h2 style={{ marginBottom: "24px", color: "#333" }}>
+              Edit Goal
+            </h2>
+
+            {/* Category Selection */}
+            {/* <div style={formGroupStyle}>
+              <label style={labelStyle}>Category</label>
+              <div style={categoryGridStyle}>
+                {expenseCategories.map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setPaymentForm(prev => ({ ...prev, category }))}
+                    style={{
+                      ...categoryButtonStyle,
+                      backgroundColor: paymentForm.category === category ? '#007bff' : '#f8f9fa',
+                      color: paymentForm.category === category ? 'white' : '#333',
+                      border: paymentForm.category === category ? '2px solid #007bff' : '2px solid #dee2e6'
+                    }}
+                  >
+                    <div style={{ marginBottom: '8px', fontSize: '20px' }}>
+                      {categoryIcons[category]}
+                    </div>
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div> */}
+
+            {/* Goal Name */}
+            <div style={formGroupStyle}>
+              <label style={labelStyle}>Name</label>
+              <input
+                type="text"
+                name="goalname"
+                placeholder="Enter Goal Name"
+                value={goalForm.goalname}
+                onChange={handleInputChange}
+                style={inputStyle}
+              />
+            </div>
 
             {/* Amount */}
             <div style={formGroupStyle}>
@@ -148,9 +193,9 @@ function PaymentGoalForm({
               <label style={labelStyle}>Description</label>
               <input
                 type="text"
-                name="desc"
+                name="description"
                 placeholder="Enter description"
-                value={goalForm.desc}
+                value={goalForm.description}
                 onChange={handleInputChange}
                 style={inputStyle}
               />
@@ -159,11 +204,21 @@ function PaymentGoalForm({
             {/* Date */}
             <div style={dateRowStyle}>
               <div style={dateFieldStyle}>
-                <label style={labelStyle}>Date</label>
+                <label style={labelStyle}>Start Date</label>
                 <input
                   type="date"
-                  name="date"
-                  value={goalForm.date}
+                  name="startDate"
+                  value={goalForm.startDate}
+                  onChange={handleInputChange}
+                  style={inputStyle}
+                />
+              </div>
+              <div style={dateFieldStyle}>
+                <label style={labelStyle}>End Date</label>
+                <input
+                  type="date"
+                  name="endDate"
+                  value={goalForm.endDate}
                   onChange={handleInputChange}
                   style={inputStyle}
                 />
@@ -173,21 +228,21 @@ function PaymentGoalForm({
 
           <div style={modalActionsStyle}>
             <button
-              onClick={handleSavePayment}
+              onClick={handleSaveGoal}
               style={{
                 ...saveButtonStyle,
-                opacity: !goalForm.amount || !goalForm.desc ? 0.5 : 1,
+                opacity: !goalForm.amount || !goalForm.description ? 0.5 : 1,
                 cursor:
-                  !goalForm.amount || !goalForm.desc
+                  !goalForm.amount || !goalForm.description
                     ? "not-allowed"
                     : "pointer",
               }}
-              disabled={!goalForm.amount || !goalForm.desc}
+              disabled={!goalForm.amount || !goalForm.description}
             >
               Save Goal
             </button>
             <button
-              onClick={() => setIsAddingPayment(false)}
+              onClick={() => setIsAddingGoal(false)}
               style={cancelButtonStyle}
             >
               Cancel
@@ -314,6 +369,28 @@ const inputStyle = {
   boxSizing: "border-box",
 };
 
+const categoryGridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+  gap: "12px",
+  marginTop: "8px",
+};
+
+const categoryButtonStyle = {
+  padding: "16px 12px",
+  borderRadius: "8px",
+  cursor: "pointer",
+  transition: "all 0.3s ease",
+  fontSize: "12px",
+  fontWeight: "500",
+  textAlign: "center",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  minHeight: "80px",
+};
+
 const modalActionsStyle = {
   padding: "20px 40px",
   borderTop: "1px solid #dee2e6",
@@ -345,4 +422,4 @@ const cancelButtonStyle = {
   transition: "all 0.3s ease",
 };
 
-export default PaymentGoalForm;
+export default EditGoalForm;

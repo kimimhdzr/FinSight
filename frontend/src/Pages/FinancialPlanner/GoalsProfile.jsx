@@ -5,28 +5,30 @@ import SavingsLineChart from "./SavingsLineChart";
 import SavedVsRemainingPieChart from "./SavedVsRemainingPieChart";
 import PaymentGoalForm from "../../components/PaymentGoalForm";
 import MonthlyBarChart from "./MonthlyBarChart";
+import EditGoalForm from "../../components/EditGoalForm"; // Adjust path as needed
+
 import axios from "axios";
 
 const GoalsOverviewProfile = () => {
   const navigate = useNavigate();
+  const [isAddingGoal, setIsAddingGoal] = useState(false);
   const [isAddingPayment, setIsAddingPayment] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [payments, setPayments] = useState([]);
-const [existingPayment, setExistingPayment] = useState(null);
+  const [existingPayment, setExistingPayment] = useState(null);
+  const [editingGoal, setEditingGoal] = useState(null); // NEW
 
-const location = useLocation();
-const goal = location.state?.goal; // The full goal object
-const goalId = goal?._id;
+  const location = useLocation();
+  const goal = location.state?.goal; // The full goal object
+  const goalId = goal?._id;
 
-
-useEffect(() => {
-  if (goalId) {
-    // Fetch goal details using goalId
-    console.log("Received goal ID:", goalId);
-  }
-}, [goalId]);
-
+  useEffect(() => {
+    if (goalId) {
+      // Fetch goal details using goalId
+      console.log("Received goal ID:", goalId);
+    }
+  }, [goalId]);
 
   const months = [
     "January",
@@ -63,7 +65,7 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("token"); // token stored on login
       const res = await axios.get(
-        `http://localhost:5000/api/financial-planner/record/payment/6859bcfc2086a5fc4c2ab563`,
+        `http://localhost:5000/api/financial-planner/record/payment/6859c2bdaf25e9e88dcc3eb1`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -118,7 +120,7 @@ useEffect(() => {
     return Object.entries(grouped).map(([date, items]) => ({ date, items }));
   };
 
-  const visiblePayments = filterByMonthYear(payments);
+  const visiblePayments = payments;
   const uniqueExpenseCategories = [
     ...new Set(
       payments
@@ -155,9 +157,7 @@ useEffect(() => {
         <header className="goal-header">
           <h1 onClick={() => navigate("/app/GoalsOverview")}>
             Financial Planner |{" "}
-            <span className="goal-header-specific">
-              {goal.goalName}
-            </span>
+            <span className="goal-header-specific">{goal.goalName}</span>
           </h1>
         </header>
 
@@ -182,38 +182,44 @@ useEffect(() => {
             </div>
             <div>
               <strong>Duration:</strong>{" "}
-              {calculateDuration(
-                goal.startDate,
-                goal.endDate
-              )}
+              {calculateDuration(goal.startDate, goal.endDate)}
             </div>
           </div>
+          <button
+            className="add-goal-button"
+            onClick={() => {
+              setEditingGoal(goal); // ✅ store current goal for editing
+              setIsAddingGoal(true); // ✅ open the modal
+            }}
+          >
+            <span>Edit Goal</span>
+          </button>
         </section>
 
         {/* 2. Dashboard Section */}
-        {/* <section className="goal-dashboard-section">
+        <section className="goal-dashboard-section">
           <h2>Goal Dashboard</h2>
 
           <div className="goal-dashboard-grid">
             <div className="dashboard-card full-width">
               <h4>Saved vs Remaining</h4>
               <SavedVsRemainingPieChart
-                progress={goalProfileData.progress}
-                goalAmount={goalProfileData.amount}
+                progress={payments}
+                goalAmount={goal.goalAmount}
               />
             </div>
 
             <div className="dashboard-card">
               <h4>Savings Over Time</h4>
-              <SavingsLineChart progress={goalProfileData.progress} />
+              <SavingsLineChart progress={payments} />
             </div>
 
             <div className="dashboard-card">
               <h4>Monthly Contributions</h4>
-              <MonthlyBarChart progress={goalProfileData.progress} />
+              <MonthlyBarChart progress={payments} />
             </div>
           </div>
-        </section> */}
+        </section>
 
         {/* 3. Payment Progress Section */}
         <div style={transactionCardStyle}>
@@ -221,7 +227,12 @@ useEffect(() => {
             <h2 style={{ margin: "0", fontSize: "1.5rem" }}>Monthly Payment</h2>
             <button
               style={addPaymentButtonStyle}
-              onClick={() => setIsAddingPayment(true)}
+              onClick={() => {
+                setIsAddingPayment(true);
+                setIsEditing(false);
+                setEditingId(null);
+                setExistingPayment(null); // clear previous payment
+              }}
             >
               Add Payment
             </button>
@@ -275,7 +286,7 @@ useEffect(() => {
                               try {
                                 const token = localStorage.getItem("token");
                                 await axios.delete(
-                                  `http://localhost:5000/api/payments/${item._id}`,
+                                  `http://localhost:5000/api/financial-planner/record/payment/${item._id}`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
@@ -313,6 +324,15 @@ useEffect(() => {
             isEditing={isEditing}
             editingId={editingId}
             existingPayment={existingPayment}
+            goalId={goalId}
+          />
+        )}
+        {isAddingGoal && editingGoal && (
+          <EditGoalForm
+            isAddingGoal={isAddingGoal}
+            setIsAddingGoal={setIsAddingGoal}
+            goalId={editingGoal._id}
+            existingGoal={editingGoal}
           />
         )}
       </div>

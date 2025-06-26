@@ -42,61 +42,61 @@ const transactions = [
   { name: "DEBIT C-NEXUS KUALA LUMPUR", amount: 3.0 },
 ];
 
-const goalsData = [
-  {
-    id: 1,
-    title: "Save for Vacation",
-    amountSaved: 1000,
-    goalAmount: 3000,
-    monthlyAmount: 400,
-    monthlyGoal: 200,
-  },
-  {
-    id: 2,
-    title: "Emergency Fund",
-    amountSaved: 500,
-    goalAmount: 10000,
-    monthlyAmount: 400,
-    monthlyGoal: 300,
-  },
-  {
-    id: 3,
-    title: "Buy a Car",
-    amountSaved: 8000,
-    goalAmount: 15000,
-    monthlyAmount: 400,
-    monthlyGoal: 400,
-  },
-  {
-    id: 4,
-    title: "Home Renovation",
-    amountSaved: 4000,
-    goalAmount: 5000,
-    monthlyAmount: 400,
-    monthlyGoal: 600,
-  },
-  // Add more goals here
-];
+// const goalsData = [
+//   {
+//     id: 1,
+//     title: "Save for Vacation",
+//     amountSaved: 1000,
+//     goalAmount: 3000,
+//     monthlyAmount: 400,
+//     monthlyGoal: 200,
+//   },
+//   {
+//     id: 2,
+//     title: "Emergency Fund",
+//     amountSaved: 500,
+//     goalAmount: 10000,
+//     monthlyAmount: 400,
+//     monthlyGoal: 300,
+//   },
+//   {
+//     id: 3,
+//     title: "Buy a Car",
+//     amountSaved: 8000,
+//     goalAmount: 15000,
+//     monthlyAmount: 400,
+//     monthlyGoal: 400,
+//   },
+//   {
+//     id: 4,
+//     title: "Home Renovation",
+//     amountSaved: 4000,
+//     goalAmount: 5000,
+//     monthlyAmount: 400,
+//     monthlyGoal: 600,
+//   },
+//   // Add more goals here
+// ];
 
 const Home = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  const filteredGoals = goalsData.filter((goal) =>
-    goal.title.toLowerCase().includes(search.toLowerCase())
-  );
+  // const filteredGoals = goalsData.filter((goal) =>
+  //   goal.title.toLowerCase().includes(search.toLowerCase())
+  // );
 
   const [selectedMonth, setSelectedMonth] = useState(
     new Date().toLocaleString("default", { month: "long" })
   );
+
+  const [goalsData, setGoalsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [loadingMonth, setLoadingMonth] = useState(false);
 
   const userId = 1;
 
   const [transactions, setTransactions] = useState([]);
-
-
-
 
   const fetchTransactions = async () => {
     try {
@@ -118,10 +118,35 @@ const Home = () => {
     }
   };
 
-    useEffect(() => {
-      fetchTransactions();
-      // fetchGoals();
-    }, [userId]); // Ensure it fetches when `userId` changes
+  useEffect(() => {
+    fetchTransactions();
+    // fetchGoals();
+  }, [userId]); // Ensure it fetches when `userId` changes
+
+  useEffect(() => {
+    const fetchGoals = async () => {
+      try {
+        const token = localStorage.getItem("token"); // assuming JWT is stored in localStorage
+
+        const res = await axios.get(
+          "http://localhost:5000/api/financial-planner/goal",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setGoalsData(res.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch goals:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchGoals();
+  }, []);
 
   const handleMonthChange = (month) => {
     setSelectedMonth(month);
@@ -145,9 +170,8 @@ const Home = () => {
     return acc;
   }, {});
 
-    const getMonthName = (dateStr) =>
+  const getMonthName = (dateStr) =>
     new Date(dateStr).toLocaleString("default", { month: "long" });
-
 
   const formatCurrency = (amount) => {
     return amount.toLocaleString("en-MY", {
@@ -232,7 +256,6 @@ const Home = () => {
     return `${month} ${day}, ${year}`;
   };
 
-
   return (
     <div className="home-content">
       {/* Main Dashboard Content */}
@@ -249,21 +272,34 @@ const Home = () => {
 
         {/* Cards layout */}
         <span className="home-header-specific">Ongoing Goals</span>
-        <div
-          className="goals-grid"
-          style={{
-            marginTop: "10px",
-            marginBottom: "20px",
-          }}
-        >
-          {filteredGoals.map((goal) => {
+        {/* Cards layout */}
+        <div className="goals-grid">
+          {goalsData.map((goal) => {
             const progressPercent = Math.round(
-              (goal.amountSaved / goal.goalAmount) * 100
+              (goal.savedAmount / goal.goalAmount) * 100
             );
+            // const monthlyPercent = Math.round(
+            //   (goal.monthlyAmount / goal.monthlyGoal) * 100
+            // );
+            // const isAbove = goal.monthlyAmount >= goal.monthlyGoal;
+
+            const start = new Date(goal.startDate);
+            const end = new Date(goal.endDate);
+
+            // Calculate the number of months between the dates
+            const monthsDiff =
+              (end.getFullYear() - start.getFullYear()) * 12 +
+              (end.getMonth() - start.getMonth()) +
+              1;
+
+            const monthlyGoal =
+              monthsDiff > 0 ? Math.round(goal.goalAmount / monthsDiff) : 0;
+
+            const monthlyAmount = goal.monthlyAmount || 0; // fallback
             const monthlyPercent = Math.round(
-              (goal.monthlyAmount / goal.monthlyGoal) * 100
+              (monthlyAmount / monthlyGoal) * 100
             );
-            const isAbove = goal.monthlyAmount >= goal.monthlyGoal;
+            const isAbove = monthlyAmount >= monthlyGoal;
 
             // Determine class based on progress percentage
             let progressClass = "progress-grey";
@@ -273,12 +309,16 @@ const Home = () => {
 
             return (
               <div
-                key={goal.id}
+                key={goal._id}
                 className="goal-card"
-                onClick={() => navigate("/app/Goals-Profile")}
+                onClick={() =>
+                  navigate("/app/Goals-Profile", {
+                    state: { goal },
+                  })
+                }
               >
                 {/* Title */}
-                <div className="goal-title">{goal.title}</div>
+                <div className="goal-title">{goal.goalName}</div>
 
                 {/* Center Percentage with dynamic color */}
                 <div className={`goal-progress-percent ${progressClass}`}>
@@ -290,7 +330,7 @@ const Home = () => {
                   <div
                     className="goal-progress-fill"
                     style={{
-                      width: `${(goal.amountSaved / goal.goalAmount) * 100}%`,
+                      width: `${(goal.savedAmount / goal.goalAmount) * 100}%`,
                     }}
                   ></div>
                 </div>
@@ -330,16 +370,16 @@ const Home = () => {
           }}
         >
           {/* Income Card */}
-          {/* <div className="card income">
+          <div className="card income">
             <p>Monthly Income</p>
             <h3>RM 15,000.75</h3>
-          </div> */}
+          </div>
 
           {/* Expenditure Card */}
-          {/* <div className="card expenditure">
+          <div className="card expenditure">
             <p>Outgoing Expenditure</p>
             <h3>RM 5,000.00</h3>
-          </div> */}
+          </div>
 
           {/* Expenses Breakdown */}
           {/* <div className="card expenses">
